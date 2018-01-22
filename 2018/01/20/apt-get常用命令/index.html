@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        小黄驴的窝
+        apt-get的常用命令 · 小黄驴的窝
         
     </title>
     <link rel="icon" href= /assets/favicon.ico>
@@ -58,14 +58,23 @@
 </head>
 
     
-        <body class="home-body">
+        <body class="post-body">
     
     
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >小黄驴的窝</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">apt-get的常用命令</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>小黄驴的窝</a>
 </header>
@@ -75,17 +84,17 @@
     <!-- 主页  -->
     
     
-    <!-- 文章页  -->
+    <!-- 404页  -->
             
-    <div class="site-intro-img" style="background-image: url(http://oumn0o088.bkt.clouddn.com/intro-desktop.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(http://oumn0o088.bkt.clouddn.com/post-bg.jpg)"></div>
     <div class="site-intro-placeholder"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            小黄驴的窝
-            <!-- 文章页  -->
+            apt-get的常用命令
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
@@ -93,12 +102,30 @@
             <!-- 主页副标题  -->
             
             
-                it's better to burn out than to fade away
-            
-            <!-- 文章页  -->
+            <!-- 404 -->
             
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+            <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "1", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = "/static/api/js/share.js"];</script>
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/01/20</span>
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe604;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">
+                        &#xe601;
+                    </span>
+                    <span class="bdsharebuttonbox">
+                        <a href="#" class="bds_more shareText" data-cmd="more">Share</a>
+                    </span>
+                </span>
+            </div>
         
     </div>
 </div>
@@ -166,129 +193,78 @@
             }
         </script>
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/20/test-drafts/" >
-                
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>!<br>因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。</p>
+<h2 id="正片开始"><a href="#正片开始" class="headerlink" title="正片开始"></a>正片开始</h2><h3 id="apt-get是什么？"><a href="#apt-get是什么？" class="headerlink" title="apt-get是什么？"></a>apt-get是什么？</h3><p>apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软 件包，因此简化了Unix系统上管理软件的过程,apt-get是一个下载安装软件包的简单命令行接口，一般需要root权限执行，所以一般跟着sudo命令。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get [选项] 命令</span><br></pre></td></tr></table></figure>
+<p>命令如下：</p>
+<p>update - 重新获取软件包列表 </p>
+<p>upgrade - 进行更新 </p>
+<p>install - 安装新的软件包 </p>
+<p>remove - 移除软件包 </p>
+<p>autoremove - 自动移除全部不使用的软件包 </p>
+<p>purge - 移除软件包和配置文件 </p>
+<p>source - 下载源码档案 </p>
+<p>build-dep - 为源码包配置编译依赖 </p>
+<p>dist-upgrade - 发行版升级</p>
+<p>dselect-upgrade - 依照 dselect 的选择更新 </p>
+<p>clean - 清除下载的归档文件 </p>
+<p>autoclean - 清除旧的的已下载的归档文件 </p>
+<p>check - 检验是否有损坏的依赖</p>
+<p>选项： </p>
+<p>-h 本帮助文件。 </p>
+<p>-q 输出到日志 - 无进展指示 </p>
+<p>-qq 不输出信息，错误除外 </p>
+<p>-d 仅下载 - 不安装或解压归档文件 </p>
+<p>-s 不实际安装。模拟执行命令</p>
+<p>-y 假定对所有的询问选是，不提示 </p>
+<p>-f 尝试修正系统依赖损坏处 </p>
+<p>-m 如果归档无法定位，尝试继续</p>
+<p>-u 同时显示更新软件包的列表 </p>
+<p>-b 获取源码包后编译 -V 显示详细的版本号</p>
+<p>-c=? 阅读此配置文件</p>
+<p>-o=? 设置自定的配置选项，如 -o dir::cache=/tmp</p>
+<h3 id="常见的使用例子"><a href="#常见的使用例子" class="headerlink" title="常见的使用例子"></a>常见的使用例子</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ apt-cache search packagename 搜索包</span><br><span class="line">$ apt-cache show packagename 获取包的相关信息，如说明、大小、版本等</span><br><span class="line">$ apt-get install packagename 安装包</span><br><span class="line">$ apt-get install packagename --reinstall 重新安装包</span><br><span class="line">$ apt-get -f install 修复安装”-f = –fix-missing”</span><br><span class="line">$ apt-get remove packagename 删除包</span><br><span class="line">$ apt-get remove packagename --purge 删除包，包括删除配置文件等</span><br><span class="line">$ apt-get update 更新源</span><br><span class="line">$ apt-get upgrade 更新已安装的包</span><br><span class="line">$ apt-get dist-upgrade 升级系统</span><br><span class="line">$ apt-get dselect-upgrade 使用 dselect 升级</span><br><span class="line">$ apt-cache depends packagename 了解使用依赖</span><br><span class="line">$ apt-cache rdepends packagename 是查看该包被哪些包依赖</span><br><span class="line">$ apt-get build-dep packagename 安装相关的编译环境</span><br><span class="line">$ apt-get <span class="built_in">source</span> packagename 下载该包的源代码</span><br><span class="line">$ apt-get clean 清理无用的包</span><br><span class="line">$ apt-get autoclean 清理无用的包</span><br><span class="line">$ apt-get check 检查是否有损坏的依赖</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><ol>
+<li><a href="http://www.cnblogs.com/pswzone/archive/2012/04/09/2438885.html" target="_blank" rel="noopener">apt-get常用命令</a>!</li>
+</ol>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-pager">
+        
+            <li class="next">
+                <a href= "/2018/01/20/test-drafts/" title= test drafts >
+                    <span>Next Post</span>
                     <span>test drafts</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/20/test-drafts/" >
-                <div class="abstract-content">
-                    
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/20</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/20/apt-get常用命令/" >
-                
-                    <span>apt-get的常用命令</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/20/apt-get常用命令/" >
-                <div class="abstract-content">
-                    Welcome to Hexo!因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。
-正片开始apt-get是什么？apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软 件包，因此简化了Unix系统上管理软件的过程,apt-get是一个下载安装软件包的简单命令行接口，一般需要root权限执行，所以一般跟着sudo命令。
-使用方法1$ sudo apt-get [选项] 命令
-命令如下：
-up...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/20</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/20/hello-world/" >
-                
+                </a>
+            </li>
+        
+        
+            <li class="previous">
+                <a href= "/2018/01/20/hello-world/" title= Hello World >
+                    <span>Previous Post</span>
                     <span>Hello World</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/20/hello-world/" >
-                <div class="abstract-content">
-                    Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-More info: Writing
-Run server1$ hexo server
-More...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/20</span>
-                </div>
-            </div>
-        </article>
+                </a>
+            </li>
+        
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <!-- paginator  -->
     
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" src= /avatar/jinmuyan.jpeg >
-    <div class="profile-name">小黄驴</div>
-    
-    <div class="profile-signature">
-        witness me
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:15*******66@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="https://github.com/laolv421/laolv421.github.io" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-            
-                <a href="https://www.zhihu.com/people/lu-zi-jian-45-42/following/columns" class="iconfont-archer zhihu" target="_blank" title="zhihu"></a>
-            
-        
-    
-
-    </div>
-    
-    
-    
-        <div class="about-me">
-            <div>
-                <a href = "/about" >ABOUT ME</a>
-            </div>
-        </div>
-    
-</div>
             
         </div>
         <footer class="footer footer-unloaded">
@@ -332,6 +308,13 @@ More...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper">
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#正片开始"><span class="toc-number">1.</span> <span class="toc-text">正片开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#apt-get是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">apt-get是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法"><span class="toc-number">1.2.</span> <span class="toc-text">使用方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见的使用例子"><span class="toc-number">1.3.</span> <span class="toc-text">常见的使用例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考："><span class="toc-number">2.</span> <span class="toc-text">参考：</span></a></li></ol>
+    </div>
     
     <div class="back-top">&#xe639;</div>
     <div class="sidebar">
