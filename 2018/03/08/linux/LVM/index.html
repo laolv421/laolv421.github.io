@@ -196,8 +196,12 @@
             <main class="main post-page">
     <article class="article-entry">
         <p>LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。</p>
-<h3 id="LVM命令"><a href="#LVM命令" class="headerlink" title="LVM命令"></a>LVM命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h3 id="LVM命令"><a href="#LVM命令" class="headerlink" title="LVM命令"></a>LVM命令</h3><h4 id="1-分区：fdisk命令"><a href="#1-分区：fdisk命令" class="headerlink" title="1.分区：fdisk命令"></a>1.分区：fdisk命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fdisk /dev/sda</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-创建physical-volume"><a href="#2-创建physical-volume" class="headerlink" title="2.创建physical volume"></a>2.创建physical volume</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pvcreate /dev/sda2</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-扩容volume-group-vg名字假设为cl"><a href="#3-扩容volume-group-vg名字假设为cl" class="headerlink" title="3.扩容volume group(vg名字假设为cl)"></a>3.扩容volume group(vg名字假设为cl)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vgextend cl /dev/sda2</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-扩容logical-volume"><a href="#4-扩容logical-volume" class="headerlink" title="4.扩容logical volume"></a>4.扩容logical volume</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lvextend -l +50%FREE -r /dev/cl/root</span></span><br></pre></td></tr></table></figure>
+<p>如果命令忘记加 -r (resize) 的话，需要加如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># xfs_growfs /dev/cl/root</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5-补充命令"><a href="#5-补充命令" class="headerlink" title="5.补充命令"></a>5.补充命令</h3><p>(1) pvs、vgs、lvs分别对应physical volume display、volume group display、logical volume display三种查看命令；<br>(2) fdisk -l、cat /proc/partitions两个命令都可以查看分区情况；<br>(3) partprobe命令用于重读（某）分区表，无需重启系统；<br>(4) df命令用于查看磁盘（分区）使用情况，-h(human readable) -T(display filesystem type)</p>
 
     </article>
     <!-- 前后页  -->
@@ -275,7 +279,7 @@
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LVM命令"><span class="toc-number">1.</span> <span class="toc-text">LVM命令</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LVM命令"><span class="toc-number">1.</span> <span class="toc-text">LVM命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-分区：fdisk命令"><span class="toc-number">1.1.</span> <span class="toc-text">1.分区：fdisk命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-创建physical-volume"><span class="toc-number">1.2.</span> <span class="toc-text">2.创建physical volume</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-扩容volume-group-vg名字假设为cl"><span class="toc-number">2.</span> <span class="toc-text">3.扩容volume group(vg名字假设为cl)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-扩容logical-volume"><span class="toc-number">3.</span> <span class="toc-text">4.扩容logical volume</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-补充命令"><span class="toc-number">4.</span> <span class="toc-text">5.补充命令</span></a></li></ol>
     </div>
     
     <div class="back-top">&#xe639;</div>
@@ -425,16 +429,6 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 10 </div>
     
     <div class="post-archive">
@@ -442,17 +436,12 @@
     
     
     
-    <div class="archive-year"> 2018 </div>
+    <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/2018/02/13/web security model/" >[Untitled Post]</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
         </li>
     
     
@@ -480,20 +469,6 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(一)/" >Docker实践(一)</a>
         </li>
     
@@ -503,12 +478,26 @@
     
         </ul>
     
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
         </li>
     
     
@@ -536,7 +525,17 @@
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/2018/02/13/web security model/" >[Untitled Post]</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/apt-get常用命令/" >apt-get的常用命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/hello-world/" >Hello World</a>
         </li>
     
     
@@ -550,21 +549,7 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/hello-world/" >Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
         </li>
     
     </div>
@@ -572,21 +557,15 @@
         <div class="sidebar-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">-区块链</a></span>
-    
         <span class="sidebar-tag-name"><a href= "#">linux/命令</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">-分布式/算法</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">分布式/算法</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">区块链</a></span>
     
-        <span class="sidebar-tag-name"><a href= "#">maven</a></span>
+        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
     
-        <span class="sidebar-tag-name"><a href= "#">数据安全/标准</a></span>
+        <span class="sidebar-tag-name"><a href= "#">maven</a></span>
     
     </div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">

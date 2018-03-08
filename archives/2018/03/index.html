@@ -165,9 +165,11 @@
             <a class="content-show-full" href = "/2018/03/08/linux/LVM/" >
                 <div class="abstract-content">
                     LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。
-LVM命令1$ hexo deploy
-More info: Deployment
-
+LVM命令1.分区：fdisk命令1# fdisk /dev/sda
+2.创建physical volume1# pvcreate /dev/sda2
+3.扩容volume group(vg名字假设为cl)1# vgextend cl /dev/sda2
+4.扩容logical volume1# lvextend -l +50%FREE -r /dev/cl/root
+如果命令忘记加 -r (...
                 </div>
             </a>
             <div class="abstract-post-meta">
@@ -375,16 +377,6 @@ More info: Deployment
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-archive"> Total : 10 </div>
     
     <div class="post-archive">
@@ -392,17 +384,12 @@ More info: Deployment
     
     
     
-    <div class="archive-year"> 2018 </div>
+    <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/2018/02/13/web security model/" >[Untitled Post]</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
         </li>
     
     
@@ -430,20 +417,6 @@ More info: Deployment
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(一)/" >Docker实践(一)</a>
         </li>
     
@@ -453,12 +426,26 @@ More info: Deployment
     
         </ul>
     
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
         </li>
     
     
@@ -486,7 +473,17 @@ More info: Deployment
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/2018/02/13/web security model/" >[Untitled Post]</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/apt-get常用命令/" >apt-get的常用命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/hello-world/" >Hello World</a>
         </li>
     
     
@@ -500,21 +497,7 @@ More info: Deployment
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/hello-world/" >Hello World</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
         </li>
     
     </div>
@@ -522,21 +505,15 @@ More info: Deployment
         <div class="sidebar-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">-区块链</a></span>
-    
         <span class="sidebar-tag-name"><a href= "#">linux/命令</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">-分布式/算法</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">分布式/算法</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">区块链</a></span>
     
-        <span class="sidebar-tag-name"><a href= "#">maven</a></span>
+        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
     
-        <span class="sidebar-tag-name"><a href= "#">数据安全/标准</a></span>
+        <span class="sidebar-tag-name"><a href= "#">maven</a></span>
     
     </div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
