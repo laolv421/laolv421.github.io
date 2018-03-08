@@ -196,11 +196,11 @@
             <main class="main post-page">
     <article class="article-entry">
         <p>LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。</p>
-<h3 id="LVM命令"><a href="#LVM命令" class="headerlink" title="LVM命令"></a>LVM命令</h3><h4 id="1-分区：fdisk命令"><a href="#1-分区：fdisk命令" class="headerlink" title="1.分区：fdisk命令"></a>1.分区：fdisk命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># fdisk /dev/sda</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-创建physical-volume"><a href="#2-创建physical-volume" class="headerlink" title="2.创建physical volume"></a>2.创建physical volume</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pvcreate /dev/sda2</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-扩容volume-group-vg名字假设为cl"><a href="#3-扩容volume-group-vg名字假设为cl" class="headerlink" title="3.扩容volume group(vg名字假设为cl)"></a>3.扩容volume group(vg名字假设为cl)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vgextend cl /dev/sda2</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-扩容logical-volume"><a href="#4-扩容logical-volume" class="headerlink" title="4.扩容logical volume"></a>4.扩容logical volume</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lvextend -l +50%FREE -r /dev/cl/root</span></span><br></pre></td></tr></table></figure>
-<p>如果命令忘记加 -r (resize) 的话，需要加如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># xfs_growfs /dev/cl/root</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="LVM命令"><a href="#LVM命令" class="headerlink" title="LVM命令"></a>LVM命令</h3><h4 id="1-分区：fdisk命令"><a href="#1-分区：fdisk命令" class="headerlink" title="1.分区：fdisk命令"></a>1.分区：fdisk命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fdisk /dev/sda</span><br></pre></td></tr></table></figure>
+<h4 id="2-创建physical-volume"><a href="#2-创建physical-volume" class="headerlink" title="2.创建physical volume"></a>2.创建physical volume</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pvcreate /dev/sda2</span><br></pre></td></tr></table></figure>
+<h3 id="3-扩容volume-group-vg名字假设为cl"><a href="#3-扩容volume-group-vg名字假设为cl" class="headerlink" title="3.扩容volume group(vg名字假设为cl)"></a>3.扩容volume group(vg名字假设为cl)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vgextend cl /dev/sda2</span><br></pre></td></tr></table></figure>
+<h3 id="4-扩容logical-volume"><a href="#4-扩容logical-volume" class="headerlink" title="4.扩容logical volume"></a>4.扩容logical volume</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lvextend -l +50%FREE -r /dev/cl/root</span><br></pre></td></tr></table></figure>
+<p>如果命令忘记加 -r (resize) 的话，需要加如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xfs_growfs /dev/cl/root</span><br></pre></td></tr></table></figure></p>
 <h3 id="5-补充命令"><a href="#5-补充命令" class="headerlink" title="5.补充命令"></a>5.补充命令</h3><p>(1) pvs、vgs、lvs分别对应physical volume display、volume group display、logical volume display三种查看命令；<br>(2) fdisk -l、cat /proc/partitions两个命令都可以查看分区情况；<br>(3) partprobe命令用于重读（某）分区表，无需重启系统；<br>(4) df命令用于查看磁盘（分区）使用情况，-h(human readable) -T(display filesystem type)</p>
 
     </article>
@@ -425,10 +425,6 @@
     
     
     
-    
-    
-    
-    
     <div class="total-archive"> Total : 10 </div>
     
     <div class="post-archive">
@@ -436,12 +432,12 @@
     
     
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 2018 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
         </li>
     
     
@@ -469,7 +465,7 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(一)/" >Docker实践(一)</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
         </li>
     
     
@@ -478,12 +474,12 @@
     
         </ul>
     
-    <div class="archive-year"> 2018 </div>
+    <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(一)/" >Docker实践(一)</a>
         </li>
     
     
@@ -520,6 +516,20 @@
     
         </ul>
     
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
     
@@ -536,20 +546,6 @@
     
         <li class="archive-post-item">
             <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/hello-world/" >Hello World</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
         </li>
     
     </div>
