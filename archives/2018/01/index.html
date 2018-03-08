@@ -158,6 +158,132 @@
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2018/01/29/maven/maven问题修复/" >
+                
+                    <span>Maven中出现的问题总结</span>
+            </a>
+            <a class="content-show-full" href = "/2018/01/29/maven/maven问题修复/" >
+                <div class="abstract-content">
+                    maven中出现的问题总结问题1：如何使用maven指令执行 java main？一种比较直接的解决方式，直接找到classes路径下，使用java指令：
+1$ java -cp target/classes org.ts.App
+这样比较麻烦，下面的方法可以直接使用maven命令来执行：
+（1）命令行运行：
+123456# Without arguments:$ mvn exec:java -Dexec.mainClass="com.vineetmanohar.module.Main" # With arguments:$ mvn exec:java -Dexec.mainClass=...
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = maven>maven</a>
+    
+</div>
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/29</span>
+                </div>
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/01/27/Docker实践/Docker实践(二) /" >
+                
+                    <span>Docker实践（二）</span>
+            </a>
+            <a class="content-show-full" href = "/2018/01/27/Docker实践/Docker实践(二) /" >
+                <div class="abstract-content">
+                    使用Docker镜像本文主要参考Docker — 从入门到实践的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。
+获取镜像Docker中有大量的镜像可以使用，在Docker Hub中，如下图所示；
+
+选择redis的detail，有比较详细的说明；
+
+从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为：
+1$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
+具体的选项可以通过docker pull –help命令看到，这里我们说一下镜像名称的格式。（a）Docker 镜像仓库地址：地址的格...
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = docker>docker</a>
+    
+</div>
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/27</span>
+                </div>
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/01/27/Docker实践/Docker实践(一)/" >
+                
+                    <span>Docker实践(一)</span>
+            </a>
+            <a class="content-show-full" href = "/2018/01/27/Docker实践/Docker实践(一)/" >
+                <div class="abstract-content">
+                    Docker安装笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看《Docker — 从入门到实践》，这里面非常详细地介绍了各个主要系统的安装。
+1. 卸载旧版本旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：1$ sudo apt-get remove docker docker-engine docker.io
+2. 安装内核模块从Ubuntu 14.04开始，一部分内核模块移到了可选内核模块包 ( linux-image-extra-* ) ，以减少内核...
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = docker>docker</a>
+    
+</div>
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/27</span>
+                </div>
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/01/26/ubuntu问题修复/" >
+                
+                    <span>Ubuntu问题修复总结</span>
+            </a>
+            <a class="content-show-full" href = "/2018/01/26/ubuntu问题修复/" >
+                <div class="abstract-content">
+                    Unable to lock the administration directory(var/lib/dpkg/) is another process using it 的办法问题描述在 Ubuntu 或者它的衍生版如 Linux Mint（我已经作为日常工作使用的系统）中使用 apt-get 命令或者其相对更新的APT 管理工具时，你可能会在命令行中看到一个 unable to lock the administration directory (/var/lib/dpkg/) is another process using it 的错误。
+解决办法（1）找出并杀掉所有 apt-...
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = linux/命令>linux/命令</a>
+    
+</div>
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/26</span>
+                </div>
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/01/24/共识算法（Consensus Protocol）/" >
                 
                     <span>共识算法（Consensus Protocol）</span>
@@ -175,7 +301,7 @@
                 
                 <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-href = -分布式/算法>-分布式/算法</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = 分布式/算法>分布式/算法</a>
     
 </div>
                 
@@ -206,7 +332,7 @@ Proof of Work（PoW）比特币的这种基于算力的共识机制被称为 Pro
                 
                 <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-href = -区块链>-区块链</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = 区块链>区块链</a>
     
 </div>
                 
@@ -365,19 +491,192 @@ More...
     
     
     
-    <div class="total-archive"> Total : 4 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 10 </div>
     
     <div class="post-archive">
     
     
     
     
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/2018/02/13/web security model/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/29/maven/maven问题修复/" >Maven中出现的问题总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(一)/" >Docker实践(一)</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
         </li>
     
     
@@ -409,6 +708,29 @@ More...
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/hello-world/" >Hello World</a>
         </li>
@@ -418,11 +740,21 @@ More...
         <div class="sidebar-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">-区块链</a></span>
+    
         <span class="sidebar-tag-name"><a href= "#">linux/命令</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">-分布式/算法</a></span>
     
-        <span class="sidebar-tag-name"><a href= "#">-区块链</a></span>
+        <span class="sidebar-tag-name"><a href= "#">分布式/算法</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">区块链</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">maven</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">数据安全/标准</a></span>
     
     </div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">

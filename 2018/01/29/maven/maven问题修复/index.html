@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        小黄驴的窝
+        Maven中出现的问题总结 · 小黄驴的窝
         
     </title>
     <link rel="icon" href= /assets/favicon.ico>
@@ -58,6 +58,8 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
@@ -65,27 +67,71 @@
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
     
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >小黄驴的窝</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Maven中出现的问题总结</a>
+            </div>
+    </div>
+    
     <a class="home-link" href=/>小黄驴的窝</a>
 </header>
     <div class="wrapper">
         <div class="site-intro">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(http://oumn0o088.bkt.clouddn.com/post-bg.jpg)"></div>
     <div class="site-intro-placeholder"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
+            Maven中出现的问题总结
+            <!-- 404 -->
+            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = maven>maven</a>
+    
+</div>
+            
+            <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "1", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = "/static/api/js/share.js"];</script>
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/01/29</span>
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe604;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">
+                        &#xe601;
+                    </span>
+                    <span class="bdsharebuttonbox">
+                        <a href="#" class="bds_more shareText" data-cmd="more">Share</a>
+                    </span>
+                </span>
+            </div>
         
     </div>
 </div>
@@ -153,68 +199,53 @@
             }
         </script>
         <div class="container container-unloaded">
-            <main class="main index-page">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="maven中出现的问题总结"><a href="#maven中出现的问题总结" class="headerlink" title="maven中出现的问题总结"></a>maven中出现的问题总结</h2><h3 id="问题1：如何使用maven指令执行-java-main？"><a href="#问题1：如何使用maven指令执行-java-main？" class="headerlink" title="问题1：如何使用maven指令执行 java main？"></a>问题1：如何使用maven指令执行 java main？</h3><p>一种比较直接的解决方式，直接找到classes路径下，使用java指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -cp target/classes org.ts.App</span><br></pre></td></tr></table></figure>
+<p>这样比较麻烦，下面的方法可以直接使用maven命令来执行：</p>
+<p>（1）命令行运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Without arguments:</span></span><br><span class="line">$ mvn <span class="built_in">exec</span>:java -Dexec.mainClass=<span class="string">"com.vineetmanohar.module.Main"</span> </span><br><span class="line"><span class="comment"># With arguments:</span></span><br><span class="line">$ mvn <span class="built_in">exec</span>:java -Dexec.mainClass=<span class="string">"com.vineetmanohar.module.Main"</span> -Dexec.args=<span class="string">"arg0 arg1 arg2"</span></span><br><span class="line"><span class="comment"># With runtime dependencies in the CLASSPATH:</span></span><br><span class="line">$ mvn <span class="built_in">exec</span>:java -Dexec.mainClass=<span class="string">"com.vineetmanohar.module.Main"</span> -Dexec.classpathScope=runtime</span><br></pre></td></tr></table></figure>
+<p>（2）Running in a phase in pom.xml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line"> &lt;plugins&gt;</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">   &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;<span class="built_in">exec</span>-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.1.1&lt;/version&gt;</span><br><span class="line">   &lt;executions&gt;</span><br><span class="line">    &lt;execution&gt;</span><br><span class="line">     &lt;phase&gt;<span class="built_in">test</span>&lt;/phase&gt;</span><br><span class="line">     &lt;goals&gt;</span><br><span class="line">      &lt;goal&gt;java&lt;/goal&gt;</span><br><span class="line">     &lt;/goals&gt;</span><br><span class="line">     &lt;configuration&gt;</span><br><span class="line">      &lt;mainClass&gt;com.vineetmanohar.module.CodeGenerator&lt;/mainClass&gt;</span><br><span class="line">      &lt;arguments&gt;</span><br><span class="line">       &lt;argument&gt;arg0&lt;/argument&gt;</span><br><span class="line">       &lt;argument&gt;arg1&lt;/argument&gt;</span><br><span class="line">      &lt;/arguments&gt;</span><br><span class="line">     &lt;/configuration&gt;</span><br><span class="line">    &lt;/execution&gt;</span><br><span class="line">   &lt;/executions&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line"> &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+<p>（3）Running in a profile in pom.xml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;profiles&gt;</span><br><span class="line"> &lt;profile&gt;</span><br><span class="line">  &lt;id&gt;code-generator&lt;/id&gt;</span><br><span class="line">  &lt;build&gt;</span><br><span class="line">   &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">     &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;<span class="built_in">exec</span>-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">     &lt;version&gt;1.1.1&lt;/version&gt;</span><br><span class="line">     &lt;executions&gt;</span><br><span class="line">      &lt;execution&gt;</span><br><span class="line">       &lt;phase&gt;<span class="built_in">test</span>&lt;/phase&gt;</span><br><span class="line">       &lt;goals&gt;</span><br><span class="line">        &lt;goal&gt;java&lt;/goal&gt;</span><br><span class="line">       &lt;/goals&gt;</span><br><span class="line">       &lt;configuration&gt;</span><br><span class="line">        &lt;mainClass&gt;com.vineetmanohar.module.CodeGenerator&lt;/mainClass&gt;</span><br><span class="line">        &lt;arguments&gt;</span><br><span class="line">         &lt;argument&gt;arg0&lt;/argument&gt;</span><br><span class="line">         &lt;argument&gt;arg1&lt;/argument&gt;</span><br><span class="line">        &lt;/arguments&gt;</span><br><span class="line">       &lt;/configuration&gt;</span><br><span class="line">      &lt;/execution&gt;</span><br><span class="line">     &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">   &lt;/plugins&gt;</span><br><span class="line">  &lt;/build&gt;</span><br><span class="line"> &lt;/profile&gt;</span><br><span class="line">&lt;/profiles&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="问题2：-ERROR-No-goals-have-been-specified-for-this-build-You-must-specify-a-valid-lifecycle-phase-or-a-goal-in-the-format-…？"><a href="#问题2：-ERROR-No-goals-have-been-specified-for-this-build-You-must-specify-a-valid-lifecycle-phase-or-a-goal-in-the-format-…？" class="headerlink" title="问题2：[ERROR] No goals have been specified for this build. You must specify a valid lifecycle phase or a goal in the format …？"></a>问题2：[ERROR] No goals have been specified for this build. You must specify a valid lifecycle phase or a goal in the format …？</h3><p>可用的lifecycle phases有: validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy, pre-clean, clean, post-clean, pre-site, site, post-site, site-deploy</p>
+<p>在编译环节的goals加上任意一个就好，例如compile，。</p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-pager">
+        
+            <li class="next">
+                <a href= "/2018/02/13/web security model/" title=  >
+                    <span>Next Post</span>
+                    <span>[Untitled Post]</span>
+                </a>
+            </li>
+        
+        
+            <li class="previous">
+                <a href= "/2018/01/27/Docker实践/Docker实践(二) /" title= Docker实践（二） >
+                    <span>Previous Post</span>
+                    <span>Docker实践（二）</span>
+                </a>
+            </li>
+        
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
     
+    <!--PC版-->
+
+    <!--PC版-->
+
+
     
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/26/ubuntu问题修复/" >
-                
-                    <span>Ubuntu问题修复总结</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/26/ubuntu问题修复/" >
-                <div class="abstract-content">
-                    Unable to lock the administration directory(var/lib/dpkg/) is another process using it 的办法问题描述在 Ubuntu 或者它的衍生版如 Linux Mint（我已经作为日常工作使用的系统）中使用 apt-get 命令或者其相对更新的APT 管理工具时，你可能会在命令行中看到一个 unable to lock the administration directory (/var/lib/dpkg/) is another process using it 的错误。
-解决办法（1）找出并杀掉所有 apt-...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = linux/命令>linux/命令</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/26</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/20/apt-get常用命令/" >
-                
-                    <span>apt-get的常用命令</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/20/apt-get常用命令/" >
-                <div class="abstract-content">
-                    因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。
-正片开始apt-get是什么？apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一个下载安装软件包的简单命令行接口，一般需要root权限执行，所以一般跟着sudo命令。使用apt-get命令的第一步就是引入必需的软件库，Debian的软件库也就是所有Debian软件包的集合，...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = linux/命令>linux/命令</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/20</span>
-                </div>
-            </div>
-        </article>
-    
-    <!-- paginator  -->
-    
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -260,6 +291,13 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper">
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#maven中出现的问题总结"><span class="toc-number">1.</span> <span class="toc-text">maven中出现的问题总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题1：如何使用maven指令执行-java-main？"><span class="toc-number">1.1.</span> <span class="toc-text">问题1：如何使用maven指令执行 java main？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题2：-ERROR-No-goals-have-been-specified-for-this-build-You-must-specify-a-valid-lifecycle-phase-or-a-goal-in-the-format-…？"><span class="toc-number">1.2.</span> <span class="toc-text">问题2：[ERROR] No goals have been specified for this build. You must specify a valid lifecycle phase or a goal in the format …？</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top">&#xe639;</div>
     <div class="sidebar">

@@ -158,14 +158,17 @@
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/26/ubuntu问题修复/" >
+            <a class="abstract-title" href = "/2018/01/29/maven/maven问题修复/" >
                 
-                    <span>Ubuntu问题修复总结</span>
+                    <span>Maven中出现的问题总结</span>
             </a>
-            <a class="content-show-full" href = "/2018/01/26/ubuntu问题修复/" >
+            <a class="content-show-full" href = "/2018/01/29/maven/maven问题修复/" >
                 <div class="abstract-content">
-                    Unable to lock the administration directory(var/lib/dpkg/) is another process using it 的办法问题描述在 Ubuntu 或者它的衍生版如 Linux Mint（我已经作为日常工作使用的系统）中使用 apt-get 命令或者其相对更新的APT 管理工具时，你可能会在命令行中看到一个 unable to lock the administration directory (/var/lib/dpkg/) is another process using it 的错误。
-解决办法（1）找出并杀掉所有 apt-...
+                    maven中出现的问题总结问题1：如何使用maven指令执行 java main？一种比较直接的解决方式，直接找到classes路径下，使用java指令：
+1$ java -cp target/classes org.ts.App
+这样比较麻烦，下面的方法可以直接使用maven命令来执行：
+（1）命令行运行：
+123456# Without arguments:$ mvn exec:java -Dexec.mainClass="com.vineetmanohar.module.Main" # With arguments:$ mvn exec:java -Dexec.mainClass=...
                 </div>
             </a>
             <div class="abstract-post-meta">
@@ -173,42 +176,13 @@
                 
                 <div class= abstract-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-href = linux/命令>linux/命令</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = maven>maven</a>
     
 </div>
                 
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/26</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/20/apt-get常用命令/" >
-                
-                    <span>apt-get的常用命令</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/20/apt-get常用命令/" >
-                <div class="abstract-content">
-                    因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。
-正片开始apt-get是什么？apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一个下载安装软件包的简单命令行接口，一般需要root权限执行，所以一般跟着sudo命令。使用apt-get命令的第一步就是引入必需的软件库，Debian的软件库也就是所有Debian软件包的集合，...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = linux/命令>linux/命令</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/20</span>
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/29</span>
                 </div>
             </div>
         </article>

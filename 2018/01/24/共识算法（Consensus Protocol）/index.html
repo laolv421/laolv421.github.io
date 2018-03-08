@@ -111,7 +111,7 @@
             
                 <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-href = -分布式/算法>-分布式/算法</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = 分布式/算法>分布式/算法</a>
     
 </div>
             
@@ -223,7 +223,7 @@
 <p><img src="/img/共识算法/领导选举.png" alt="领导选举" title="领导选举"></p>
 <p>（1）Leader 选举。</p>
 <p>处于Follower状态的节点在一个随机的超时时间(称之为Election timeout，注意每次都要随机选择一个超时时间，这个超时时间通常为150-300毫秒，我在实验中设置的是300+ms内没有收到投票或者日志复制和心跳包的RPC，则会变成Candidate状态。</p>
-<p>处于Candidate状态的节点会马上开始选举投票。它先投自己一票，然后向其他节点发送投票，这个请求称之为Request VoteRPC。如果获得了过半的节点投票，则转成Leader状态。如果投票给了其他节点或者发现了更新任期(Term)的指令(如更新任期的选举投票和日志复制指令，则转为Follower状态。如果选举超时没有得到过半投票，则保持Candidate状态开始一个新一轮选举投票。</p>
+<p>处于Candidate状态的节点会马上开始选举投票。它先投自己一票，然后向其他节点发送投票，这个请求称之为Request VoteRPC。如果获得了过半的节点投票，则转成Leader状态。如果投票给了其他节点或者发现了更新任期(Term，解释一下，Term=4，进行过4次选举leader)的指令(如更新任期的选举投票和日志复制指令，则转为Follower状态。如果选举超时没有得到过半投票，则保持Candidate状态开始一个新一轮选举投票。</p>
 <p>处于Leader状态的节点会定期发送(这个时间为HeartbeatTimeout，通常要远小于选举超时，实验中我设置的位50ms)AppendEntries RPC请求给其他节点。如果发现了更新任期的指令，则转为Follower状态.</p>
 <p>选举投票需要两个条件：</p>
 <p>条件一：请求投票的节点的任期必须大于等于本节点且本节点还没有投过票给其他节点(包括投票给自己)。</p>
@@ -240,14 +240,34 @@
 <p>Since all servers participate as part of the peer set, they all know the current leader. When an RPC request arrives at a non-leader server, the request is forwarded to the leader. If the RPC is a query type, meaning it is read-only, the leader generates the result based on the current state of the FSM. If the RPC is a transaction type, meaning it modifies state, the leader generates a new log entry and applies it using Raft. Once the log entry is committed and applied to the FSM, the transaction is complete.</p>
 <p>Because of the nature of Raft’s replication, performance is sensitive to network latency. For this reason, each datacenter elects an independent leader and maintains a disjoint peer set. Data is partitioned by datacenter, so each leader is responsible only for data in their datacenter. When a request is received for a remote datacenter, the request is forwarded to the correct leader. This design allows for lower latency transactions and higher availability without sacrificing consistency.</p>
 <p><img src="/img/共识算法/consul.png" alt="consul架构图" title="consul架构图"></p>
+<h3 id="gossip算法"><a href="#gossip算法" class="headerlink" title="gossip算法"></a>gossip算法</h3><p>Gossip 协议是电脑之间的通信协议，启发来源于现实社会的流言蜚语。现代分布式系统通常用gossip协议来解决一些用其他方法难以解决的问题，可能是因为当前网络有一个不便的问题——过于庞大，或许是因为gossip协议有时候是最为行之有效的方法。Gossip协议又名“传染病协议”(epidemic protocol)，因为gossip协议传播信息的方式有时候类似于生物体内的病毒传播。Gossip协议基于”SWIM: Scalable Weakly-consistent Infection-style Process Group Membership Protocol”加上一点改动，增加了传播速度和收敛率。Gossip是分布式系统中被广泛使用的协议，其主要用于实现分布式节点或者进程之间的信息交换。Gossip协议同时满足应用层多播协议所要求的低负载，高可靠和可扩展性的要求。由于其简单而易于实现，当前很多系统（例如Amazon S3，Usenet NNTP等）选择基于Gossip协议以实现应用层多播的功能。</p>
+<p>Gossip Protocol利用一种随机的方式将信息散播到整个网络中。正如Gossip本身的含义一样，Gossip协议的工作流程即类似于绯闻的传播，或者流行病的传播。具体而言Gossip Protocol可以分为Push-based和Pull-based两种。Push-based Gossip Protocol的具体工作流程如下：</p>
+<p>（1）网络中的某个节点随机的选择其他b个节点作为传输对象<br>（2）该节点向其选中的b个节点传输相应的信息<br>（3）接收到信息的节点重复完成相同的工作</p>
+<p>Pull-based Gossip Protol的协议过程刚好相反：</p>
+<p>（1）某个节点v随机的选择b个节点询问有没有最新的信息<br>（2）收到请求的节点回复节点v其最近未收到的信息</p>
+<p>理论上，某个节点可以从节点列表随机地选择b个节点，但是实际上这个是不符合实际情况的，因为需要每一个节点都去存储一份完整的节点列表，这个存储和维护起来并不实际。因此，每个节点实际上只维护相对很小的节点列表并使用gossip来周期性地进行更新。</p>
+<h4 id="gossip模型"><a href="#gossip模型" class="headerlink" title="gossip模型"></a>gossip模型</h4><p>假设网络中有N个节点，每个节点有相应的地址，并且维护着一份c(c &lt; N)个节点的列表，列表中的每个节点由网络地址address和代表鲜活度的age构成。每个节点会周期性地执行gossip协议来更新节点列表，这个允许网络拓扑信息在节点之间进行传播。基本的思想是每个节点随机地选择列表中的自己进行传播，这个会避免包含太多的多余的信息导致网络的过载。例如peer的选择，可以随机地选择或者选择哪个age最大的节点；传播的策略，比如push或者pushpull分别对应着单向和双向的交换信息。假设某个节点A push所有的信息给节点B，节点B需要策略来选择信息。每个节点的age是通过hop-counts来更新的。</p>
+<p>We assume that the sending node pushes the whole of its view to the receiving node. Finally, the receiving node requires a strategy for view selection, which combines the incoming and the existing view information. In our model, we in fact use hop-counts as a coarse (bounded) measure of the age of each node descriptor. A receiving node increments the the hop-count of all the incoming descriptors, merges these with the descriptors in its own view (keeping the entry with the youngest count in cases of duplication) and then keeps the c newest entries from the combined set.</p>
+<p>With regards to the timing of the protocol, we assume that the exchange of data between nodes occurs periodically (with some fixed period) and that each node sends its data exactly once in each round of execution. Such a scheme can be achieved in practice through synchronisation of local clocks. Due to the distributed nature of the system, however, the order in which the nodes participate in each round is unknown (and may be different each time).</p>
+<p>The gossip protocol therefore exhibits both probabilistic behaviour (random peer selection) and nondeterministic behaviour (scheduling of nodes within a round) and is naturally modelled as a Markov decision process (MDP). </p>
 <h3 id="Paxos算法"><a href="#Paxos算法" class="headerlink" title="Paxos算法"></a>Paxos算法</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://www.jianshu.com/p/1f5cb602dc71" target="_blank" rel="noopener">分布式系统学习2-Raft算法分析与实现</a></li>
 <li><a href="https://www.jianshu.com/p/99562bfec5c2" target="_blank" rel="noopener">深入浅出 Raft - Membership Change</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gossip_protocol" target="_blank" rel="noopener">Gossip protocol-Wikipedia</a></li>
+<li><a href="http://kaiyuan.me/2015/07/08/Gossip/" target="_blank" rel="noopener">Gossip 协议简介</a></li>
+<li><a href="http://www.prismmodelchecker.org/casestudies/gossip.php" target="_blank" rel="noopener">Gossip Protocol</a></li>
 </ol>
 
     </article>
     <!-- 前后页  -->
     <ul class="post-pager">
+        
+            <li class="next">
+                <a href= "/2018/01/26/ubuntu问题修复/" title= Ubuntu问题修复总结 >
+                    <span>Next Post</span>
+                    <span>Ubuntu问题修复总结</span>
+                </a>
+            </li>
         
         
             <li class="previous">
@@ -321,7 +341,7 @@
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#共识算法"><span class="toc-number">1.</span> <span class="toc-text">共识算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CAP原理"><span class="toc-number">1.1.</span> <span class="toc-text">CAP原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#弱化一致性"><span class="toc-number">1.1.1.</span> <span class="toc-text">弱化一致性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#弱化可用性"><span class="toc-number">1.1.2.</span> <span class="toc-text">弱化可用性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#弱化分区容忍性"><span class="toc-number">1.1.3.</span> <span class="toc-text">弱化分区容忍性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Raft算法"><span class="toc-number">1.2.</span> <span class="toc-text">Raft算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#复制状态机"><span class="toc-number">1.2.1.</span> <span class="toc-text">复制状态机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法解释"><span class="toc-number">1.2.2.</span> <span class="toc-text">算法解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Raft算法的例子：consul"><span class="toc-number">1.2.3.</span> <span class="toc-text">Raft算法的例子：consul</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Paxos算法"><span class="toc-number">1.3.</span> <span class="toc-text">Paxos算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#共识算法"><span class="toc-number">1.</span> <span class="toc-text">共识算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CAP原理"><span class="toc-number">1.1.</span> <span class="toc-text">CAP原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#弱化一致性"><span class="toc-number">1.1.1.</span> <span class="toc-text">弱化一致性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#弱化可用性"><span class="toc-number">1.1.2.</span> <span class="toc-text">弱化可用性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#弱化分区容忍性"><span class="toc-number">1.1.3.</span> <span class="toc-text">弱化分区容忍性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Raft算法"><span class="toc-number">1.2.</span> <span class="toc-text">Raft算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#复制状态机"><span class="toc-number">1.2.1.</span> <span class="toc-text">复制状态机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#算法解释"><span class="toc-number">1.2.2.</span> <span class="toc-text">算法解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Raft算法的例子：consul"><span class="toc-number">1.2.3.</span> <span class="toc-text">Raft算法的例子：consul</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gossip算法"><span class="toc-number">1.3.</span> <span class="toc-text">gossip算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gossip模型"><span class="toc-number">1.3.1.</span> <span class="toc-text">gossip模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Paxos算法"><span class="toc-number">1.4.</span> <span class="toc-text">Paxos算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
     </div>
     
     <div class="back-top">&#xe639;</div>
@@ -369,19 +389,192 @@
     
     
     
-    <div class="total-archive"> Total : 4 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 10 </div>
     
     <div class="post-archive">
     
     
     
     
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/2018/02/13/web security model/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/29/maven/maven问题修复/" >Maven中出现的问题总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(一)/" >Docker实践(一)</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
         </li>
     
     
@@ -413,6 +606,29 @@
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/hello-world/" >Hello World</a>
         </li>
@@ -422,11 +638,21 @@
         <div class="sidebar-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">-区块链</a></span>
+    
         <span class="sidebar-tag-name"><a href= "#">linux/命令</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">-分布式/算法</a></span>
     
-        <span class="sidebar-tag-name"><a href= "#">-区块链</a></span>
+        <span class="sidebar-tag-name"><a href= "#">分布式/算法</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">区块链</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">maven</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">数据安全/标准</a></span>
     
     </div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
