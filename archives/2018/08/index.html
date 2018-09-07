@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        LVM的简单命令总结 · 小黄驴的窝
+        小黄驴的窝
         
     </title>
     <link rel="icon" href= /assets/favicon.ico>
@@ -58,8 +58,6 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
@@ -67,65 +65,27 @@
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
     
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/" >小黄驴的窝</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">LVM的简单命令总结</a>
-            </div>
-    </div>
-    
     <a class="home-link" href=/>小黄驴的窝</a>
 </header>
     <div class="wrapper">
         <div class="site-intro">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
-    <div class="site-intro-img" style="background-image: url(http://oumn0o088.bkt.clouddn.com/post-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-placeholder"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            LVM的简单命令总结
-            <!-- 404 -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <!-- 文章页标签  -->
-            
-            <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "1", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = "/static/api/js/share.js"];</script>
-            <div class="post-intro-meta">
-                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/03/08</span>
-                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                    <span class="iconfont-archer">&#xe604;</span>
-                    <span id="busuanzi_value_page_pv"></span>
-                </span>
-                <span class="shareWrapper">
-                    <span class="iconfont-archer shareIcon">
-                        &#xe601;
-                    </span>
-                    <span class="bdsharebuttonbox">
-                        <a href="#" class="bds_more shareText" data-cmd="more">Share</a>
-                    </span>
-                </span>
-            </div>
         
     </div>
 </div>
@@ -193,42 +153,36 @@
             }
         </script>
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <p>LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。</p>
-<h3 id="LVM命令"><a href="#LVM命令" class="headerlink" title="LVM命令"></a>LVM命令</h3><h4 id="1-分区：fdisk命令"><a href="#1-分区：fdisk命令" class="headerlink" title="1.分区：fdisk命令"></a>1.分区：fdisk命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fdisk /dev/sda</span><br></pre></td></tr></table></figure>
-<h4 id="2-创建physical-volume"><a href="#2-创建physical-volume" class="headerlink" title="2.创建physical volume"></a>2.创建physical volume</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pvcreate /dev/sda2</span><br></pre></td></tr></table></figure>
-<h3 id="3-扩容volume-group-vg名字假设为cl"><a href="#3-扩容volume-group-vg名字假设为cl" class="headerlink" title="3.扩容volume group(vg名字假设为cl)"></a>3.扩容volume group(vg名字假设为cl)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vgextend cl /dev/sda2</span><br></pre></td></tr></table></figure>
-<h3 id="4-扩容logical-volume"><a href="#4-扩容logical-volume" class="headerlink" title="4.扩容logical volume"></a>4.扩容logical volume</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lvextend -l +50%FREE -r /dev/cl/root</span><br></pre></td></tr></table></figure>
-<p>如果命令忘记加 -r (resize) 的话，需要加如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xfs_growfs /dev/cl/root</span><br></pre></td></tr></table></figure></p>
-<h3 id="5-补充命令"><a href="#5-补充命令" class="headerlink" title="5.补充命令"></a>5.补充命令</h3><p>(1) pvs、vgs、lvs分别对应physical volume display、volume group display、logical volume display三种查看命令；<br>(2) fdisk -l、cat /proc/partitions两个命令都可以查看分区情况；<br>(3) partprobe命令用于重读（某）分区表，无需重启系统；<br>(4) df命令用于查看磁盘（分区）使用情况，-h(human readable) -T(display filesystem type)</p>
-
-    </article>
-    <!-- 前后页  -->
-    <ul class="post-pager">
-        
-        
-            <li class="previous">
-                <a href= "/2018/02/13/web security model/" title=  >
-                    <span>Previous Post</span>
-                    <span>[Untitled Post]</span>
-                </a>
-            </li>
-        
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
+            <main class="main index-page">
     
     
-    <!--PC版-->
-
-    <!--PC版-->
-
-
     
-    <!-- 评论 -->
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/08/21/linux/LVM/" >
+                
+                    <span>LVM的简单命令总结</span>
+            </a>
+            <a class="content-show-full" href = "/2018/08/21/linux/LVM/" >
+                <div class="abstract-content">
+                    LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。
+LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：剩下两张图为细节上的体现：
+LVM命令1.分区：fdisk命令1$ fdisk /dev/sda
+2.创建physical volume1$ pvcreate /dev/sda2
+3.扩容volume group(vg名字假设为cl)1$ vgex...
+                </div>
+            </a>
+            <div class="abstract-post-meta">
+                <!-- tags  -->
+                
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/08/21</span>
+                </div>
+            </div>
+        </article>
+    
+    <!-- paginator  -->
+    
 </main>
             <!-- profile -->
             
@@ -274,13 +228,6 @@
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper">
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LVM命令"><span class="toc-number">1.</span> <span class="toc-text">LVM命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-分区：fdisk命令"><span class="toc-number">1.1.</span> <span class="toc-text">1.分区：fdisk命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-创建physical-volume"><span class="toc-number">1.2.</span> <span class="toc-text">2.创建physical volume</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-扩容volume-group-vg名字假设为cl"><span class="toc-number">2.</span> <span class="toc-text">3.扩容volume group(vg名字假设为cl)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-扩容logical-volume"><span class="toc-number">3.</span> <span class="toc-text">4.扩容logical volume</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-补充命令"><span class="toc-number">4.</span> <span class="toc-text">5.补充命令</span></a></li></ol>
-    </div>
     
     <div class="back-top">&#xe639;</div>
     <div class="sidebar">
@@ -425,6 +372,20 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-archive"> Total : 10 </div>
     
     <div class="post-archive">
@@ -432,12 +393,12 @@
     
     
     
-    <div class="archive-year"> 2018 </div>
+    <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/linux/LVM/" >LVM的简单命令总结</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/08/21/linux/LVM/" >LVM的简单命令总结</a>
         </li>
     
     
@@ -493,7 +454,7 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/24/共识算法（Consensus Protocol）/" >共识算法（Consensus Protocol）</a>
         </li>
     
     
@@ -507,7 +468,7 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/24/共识算法（Consensus Protocol）/" >共识算法（Consensus Protocol）</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
         </li>
     
     
@@ -555,9 +516,9 @@
     
         <span class="sidebar-tag-name"><a href= "#">linux/命令</a></span>
     
-        <span class="sidebar-tag-name"><a href= "#">分布式/算法</a></span>
-    
         <span class="sidebar-tag-name"><a href= "#">区块链</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">分布式/算法</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">docker</a></span>
     
