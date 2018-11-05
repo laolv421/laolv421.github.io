@@ -89,7 +89,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_secrets_list.png">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_secrets_accesskey.png">
-<meta property="og:updated_time" content="2018-10-26T06:49:23.594Z">
+<meta property="og:updated_time" content="2018-11-05T08:11:05.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vault详解（三）Secrets Engines">
 <meta name="twitter:description" content="Secrets engines是存储、产生、加密数据的组织，一些secrets engines仅仅存储和读取数据，例如Redis/Memcached；有些连接了其他服务能够产生动态凭证；还有一些自身提供服务，例如totp generation, certificates等。 Secrets backend用来存放（生成）秘密的地方；不同的 backend 类似于不同的虚拟文件系统（tmpfs，ud">
@@ -345,6 +345,7 @@
       
         <p>Secrets engines是存储、产生、加密数据的组织，一些secrets engines仅仅存储和读取数据，例如Redis/Memcached；有些连接了其他服务能够产生动态凭证；还有一些自身提供服务，例如totp generation, certificates等。</p>
 <p>Secrets backend用来存放（生成）秘密的地方；不同的 backend 类似于不同的虚拟文件系统（tmpfs，udev 等），可以挂载到不同的目录，读写到不同的 backend 下会有各自不同的作用。</p>
+<a id="more"></a>
 <h1 id="Vault-Secrets的操作"><a href="#Vault-Secrets的操作" class="headerlink" title="Vault Secrets的操作"></a>Vault Secrets的操作</h1><p>Vault Secrets操作如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vault auth &lt;subcommand&gt; [options] [args]</span><br><span class="line">subcommand:</span><br><span class="line">    <span class="built_in">disable</span>    Disable a secret engine</span><br><span class="line">    <span class="built_in">enable</span>     Enable a secrets engine</span><br><span class="line">    list       List enabled secrets engines</span><br><span class="line">    move       Move a secrets engine to a new path</span><br><span class="line">    tune       Tune a secrets engine configuration</span><br></pre></td></tr></table></figure></p>
 <p>下面我们会介绍一些常见的secrets engines，了解其他可以参考<a href="https://www.vaultproject.io/docs/secrets/index.html" target="_blank" rel="noopener">官方文档</a>。</p>
 <h1 id="常见的secrets-engines"><a href="#常见的secrets-engines" class="headerlink" title="常见的secrets engines"></a>常见的secrets engines</h1><h2 id="AliCloud"><a href="#AliCloud" class="headerlink" title="AliCloud"></a>AliCloud</h2><p>阿里云secrets engine基于阿里云RAM策略或者阿里云STS凭证动态地产生AliCloud access token。</p>

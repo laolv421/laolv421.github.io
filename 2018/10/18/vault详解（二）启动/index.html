@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;) 运行help命令，查看vault的简单的使用方法，更多命令请">
+<meta name="description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;)">
 <meta name="keywords" content="vault">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vault详解（二）启动">
 <meta property="og:url" content="http://yoursite.com/2018/10/18/vault详解（二）启动/index.html">
 <meta property="og:site_name" content="小黄驴的窝">
-<meta property="og:description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;) 运行help命令，查看vault的简单的使用方法，更多命令请">
+<meta property="og:description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;)">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_help.png">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_server_dev.png">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_reinit.png">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_de_key.png">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_unseal.png">
-<meta property="og:updated_time" content="2018-10-26T08:28:29.823Z">
+<meta property="og:updated_time" content="2018-11-05T08:11:21.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vault详解（二）启动">
-<meta name="twitter:description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;) 运行help命令，查看vault的简单的使用方法，更多命令请">
+<meta name="twitter:description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;)">
 <meta name="twitter:image" content="http://yoursite.com/img/kms/vault_help.png">
 
 
@@ -347,6 +347,7 @@
 
       
         <h1 id="vault安装"><a href="#vault安装" class="headerlink" title="vault安装"></a>vault安装</h1><p>vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">λ vault version</span><br><span class="line">Vault v0.11.3 (<span class="string">'fb601237bfbe4bc16ff679f642248ee8a86e627b'</span>)</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>运行help命令，查看vault的简单的使用方法，更多命令请查看<a href="https://www.vaultproject.io/docs/commands/index.html" target="_blank" rel="noopener">官网Vault Commands</a>。<br><img src="/img/kms/vault_help.png" alt="vault的help命令"></p>
 <h1 id="vault的启动部署"><a href="#vault的启动部署" class="headerlink" title="vault的启动部署"></a>vault的启动部署</h1><h2 id="开发环境启动"><a href="#开发环境启动" class="headerlink" title="开发环境启动"></a>开发环境启动</h2><p>我们这里在windows系统上启动dev模式<br><img src="/img/kms/vault_server_dev.png" alt="vault的server -dev命令"><br>可以看到几个关键点，监听器lister和存储后端storage为inmem，即内存；另外可以看到出现了root token和unseal key，这只会在初始化vault中出现。在运行vault命令之前一定要设置环境变量（linux环境下用export代替set）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">λ <span class="built_in">set</span> VAULT_ADDR=http://127.0.0.1:8200</span><br></pre></td></tr></table></figure></p>
 <h2 id="查看vault状态"><a href="#查看vault状态" class="headerlink" title="查看vault状态"></a>查看vault状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">D:\Hashicorp\vault</span><br><span class="line">λ <span class="built_in">set</span> VAULT_ADDR=http://127.0.0.1:8200</span><br><span class="line"></span><br><span class="line">D:\Hashicorp\vault</span><br><span class="line">λ vault status</span><br><span class="line">Key             Value</span><br><span class="line">---             -----</span><br><span class="line">Seal Type       shamir</span><br><span class="line">Initialized     <span class="literal">true</span></span><br><span class="line">Sealed          <span class="literal">false</span></span><br><span class="line">Total Shares    1</span><br><span class="line">Threshold       1</span><br><span class="line">Version         0.11.3</span><br><span class="line">Cluster Name    vault-cluster-5ca969b5</span><br><span class="line">Cluster ID      e274fc76-b587-d195-44f8-161c8c7c2e27</span><br><span class="line">HA Enabled      <span class="literal">false</span></span><br></pre></td></tr></table></figure>

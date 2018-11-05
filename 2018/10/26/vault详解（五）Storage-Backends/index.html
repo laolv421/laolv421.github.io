@@ -88,7 +88,7 @@
 <meta property="og:description" content="Vault主要用于生产环境以管理机密。因此，Vault服务的任何停机时间都会影响下游客户端。Vault旨在支持高可用性部署，以确保机器或流程故障的破坏性极小。 Storage Backends是数据真正落盘的地方（注：到达 Storage Backend 时，数据都已经处于加密状态了，安全并不依赖于Storage backend，实际上它是untrusted的），需要在服务启动时在配置里面指定；这">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_mem.png">
-<meta property="og:updated_time" content="2018-10-29T07:11:51.587Z">
+<meta property="og:updated_time" content="2018-11-05T08:11:51.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vault详解（五）Storage Backends">
 <meta name="twitter:description" content="Vault主要用于生产环境以管理机密。因此，Vault服务的任何停机时间都会影响下游客户端。Vault旨在支持高可用性部署，以确保机器或流程故障的破坏性极小。 Storage Backends是数据真正落盘的地方（注：到达 Storage Backend 时，数据都已经处于加密状态了，安全并不依赖于Storage backend，实际上它是untrusted的），需要在服务启动时在配置里面指定；这">
@@ -343,7 +343,7 @@
 
       
         <p>Vault主要用于生产环境以管理机密。因此，Vault服务的任何停机时间都会影响下游客户端。Vault旨在支持高可用性部署，以确保机器或流程故障的破坏性极小。</p>
-<p>Storage Backends是数据真正落盘的地方（注：到达 Storage Backend 时，数据都已经处于加密状态了，安全并不依赖于Storage backend，实际上它是untrusted的），需要在服务启动时在配置里面指定；这类backend同样有很多种，例如：<br>（1）inmem 存放在内存中（dev 模式下即是使用 inmen backend 的，一旦重启，数据就丢失了）；</p>
+<p>Storage Backends是数据真正落盘的地方（注：到达 Storage Backend 时，数据都已经处于加密状态了，安全并不依赖于Storage backend，实际上它是untrusted的），需要在服务启动时在配置里面指定；这类backend同样有很多种，例如：<br><a id="more"></a><br>（1）inmem 存放在内存中（dev 模式下即是使用 inmen backend 的，一旦重启，数据就丢失了）；</p>
 <p>（2）file直接存放在本地文件里；</p>
 <p>（3）mysql存放在MySQL数据库里；</p>
 <p>（4）consul/etcd 存放在 Key-Value 集群中（高可用）；</p>

@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://yoursite.com/img/kms/token_category.png">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_auth_list.png">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_auth_github.png">
-<meta property="og:updated_time" content="2018-10-29T07:42:00.677Z">
+<meta property="og:updated_time" content="2018-11-05T08:12:09.364Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vault详解（四）Auth Methods">
 <meta name="twitter:description" content="认证操作Vault auth backend完成的是认证工作：访问者是谁。有多种可通过挂载添加，默认情况下它们会挂载在 auth/ 下，下面是有关认证的操作：1234567vault auth &amp;lt;subcommand&amp;gt; [options] [args]Subcommands:    disable    Disables an auth method    enable     Ena">
@@ -345,6 +345,7 @@
 
       
         <h1 id="认证操作"><a href="#认证操作" class="headerlink" title="认证操作"></a>认证操作</h1><p>Vault auth backend完成的是认证工作：访问者是谁。有多种可通过挂载添加，默认情况下它们会挂载在 auth/<type> 下，下面是有关认证的操作：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vault auth &lt;subcommand&gt; [options] [args]</span><br><span class="line">Subcommands:</span><br><span class="line">    <span class="built_in">disable</span>    Disables an auth method</span><br><span class="line">    <span class="built_in">enable</span>     Enables a new auth method</span><br><span class="line">    <span class="built_in">help</span>       Prints usage <span class="keyword">for</span> an auth method</span><br><span class="line">    list       Lists enabled auth methods</span><br><span class="line">    tune       Tunes an auth method configuration</span><br></pre></td></tr></table></figure></type></p>
+<a id="more"></a>
 <h1 id="认证方法"><a href="#认证方法" class="headerlink" title="认证方法"></a>认证方法</h1><p>在用户认证的问题上，Vault 同样使用了灵活的插件架构，允许多种认证手段，Vault 将其称为验证方法（Auth method），本节列举了Vault支持下的验证方法。</p>
 <h2 id="Tokens"><a href="#Tokens" class="headerlink" title="Tokens"></a>Tokens</h2><p>Token认证方法是vault内置的方法，也是客户端认证的核心，其他认证方法最终都是转成了token来认证的。Token认证启动时即被加载，且不能禁用。回忆一下，服务器启动时会输出 Root Token，使用 Root token 登录的用户具有系统最高的访问权限。Token 是可继承的，这个继承包括两方面的含义：<br>（1）持有Token的用户创建新的Token（Child token），除非特别指定，否则Child token权限和原来的Token相同；</p>
 <p>（2）当回收（Revoke）某个Token时，其所创建的Child Token，以及Child Token的Child Token都会被一并删除；</p>

@@ -88,7 +88,7 @@
 <meta property="og:description" content="Hashicorp VaultHashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码/Token/证书/API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。 攻击模型（1）窃听任意vault中的通信">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/img/kms/vault_arch.png">
-<meta property="og:updated_time" content="2018-10-26T02:40:29.926Z">
+<meta property="og:updated_time" content="2018-11-05T08:10:53.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vault详解（一）简介">
 <meta name="twitter:description" content="Hashicorp VaultHashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码/Token/证书/API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。 攻击模型（1）窃听任意vault中的通信">
@@ -349,6 +349,7 @@
 <p>（4）访问控制数据无需担责；如果审计日志启用，在客户端接收到任何秘密之前，客户端的请求和回复必须记录下来；</p>
 <p>（5）关于存储秘密的机密性。离开vault的任何静态数据在存储后端必须加密；</p>
 <p>（6）vault支持高可用性（HA）的配置；</p>
+<a id="more"></a>
 <h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p><img src="/img/kms/vault_arch.png" alt="vault的架构"></p>
 <p>从图中看只有HTTP/s API和Storage Backend暴露在外面，vault架构主要分为三部分，HTTP/S API作为前端调用的接口，存储后端用来存储加密数据，最后中间部分就是vault服务器。</p>
 <h1 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h1><p>结合上面vault的架构图，理解一下vault中的几个关键术语。<br>（1）存储后端（Storage Backend）：长效存储加密数据；在启动vault时进行配置，官方支持的存储后端主要有consul、MySQL、PostgreSQL、Zookeeper等，具体支持的存储后端请查看<a href="https://www.vaultproject.io/docs/configuration/storage/index.html" target="_blank" rel="noopener">官方文档</a>。</p>
