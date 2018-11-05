@@ -981,6 +981,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/Docker实践/Docker实践(一)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/21/Docker实践/Docker实践(一)/" itemprop="url">Docker实践(一)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-21T20:22:10+08:00">
+                2018-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">《Docker — 从入门到实践》</a>，这里面非常详细地介绍了各个主要系统的安装。</p>
+<h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1. 卸载旧版本"></a>1. 卸载旧版本</h3><p>旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker.io</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-安装内核模块"><a href="#2-安装内核模块" class="headerlink" title="2. 安装内核模块"></a>2. 安装内核模块</h3><p>从Ubuntu 14.04开始，一部分内核模块移到了可选内核模块包 ( linux-image-extra-* ) ，以减少内核软件包的体积。正常安装的系统应该会包含可选内核模块包，而一些裁剪后的系统可能会将其精简掉。 AUFS 内核驱动属于可选内核模块的一部分，作为推荐的 Docker 存储层驱动，一般建议安装可选内核模块包以使用 AUFS 。</p>
+<p>如果系统没有安装可选内核模块的话，可以执行下面的命令来安装可选内核模块包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+<h3 id="3-使用APT安装前的准备"><a href="#3-使用APT安装前的准备" class="headerlink" title="3. 使用APT安装前的准备"></a>3. 使用APT安装前的准备</h3><p>由于apt源使用HTTPS以确保软件下载过程中不被篡改。因此，我们首先需要添加使用HTTPS 传输的软件包以及CA证书。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common</span><br></pre></td></tr></table></figure>
+<p>鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看；为了确认所下载软件包的合法性，需要添加软件源的 GPG 密钥。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+<p>然后，我们需要向source.list中添加Docker软件源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository <span class="string">"deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu <span class="variable">$(lsb_release -cs)</span> stable"</span></span><br></pre></td></tr></table></figure>
+<p>以上命令会添加稳定版本的Docker CE APT镜像源，如果需要最新或者测试版本的Docker CE请将stable改为edge或者test。从Docker 17.06开始，edge test版本的APT镜像源也会包含稳定版本的Docker。</p>
+<h3 id="4-安装Docker-CE"><a href="#4-安装Docker-CE" class="headerlink" title="4. 安装Docker CE"></a>4. 安装Docker CE</h3><p>更新apt软件包缓存，并安装docker-ce：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
+<h3 id="5-启动Docker-CE"><a href="#5-启动Docker-CE" class="headerlink" title="5. 启动Docker CE"></a>5. 启动Docker CE</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+<p>Ubuntu 14.04 请使用以下命令启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo service docker start</span><br></pre></td></tr></table></figure>
+<h3 id="6-建立docker用户组"><a href="#6-建立docker用户组" class="headerlink" title="6. 建立docker用户组"></a>6. 建立docker用户组</h3><p>默认情况下， docker命令会使用Unix socket与Docker引擎通讯。而只有root用户和docker组的用户才可以访问Docker引擎的Unix socket。出于安全考虑，一般Linux系统上不会直接使用root 用户。因此，更好地做法是将需要使用docker的用户加入docker用户组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure>
+<p>将当前用户加入docker组：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure></p>
+<p>退出当前终端并重新登录，进行如下测试。</p>
+<h3 id="7-测试Docker是否安装正确"><a href="#7-测试Docker是否安装正确" class="headerlink" title="7. 测试Docker是否安装正确"></a>7. 测试Docker是否安装正确</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ docker run hello-world</span><br><span class="line"></span><br><span class="line">Unable to find image <span class="string">'hello-world:latest'</span> locally</span><br><span class="line">latest: Pulling from library/hello-world</span><br><span class="line">ca4f61b1923c: Pull complete</span><br><span class="line">Digest: sha256:be0cd392e45be79ffeffa6b05338b98ebb16c87b255f48e297ec7f98e123905c</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> hello-world:latest</span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line">1. The Docker client contacted the Docker daemon.</span><br><span class="line">2. The Docker daemon pulled the <span class="string">"hello-world"</span> image from the Docker Hub.</span><br><span class="line">(amd64)</span><br><span class="line">3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">executable that produces the output you are currently reading.</span><br><span class="line">4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">to your terminal.</span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line">$ docker run -it ubuntu bash</span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line">https://cloud.docker.com/</span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line">https://docs.docker.com/engine/userguide/</span><br></pre></td></tr></table></figure>
+<p>若能正常输出以上信息，则说明安装成功。</p>
+<h3 id="8-镜像加速"><a href="#8-镜像加速" class="headerlink" title="8. 镜像加速"></a>8. 镜像加速</h3><p>（a）对于使用systemd的系统（Ubuntu 16.04+、Debian 8+、CentOS 7），请在/etc/docker/daemon.json中写入如下内容（如果文件不存在请新建该文件）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"registry-mirrors"</span>: [</span><br><span class="line"><span class="string">"https://registry.docker-cn.com"</span></span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#之后重启服务</span></span><br><span class="line">$ sudo systemctl daemon-reload</span><br><span class="line">$ sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+<p>（b）对于使用upstart的系统（Ubuntu 14.04、Debian 7 Wheezy）而言，编辑/etc/default/docker文件，在其中的DOCKER_OPTS中添加获得的加速器配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DOCKER_OPTS=<span class="string">"--registry-mirror=https://registry.docker-cn.com"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#之后重新启动服务</span></span><br><span class="line">$ sudo service docker restart</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">Docker — 从入门到实践</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/Docker实践/Docker实践(二) /">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1096,155 +1245,6 @@
 <p>注意：使用docker commit命令虽然可以比较直观的帮助理解镜像分层存储的概念，但是实际环境中并不会这样使用；因为会有大量的无关内容被添加进来，黑箱镜像难以维护等问题。</p>
 <h3 id="定制镜像"><a href="#定制镜像" class="headerlink" title="定制镜像"></a>定制镜像</h3><p>如果我们可以把每一层修改、安装、构建、操作的命令都写入一个脚本，用这个脚本来构建、定制镜像，那么之前提及的无法重复的问题、镜像构建透明性的问题、体积的问题就都会解决。这个脚本就是Dockerfile。Dockerfile 是一个文本文件，其内包含了一条条的指令(Instruction)，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。<a href="https://store.docker.com/" target="_blank" rel="noopener">Docker Store</a>中包含了很多基础的官方镜像，除了选择现有镜像为基础镜像外，Docker还存在一个特殊的镜像，名为scratch。这个镜像是虚拟的概念，并不实际存在，它表示一个空白的镜像。下面谈谈Dockerfile中的常见的指令；</p>
 <p>（1）FROM指定基础镜像，是Dockerfile中的第一条指令<br>（2）RUN指令用来执行命令，其格式有两种：<br>&emsp;&emsp;（a）shell格式：RUN&lt;命令&gt;，就像直接在命令行中输入的命令一样；<br>&emsp;&emsp;（b）exec格式：RUN [“可执行文件”, “参数1”, “参数2”]，这更像是函数调用中的格式。<br>（3）COPY复制文件，和RUN指令一样，也有两种形式；</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">Docker — 从入门到实践</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/Docker实践/Docker实践(一)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小黄驴">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小黄驴的窝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/21/Docker实践/Docker实践(一)/" itemprop="url">Docker实践(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-21T20:22:10+08:00">
-                2018-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">《Docker — 从入门到实践》</a>，这里面非常详细地介绍了各个主要系统的安装。</p>
-<h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1. 卸载旧版本"></a>1. 卸载旧版本</h3><p>旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker.io</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-安装内核模块"><a href="#2-安装内核模块" class="headerlink" title="2. 安装内核模块"></a>2. 安装内核模块</h3><p>从Ubuntu 14.04开始，一部分内核模块移到了可选内核模块包 ( linux-image-extra-* ) ，以减少内核软件包的体积。正常安装的系统应该会包含可选内核模块包，而一些裁剪后的系统可能会将其精简掉。 AUFS 内核驱动属于可选内核模块的一部分，作为推荐的 Docker 存储层驱动，一般建议安装可选内核模块包以使用 AUFS 。</p>
-<p>如果系统没有安装可选内核模块的话，可以执行下面的命令来安装可选内核模块包：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
-<h3 id="3-使用APT安装前的准备"><a href="#3-使用APT安装前的准备" class="headerlink" title="3. 使用APT安装前的准备"></a>3. 使用APT安装前的准备</h3><p>由于apt源使用HTTPS以确保软件下载过程中不被篡改。因此，我们首先需要添加使用HTTPS 传输的软件包以及CA证书。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common</span><br></pre></td></tr></table></figure>
-<p>鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看；为了确认所下载软件包的合法性，需要添加软件源的 GPG 密钥。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
-<p>然后，我们需要向source.list中添加Docker软件源：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository <span class="string">"deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu <span class="variable">$(lsb_release -cs)</span> stable"</span></span><br></pre></td></tr></table></figure>
-<p>以上命令会添加稳定版本的Docker CE APT镜像源，如果需要最新或者测试版本的Docker CE请将stable改为edge或者test。从Docker 17.06开始，edge test版本的APT镜像源也会包含稳定版本的Docker。</p>
-<h3 id="4-安装Docker-CE"><a href="#4-安装Docker-CE" class="headerlink" title="4. 安装Docker CE"></a>4. 安装Docker CE</h3><p>更新apt软件包缓存，并安装docker-ce：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
-<h3 id="5-启动Docker-CE"><a href="#5-启动Docker-CE" class="headerlink" title="5. 启动Docker CE"></a>5. 启动Docker CE</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
-<p>Ubuntu 14.04 请使用以下命令启动：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo service docker start</span><br></pre></td></tr></table></figure>
-<h3 id="6-建立docker用户组"><a href="#6-建立docker用户组" class="headerlink" title="6. 建立docker用户组"></a>6. 建立docker用户组</h3><p>默认情况下， docker命令会使用Unix socket与Docker引擎通讯。而只有root用户和docker组的用户才可以访问Docker引擎的Unix socket。出于安全考虑，一般Linux系统上不会直接使用root 用户。因此，更好地做法是将需要使用docker的用户加入docker用户组。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure>
-<p>将当前用户加入docker组：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure></p>
-<p>退出当前终端并重新登录，进行如下测试。</p>
-<h3 id="7-测试Docker是否安装正确"><a href="#7-测试Docker是否安装正确" class="headerlink" title="7. 测试Docker是否安装正确"></a>7. 测试Docker是否安装正确</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ docker run hello-world</span><br><span class="line"></span><br><span class="line">Unable to find image <span class="string">'hello-world:latest'</span> locally</span><br><span class="line">latest: Pulling from library/hello-world</span><br><span class="line">ca4f61b1923c: Pull complete</span><br><span class="line">Digest: sha256:be0cd392e45be79ffeffa6b05338b98ebb16c87b255f48e297ec7f98e123905c</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> hello-world:latest</span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line">1. The Docker client contacted the Docker daemon.</span><br><span class="line">2. The Docker daemon pulled the <span class="string">"hello-world"</span> image from the Docker Hub.</span><br><span class="line">(amd64)</span><br><span class="line">3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">executable that produces the output you are currently reading.</span><br><span class="line">4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">to your terminal.</span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line">$ docker run -it ubuntu bash</span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line">https://cloud.docker.com/</span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line">https://docs.docker.com/engine/userguide/</span><br></pre></td></tr></table></figure>
-<p>若能正常输出以上信息，则说明安装成功。</p>
-<h3 id="8-镜像加速"><a href="#8-镜像加速" class="headerlink" title="8. 镜像加速"></a>8. 镜像加速</h3><p>（a）对于使用systemd的系统（Ubuntu 16.04+、Debian 8+、CentOS 7），请在/etc/docker/daemon.json中写入如下内容（如果文件不存在请新建该文件）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"registry-mirrors"</span>: [</span><br><span class="line"><span class="string">"https://registry.docker-cn.com"</span></span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#之后重启服务</span></span><br><span class="line">$ sudo systemctl daemon-reload</span><br><span class="line">$ sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-<p>（b）对于使用upstart的系统（Ubuntu 14.04、Debian 7 Wheezy）而言，编辑/etc/default/docker文件，在其中的DOCKER_OPTS中添加获得的加速器配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DOCKER_OPTS=<span class="string">"--registry-mirror=https://registry.docker-cn.com"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#之后重新启动服务</span></span><br><span class="line">$ sudo service docker restart</span><br></pre></td></tr></table></figure>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">Docker — 从入门到实践</a></li>
 </ol>
@@ -1819,7 +1819,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
