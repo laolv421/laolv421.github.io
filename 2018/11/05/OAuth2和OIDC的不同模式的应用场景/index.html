@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OIDC,OAuth2," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="OAuth2的授权和OIDC的认证流程之前的文章，我们介绍了OAuth2的授权和OIDC的认证流程，OAuth2的授权有四个，先不包括扩展的授权：  授权码（Authorization Code） 隐式授权（Implicit Authorization） 密码凭据（resource owner password credentials） 客户端凭据模式（client credentials）  O">
+<meta name="keywords" content="OIDC,OAuth2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OAuth2和OIDC的不同模式的应用场景">
+<meta property="og:url" content="http://yoursite.com/2018/11/05/OAuth2和OIDC的不同模式的应用场景/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="OAuth2的授权和OIDC的认证流程之前的文章，我们介绍了OAuth2的授权和OIDC的认证流程，OAuth2的授权有四个，先不包括扩展的授权：  授权码（Authorization Code） 隐式授权（Implicit Authorization） 密码凭据（resource owner password credentials） 客户端凭据模式（client credentials）  O">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/oauth2_authorization_code_flow2.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/oauth2_implicit_flow2.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/oauth2_pass_grant2.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/oauth2_client_grant2.png">
+<meta property="og:image" content="http://yoursite.com/images/OIDC/OIDC_authorization_code2.png">
+<meta property="og:image" content="http://yoursite.com/images/OIDC/OIDC_implicit_flow2.png">
+<meta property="og:image" content="http://yoursite.com/images/OIDC/OIDC_flow_property.png">
+<meta property="og:image" content="http://yoursite.com/images/OIDC/OIDC_response_comp.png">
+<meta property="og:updated_time" content="2018-11-05T07:52:52.875Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OAuth2和OIDC的不同模式的应用场景">
+<meta name="twitter:description" content="OAuth2的授权和OIDC的认证流程之前的文章，我们介绍了OAuth2的授权和OIDC的认证流程，OAuth2的授权有四个，先不包括扩展的授权：  授权码（Authorization Code） 隐式授权（Implicit Authorization） 密码凭据（resource owner password credentials） 客户端凭据模式（client credentials）  O">
+<meta name="twitter:image" content="http://yoursite.com/images/OAuth2/oauth2_authorization_code_flow2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/05/OAuth2和OIDC的不同模式的应用场景/"/>
+
+
+
+
+
+  <title>OAuth2和OIDC的不同模式的应用场景 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/OAuth2和OIDC的不同模式的应用场景/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OAuth2和OIDC的不同模式的应用场景</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:52:52+08:00">
+                2018-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/05/OAuth2和OIDC的不同模式的应用场景/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/11/05/OAuth2和OIDC的不同模式的应用场景/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="OAuth2的授权和OIDC的认证流程"><a href="#OAuth2的授权和OIDC的认证流程" class="headerlink" title="OAuth2的授权和OIDC的认证流程"></a>OAuth2的授权和OIDC的认证流程</h1><p>之前的文章，我们介绍了OAuth2的授权和OIDC的认证流程，OAuth2的授权有四个，先不包括扩展的授权：</p>
+<ol>
+<li>授权码（Authorization Code）</li>
+<li>隐式授权（Implicit Authorization）</li>
+<li>密码凭据（resource owner password credentials）</li>
+<li>客户端凭据模式（client credentials）</li>
+</ol>
+<p>OIDC的认证流程有三个：</p>
+<ol>
+<li>Authorization code flow</li>
+<li>Implicit flow</li>
+<li>Hybrid flow</li>
+</ol>
+<p>这篇文章将准确探索何时应该使用这些，会包含一些实例，当然可能引入更多的问题，我们也会尽力地在这里解决。</p>
+<h1 id="客户端类型"><a href="#客户端类型" class="headerlink" title="客户端类型"></a>客户端类型</h1><p>谈到应用场景，首先先讨论一下客户端的类型，也就是OIDC中的relaying party，对于每种客户端类型，可以使用OAuth2中的那些授权和OIDC中的哪些认证流程。</p>
+<ol>
+<li><p>Web应用程序（Web Application）：拥有后端的Web应用，可以使用<strong>OAuth2 Authorization Code Grant</strong>(with Confidential Client), <strong>OIDC Authorization Code Flow</strong>(with Confidential Client)；</p>
+</li>
+<li><p>桌面本机应用程序（Desktop Native Application）：<strong>OAuth2 Authorization Code Grant</strong>(with Public Client and PKCE), <strong>OIDC Authorization Code Flow</strong>(with Public Client and PKCE)；</p>
+</li>
+<li><p>移动本机应用程序（Mobile Native Application）：<strong>OAuth2 Authorization Code Grant</strong>(with Public Client and PKCE), <strong>OIDC Authorization Code Flow</strong>(with Public Client and PKCE)；</p>
+</li>
+<li><p>SPA应用程序（Single Page Application App）：<strong>OAuth2 Implicit Grant</strong>, <strong>OIDC Implicit Flow</strong>(<strong>OAuth2 Authorization Code Grant</strong> or <strong>OIDC Authorization Code Flow</strong> with Public Client could be used, note commentary below)；</p>
+</li>
+<li><p>Javascript应用程序（Javascript application）：<strong>OAuth2 Implicit Grant</strong>, <strong>OIDC Implicit Flow</strong>(<strong>OAuth2 Authorization Code Grant</strong> or <strong>OIDC Authorization Code Flow</strong> with Public Client could be used, note commentary below)；</p>
+</li>
+</ol>
+<h1 id="OAuth2的授权"><a href="#OAuth2的授权" class="headerlink" title="OAuth2的授权"></a>OAuth2的授权</h1><h2 id="考虑的方面"><a href="#考虑的方面" class="headerlink" title="考虑的方面"></a>考虑的方面</h2><p>当考虑使用哪种OAuth2的授权流程时，需要考虑如下几个方面：</p>
+<ol>
+<li>公开客户端和机密客户端；</li>
+<li>自己可控的APP和第三方控制的APP；</li>
+<li>客户端类型：Web应用, 本机应用, User-Agent-based应用；</li>
+<li>用户身份；</li>
+</ol>
+<h2 id="Authorization-Code-Grant"><a href="#Authorization-Code-Grant" class="headerlink" title="Authorization Code Grant"></a>Authorization Code Grant</h2><p><img src="/images/OAuth2/oauth2_authorization_code_flow2.png" alt="oauth2_authorization_code_flow2"><br>这通常针对Web应用程序或具有可充当机密客户端的服务器端组件的其他系统（保持客户端机密安全）。End User和User agent看不到OAuth2访问令牌或OAuth2身份验证响应中可能包含的任何其他信息，并允许客户端和最终用户进行身份验证。<br><strong>Used By</strong><br>有能保持client secret机密的服务端的Web应用，有着公开客户端和PKCE的本机应用。</p>
+<h2 id="Implicit-Grant"><a href="#Implicit-Grant" class="headerlink" title="Implicit Grant"></a>Implicit Grant</h2><p><img src="/images/OAuth2/oauth2_implicit_flow2.png" alt="oauth2_implicit_flow2"><br>隐式授权的好处是只需要一次调用IdP，但是问题很明显，就是用户代理现在可以看到访问令牌；此授权也缺乏对客户端进行身份验证的能力，也没有刷新tokens的功能。<br><strong>Used By</strong><br>主要用于SPA单页应用程序，还有一些基于javascript和user-agent的应用。<br><strong>Additional Use</strong><br>在OAuth2的早期阶段，隐式授权倾向于被推荐用于本机应用程序，尤其是手机本机应用。但是现在，通常建议将授权代码授权（使用公共客户端和PKCE）与本机应用程序一起使用。</p>
+<h2 id="Resource-Owner-Password-Credential-Grant"><a href="#Resource-Owner-Password-Credential-Grant" class="headerlink" title="Resource Owner Password Credential Grant"></a>Resource Owner Password Credential Grant</h2><p><img src="/images/OAuth2/oauth2_pass_grant2.png" alt="oauth2_pass_grant2"><br>与隐式授权一样，此授权也具有仅对授权服务器进行一次调用的好处，它允许一个无法与交互式登录集成的应用程序（例如您使用隐式授权和授权授予的时候）。这使得授权服务器在可以与其交互的客户端类型方面具有很大的灵活性，但它还提供了绕过标准化登录工作流机制的机制，该机制可以强制执行诸如双因素身份验证，强制密码重置和类似的理想身份功能之类的操作。</p>
+<p>从集中式身份堆栈的角度来看，绕过这些功能会适得其反并且不合需要;即使身份和访问管理功能不是集中的，这在企业中通常仍然是不受欢迎的。此授权授权支持刷新令牌。<br><strong>Used By</strong><br>任何有权访问最终用户凭据的客户端，处理自己的登录工作流程都可以执行这种授权方式。<br><strong>Additional Uses</strong><br>建议将此授权与您自己的本机应用程序一起使用，因为可以确保对源代码的完全访问和控制，在大型组织中，这可能不是一个可行的方案。</p>
+<h2 id="Client-Credential-Grant"><a href="#Client-Credential-Grant" class="headerlink" title="Client Credential Grant"></a>Client Credential Grant</h2><p><img src="/images/OAuth2/oauth2_client_grant2.png" alt="oauth2_client_grant2"><br>此授权与OAuth2规范定义的其他授权不同，它仅提供对应用程序（或系统）的身份验证，而不是最终用户。刷新令牌不应与此授权一起使用，但OAuth2规范未明确禁止使用。</p>
+<p><strong>Use By</strong><br>任何可以使客户机密保密的东西，不需要最终用户身份验证，并且需要访问第三方资源适用此授权。</p>
+<h1 id="OIDC的认证"><a href="#OIDC的认证" class="headerlink" title="OIDC的认证"></a>OIDC的认证</h1><p>OIDC认证流程主要有三种，Authorization code flow、Implicit flow和Hybrid flow，下面是三种流程的一些特点比较。</p>
+<h2 id="Authorization-Code-Flow"><a href="#Authorization-Code-Flow" class="headerlink" title="Authorization Code Flow"></a>Authorization Code Flow</h2><p><img src="/images/OIDC/OIDC_authorization_code2.png" alt="ODIC_authorization_code2"></p>
+<p><strong>Used By</strong><br>有能保持client secret机密的服务端的Web应用，有着公开客户端和PKCE的本机应用。</p>
+<h2 id="Implicit-Flow"><a href="#Implicit-Flow" class="headerlink" title="Implicit Flow"></a>Implicit Flow</h2><p><img src="/images/OIDC/OIDC_implicit_flow2.png" alt="ODIC_implicit_flow2"></p>
+<p><strong>Used By</strong><br>以上关于OAuth2隐式授权的所有场景都适用于此处。</p>
+<h2 id="Hybrid-Flow"><a href="#Hybrid-Flow" class="headerlink" title="Hybrid Flow"></a>Hybrid Flow</h2><p><strong>Used By</strong></p>
+<ol>
+<li>前端和后端需要一个单独的令牌；</li>
+<li>具有带宽限制，可以对OP进行单次调用，但仍需要比隐式认证中更多的OIDC功能；</li>
+</ol>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>三种流程的特点：<br><img src="/images/OIDC/OIDC_flow_property.png" alt="OIDC flow property"><br>三种流程的返回比较：<br><img src="/images/OIDC/OIDC_response_comp.png" alt="OIDC response comp"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://medium.com/@darutk/diagrams-of-all-the-openid-connect-flows-6968e3990660" target="_blank" rel="noopener">Diagrams of All The OpenID Connect Flows</a></li>
+<li><a href="https://medium.com/@robert.broeckelmann/when-to-use-which-oauth2-grants-and-oidc-flows-ec6a5c00d864" target="_blank" rel="noopener">When To Use Which (OAuth2) Grants and (OIDC) Flows</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OIDC/" rel="tag"># OIDC</a>
+          
+            <a href="/tags/OAuth2/" rel="tag"># OAuth2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/05/OAuth2协议基础/" rel="next" title="OAuth2协议基础">
+                <i class="fa fa-chevron-left"></i> OAuth2协议基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/05/OpenID-Connect协议基础/" rel="prev" title="OpenID Connect协议基础">
+                OpenID Connect协议基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OAuth2的授权和OIDC的认证流程"><span class="nav-number">1.</span> <span class="nav-text">OAuth2的授权和OIDC的认证流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端类型"><span class="nav-number">2.</span> <span class="nav-text">客户端类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAuth2的授权"><span class="nav-number">3.</span> <span class="nav-text">OAuth2的授权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#考虑的方面"><span class="nav-number">3.1.</span> <span class="nav-text">考虑的方面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authorization-Code-Grant"><span class="nav-number">3.2.</span> <span class="nav-text">Authorization Code Grant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implicit-Grant"><span class="nav-number">3.3.</span> <span class="nav-text">Implicit Grant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Resource-Owner-Password-Credential-Grant"><span class="nav-number">3.4.</span> <span class="nav-text">Resource Owner Password Credential Grant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-Credential-Grant"><span class="nav-number">3.5.</span> <span class="nav-text">Client Credential Grant</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OIDC的认证"><span class="nav-number">4.</span> <span class="nav-text">OIDC的认证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Authorization-Code-Flow"><span class="nav-number">4.1.</span> <span class="nav-text">Authorization Code Flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implicit-Flow"><span class="nav-number">4.2.</span> <span class="nav-text">Implicit Flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hybrid-Flow"><span class="nav-number">4.3.</span> <span class="nav-text">Hybrid Flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较"><span class="nav-number">4.4.</span> <span class="nav-text">比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

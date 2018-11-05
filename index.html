@@ -1,894 +1,2048 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
-    <title>
-        
-        小黄驴的窝
-        
-    </title>
-    <link rel="icon" href= /assets/favicon.ico>
-    <!-- TODO: 在font-face加载完毕后改变字体  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
-    <!-- 提前加载place holder  -->
-    <style type="text/css">
-        @font-face {
-            font-family: 'Oswald-Regular';
-            src: url(/font/Oswald-Regular.ttf);
-        }
-    </style>
-    <style type="text/css">
-        .site-intro {
-            position: relative;
-            width: 100%;
-            height: 50vh;
-            overflow: hidden;
-            box-shadow: -0.1rem 0 0.5rem 0 rgba(0, 0, 0, 0.5);
-        }
-        .site-intro-placeholder {
-            position: absolute;
-            z-index: -2;
-            top: 0;
-            left: 0px;
-            width: calc(100% + 300px);
-            height: 100%;
-            background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
-            background-position: center center;
-            transform: translate3d(-226px, 0, 0);
-            animation: gradient-move 2.5s ease-out 0s 1;
-        }
-        @keyframes gradient-move {
-        0% {
-            transform: translate3d(-226px, 0, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-        }
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="信息安全的小搬运工">
+<meta property="og:type" content="website">
+<meta property="og:title" content="小黄驴的窝">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="信息安全的小搬运工">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小黄驴的窝">
+<meta name="twitter:description" content="信息安全的小搬运工">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
-</style>
-    <link rel="stylesheet" href = /css/style.css?v=20171227 />
-    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
-    
-    <script src="/scripts/main.js" defer></script>
-    <!-- 百度统计  -->
-    
-    <!-- 谷歌统计  -->
-    
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/"/>
+
+
+
+
+
+  <title>小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
 </head>
 
-    
-        <body class="home-body">
-    
-    
-<header class="header index-header">
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
 
-    <div class="read-progress"></div>
-    <div class="header-sidebar-menu">&#xe775;</div>
-    <!-- post页的toggle banner  -->
+  
+  
     
-    <a class="home-link" href=/>小黄驴的窝</a>
-</header>
-    <div class="wrapper">
-        <div class="site-intro">
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
     
-    <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
-            
-    <div class="site-intro-img" style="background-image: url(http://oumn0o088.bkt.clouddn.com/intro-desktop.jpg)"></div>
-    <div class="site-intro-placeholder"></div>
-    <div class="site-intro-meta">
-        <!-- 标题  -->
-        <h1 class="intro-title">
-            <!-- 主页  -->
-            
-            小黄驴的窝
-            <!-- 文章页  -->
-            
-        </h1>
-        <!-- 副标题 -->
-        <p class="intro-subtitle">
-            <!-- 主页副标题  -->
-            
-            
-                it's better to burn out than to fade away
-            
-            <!-- 文章页  -->
-            
-        </p>
-        <!-- 文章页meta -->
-        
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
-</div>
-        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
-        <script>
-            var browser = {
-                    versions: function () {
-                        var u = window.navigator.userAgent;
-                        return {
-                            userAgent: u,
-                            trident: u.indexOf('Trident') > -1, //IE内核
-                            presto: u.indexOf('Presto') > -1, //opera内核
-                            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-                            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-                            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-                            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-                            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-                            iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
-                            iPad: u.indexOf('iPad') > -1, //是否为iPad
-                            webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
-                            weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
-                            uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
-                        };
-                    }()
-                }
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
 
-            function fontLoaded(){
-                console.log('font loaded');
-                if (document.getElementsByClassName('site-intro-meta')) {
-                    document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
-                    document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
-                    var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
-                        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
-                        if (postIntroTags) {
-                            postIntroTags.classList.add('post-fade-in');
-                        }
-                        if (postIntroMeat) {
-                            postIntroMeat.classList.add('post-fade-in');
-                        }
-                    }
-                }
-                
-            console.log("userAgent:" + browser.versions.userAgent);
-            // UC不支持跨域，所以直接显示
-            if (browser.versions.uc) {
-                console.log("UCBrowser");
-                fontLoaded();
-            } else {
-                WebFont.load({
-                    custom: {
-                        families: ['Oswald-Regular']
-                    },
-                    loading: function () {  //所有字体开始加载
-                        // console.log('loading');
-                    },
-                    active: function () {  //所有字体已渲染
-                        fontLoaded();
-                    },
-                    inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
-                        console.log('inactive: timeout');
-                        fontLoaded();
-                    },
-                    timeout: 7000 // Set the timeout to two seconds
-                });
-            }
-        </script>
-        <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/08/21/linux/LVM/" >
-                
-                    <span>LVM的简单命令总结</span>
-            </a>
-            <a class="content-show-full" href = "/2018/08/21/linux/LVM/" >
-                <div class="abstract-content">
-                    LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。
-LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：剩下两张图为细节上的体现：
-LVM命令1.分区：fdisk命令1$ fdisk /dev/sda
-2.创建physical volume1$ pvcreate /dev/sda2
-3.扩容volume group(vg名字假设为cl)1$ vgex...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/08/21</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/02/13/web security model/" >
-                
-                    <span>[Untitled Post]</span>
-            </a>
-            <a class="content-show-full" href = "/2018/02/13/web security model/" >
-                <div class="abstract-content">
-                    MIT OpencourseWare笔记:orgin（同源）: network protocol scheme + hostname + port（1）each orgin has clien side resources (cookie、DOM storage、javascript namespace、DOM tree、 visual display area…)（2）each frame gets the orgin of its URL (3)script execute the authority of its frame’s orgin (4) passive content ...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/02/13</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/29/maven/maven问题修复/" >
-                
-                    <span>Maven中出现的问题总结</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/29/maven/maven问题修复/" >
-                <div class="abstract-content">
-                    maven中出现的问题总结问题1：如何使用maven指令执行 java main？一种比较直接的解决方式，直接找到classes路径下，使用java指令：
-1$ java -cp target/classes org.ts.App
-这样比较麻烦，下面的方法可以直接使用maven命令来执行：
-（1）命令行运行：
-123456# Without arguments:$ mvn exec:java -Dexec.mainClass="com.vineetmanohar.module.Main" # With arguments:$ mvn exec:java -Dexec.mainClass=...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = maven>maven</a>
-    
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/29</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/27/Docker实践/Docker实践(二) /" >
-                
-                    <span>Docker实践（二）</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/27/Docker实践/Docker实践(二) /" >
-                <div class="abstract-content">
-                    使用Docker镜像本文主要参考Docker — 从入门到实践的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。
-获取镜像Docker中有大量的镜像可以使用，在Docker Hub中，如下图所示；
 
-选择redis的detail，有比较详细的说明；
+<nav class="site-nav">
+  
 
-从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为：
-1$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]
-具体的选项可以通过docker pull –help命令看到，这里我们说一下镜像名称的格式。（a）Docker 镜像仓库地址：地址的格...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = docker>docker</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/27</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/27/Docker实践/Docker实践(一)/" >
-                
-                    <span>Docker实践(一)</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/27/Docker实践/Docker实践(一)/" >
-                <div class="abstract-content">
-                    Docker安装笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看《Docker — 从入门到实践》，这里面非常详细地介绍了各个主要系统的安装。
-1. 卸载旧版本旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：1$ sudo apt-get remove docker docker-engine docker.io
-2. 安装内核模块从Ubuntu 14.04开始，一部分内核模块移到了可选内核模块包 ( linux-image-extra-* ) ，以减少内核...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = docker>docker</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/27</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/26/ubuntu问题修复/" >
-                
-                    <span>Ubuntu问题修复总结</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/26/ubuntu问题修复/" >
-                <div class="abstract-content">
-                    Unable to lock the administration directory(var/lib/dpkg/) is another process using it 的办法问题描述在 Ubuntu 或者它的衍生版如 Linux Mint（我已经作为日常工作使用的系统）中使用 apt-get 命令或者其相对更新的APT 管理工具时，你可能会在命令行中看到一个 unable to lock the administration directory (/var/lib/dpkg/) is another process using it 的错误。
-解决办法（1）找出并杀掉所有 apt-...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = linux/命令>linux/命令</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/26</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/24/共识算法（Consensus Protocol）/" >
-                
-                    <span>共识算法（Consensus Protocol）</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/24/共识算法（Consensus Protocol）/" >
-                <div class="abstract-content">
-                    共识算法CAP原理CAP 原理最早由 Eric Brewer 在 2000 年，ACM 组织的一个研讨会上提出猜想，后来 Lynch等人进行了证明。该原理被认为是分布式系统领域的重要原理。
-分布式计算系统不可能同时确保一致性（Consistency）、可用性（Availablity）和分区容忍性（Partition），设计中往往需要弱化对某个特性的保证。（1）一致性（Consistency）：任何操作应该都是原子的，发生在后面的事件能看到前面事件发生导致的结果，注意这里指的是强一致性；
-（2）可用性（Availablity）：在有限时间内，任何非失败节点都能应答请求；
-（3）分区容忍性（...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = 分布式/算法>分布式/算法</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/24</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/20/区块链一些概念/" >
-                
-                    <span>区块链的一些概念</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/20/区块链一些概念/" >
-                <div class="abstract-content">
-                    一些概念智能合约智能合约程序不只是一个可以自动执行的计算机程序：它自己就是一个系统参与者。它对接收到的信息进行回应，它可以接收和储存价值，也可以向外发送信息和价值。这个程序就像一个可以被信任的人，可以临时保管资产，总是按照事先的规则执行操作。下面这个示意图就是一个智能合约模型：一段代码（智能合约），被部署在分享的、复制的账本上，它可以维持自己的状态，控制自己的资产和对接收到的外界信息或者资产进行回应。
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
 
-智能合约模型：它是运行在可复制、共享的账本上的计算机程序，可以处理信息，接收、储存和发送价值。
-Proof of Work（PoW）比特币的这种基于算力的共识机制被称为 Proof of...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = 区块链>区块链</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/20</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/20/apt-get常用命令/" >
-                
-                    <span>apt-get的常用命令</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/20/apt-get常用命令/" >
-                <div class="abstract-content">
-                    因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。
-正片开始apt-get是什么？apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一个下载安装软件包的简单命令行接口，一般需要root权限执行，所以一般跟着sudo命令。使用apt-get命令的第一步就是引入必需的软件库，Debian的软件库也就是所有Debian软件包的集合，...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = linux/命令>linux/命令</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/20</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/20/hello-world/" >
-                
-                    <span>Hello World</span>
-            </a>
-            <a class="content-show-full" href = "/2018/01/20/hello-world/" >
-                <div class="abstract-content">
-                    Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-More info: Writing
-Run server1$ hexo server
-More...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/20</span>
-                </div>
-            </div>
-        </article>
-    
-    <!-- paginator  -->
-    
-</main>
-            <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" src= /avatar/jinmuyan.jpeg >
-    <div class="profile-name">小黄驴</div>
-    
-    <div class="profile-signature">
-        witness me
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:15*******66@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="https://github.com/laolv421/laolv421.github.io" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-            
-                <a href="https://www.zhihu.com/people/lu-zi-jian-45-42/following/columns" class="iconfont-archer zhihu" target="_blank" title="zhihu"></a>
-            
-        
-    
+      
+    </ul>
+  
 
-    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/OpenID-Connect协议基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
     
-    
-        <div class="about-me">
-            <div>
-                <a href = "/about" >ABOUT ME</a>
-            </div>
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/05/OpenID-Connect协议基础/" itemprop="url">OpenID Connect协议基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:53:24+08:00">
+                2018-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
-    
-</div>
-            
-        </div>
-        <footer class="footer footer-unloaded">
-    <!-- social  -->
-    
-    <div class="social">
-        
-    
-        
-            
-                <a href="mailto:15*******66@qq.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="https://github.com/laolv421/laolv421.github.io" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-            
-                <a href="https://www.zhihu.com/people/lu-zi-jian-45-42/following/columns" class="iconfont-archer zhihu" target="_blank" title="zhihu"></a>
-            
-        
+      </header>
     
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="OpenID协议"><a href="#OpenID协议" class="headerlink" title="OpenID协议"></a>OpenID协议</h1><p>OpenID协议是一个去中心化的网上身份认证系统。对于支持OpenID的网站，用户不需要记住像用户名和密码这样的传统验证标记。取而代之的是，他们只需要预先在一个作为OpenID身份提供者（identity provider, IdP）的网站上注册。OpenID是去中心化的，任何网站都可以使用OpenID来作为用户登录的一种方式，任何网站也都可以作为OpenID身份提供者。OpenID既解决了问题而又不需要依赖于中心性的网站来确认数字身份，但是目前OpenID协议已经过时，只有很少的网站支持OpenID，前段时间OpenID的重要支持者stackoverflow也宣布不再支持OpenID登录。下图是stackoverflow支持OpenID认证的截图：<br><img src="/images/OpenID/openid_signin.png" width="600/"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/05/OpenID-Connect协议基础/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
     </div>
     
-    <!-- powered by Hexo  -->
-    <div class="copyright">
-        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">Theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">archer</a></span>
-    </div>
-    <!-- 不蒜子  -->
     
-    <div class="busuanzi-container">
-        <span id="busuanzi_container_site_pv">VISITOR VOLUME: <span id="busuanzi_value_site_pv"></span>
-        </span>
-    </div>
     
-</footer>
-    </div>
-    <!-- toc -->
+
     
-    <div class="back-top">&#xe639;</div>
-    <div class="sidebar">
-    <div class="sidebar-header sidebar-header-show-archive">
-        <div class="sidebar-category">
-            <span class="sidebar-archive-link"><span class="iconfont-archer">&#xe67d;</span>Archive</span>
-            <span class="sidebar-tags-link"><span class="iconfont-archer">&#xe610;</span>Tag</span>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/OAuth2和OIDC的不同模式的应用场景/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/05/OAuth2和OIDC的不同模式的应用场景/" itemprop="url">OAuth2和OIDC的不同模式的应用场景</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:52:52+08:00">
+                2018-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="OAuth2的授权和OIDC的认证流程"><a href="#OAuth2的授权和OIDC的认证流程" class="headerlink" title="OAuth2的授权和OIDC的认证流程"></a>OAuth2的授权和OIDC的认证流程</h1><p>之前的文章，我们介绍了OAuth2的授权和OIDC的认证流程，OAuth2的授权有四个，先不包括扩展的授权：</p>
+<ol>
+<li>授权码（Authorization Code）</li>
+<li>隐式授权（Implicit Authorization）</li>
+<li>密码凭据（resource owner password credentials）</li>
+<li>客户端凭据模式（client credentials）</li>
+</ol>
+<p>OIDC的认证流程有三个：</p>
+<ol>
+<li>Authorization code flow</li>
+<li>Implicit flow</li>
+<li>Hybrid flow</li>
+</ol>
+<p>这篇文章将准确探索何时应该使用这些，会包含一些实例，当然可能引入更多的问题，我们也会尽力地在这里解决。</p>
+<h1 id="客户端类型"><a href="#客户端类型" class="headerlink" title="客户端类型"></a>客户端类型</h1><p>谈到应用场景，首先先讨论一下客户端的类型，也就是OIDC中的relaying party，对于每种客户端类型，可以使用OAuth2中的那些授权和OIDC中的哪些认证流程。</p>
+<ol>
+<li><p>Web应用程序（Web Application）：拥有后端的Web应用，可以使用<strong>OAuth2 Authorization Code Grant</strong>(with Confidential Client), <strong>OIDC Authorization Code Flow</strong>(with Confidential Client)；</p>
+</li>
+<li><p>桌面本机应用程序（Desktop Native Application）：<strong>OAuth2 Authorization Code Grant</strong>(with Public Client and PKCE), <strong>OIDC Authorization Code Flow</strong>(with Public Client and PKCE)；</p>
+</li>
+<li><p>移动本机应用程序（Mobile Native Application）：<strong>OAuth2 Authorization Code Grant</strong>(with Public Client and PKCE), <strong>OIDC Authorization Code Flow</strong>(with Public Client and PKCE)；</p>
+</li>
+<li><p>SPA应用程序（Single Page Application App）：<strong>OAuth2 Implicit Grant</strong>, <strong>OIDC Implicit Flow</strong>(<strong>OAuth2 Authorization Code Grant</strong> or <strong>OIDC Authorization Code Flow</strong> with Public Client could be used, note commentary below)；</p>
+</li>
+<li><p>Javascript应用程序（Javascript application）：<strong>OAuth2 Implicit Grant</strong>, <strong>OIDC Implicit Flow</strong>(<strong>OAuth2 Authorization Code Grant</strong> or <strong>OIDC Authorization Code Flow</strong> with Public Client could be used, note commentary below)；</p>
+</li>
+</ol>
+<h1 id="OAuth2的授权"><a href="#OAuth2的授权" class="headerlink" title="OAuth2的授权"></a>OAuth2的授权</h1><h2 id="考虑的方面"><a href="#考虑的方面" class="headerlink" title="考虑的方面"></a>考虑的方面</h2><p>当考虑使用哪种OAuth2的授权流程时，需要考虑如下几个方面：</p>
+<ol>
+<li>公开客户端和机密客户端；</li>
+<li>自己可控的APP和第三方控制的APP；</li>
+<li>客户端类型：Web应用, 本机应用, User-Agent-based应用；</li>
+<li>用户身份；</li>
+</ol>
+<h2 id="Authorization-Code-Grant"><a href="#Authorization-Code-Grant" class="headerlink" title="Authorization Code Grant"></a>Authorization Code Grant</h2><p><img src="/images/OAuth2/oauth2_authorization_code_flow2.png" alt="oauth2_authorization_code_flow2"><br>这通常针对Web应用程序或具有可充当机密客户端的服务器端组件的其他系统（保持客户端机密安全）。End User和User agent看不到OAuth2访问令牌或OAuth2身份验证响应中可能包含的任何其他信息，并允许客户端和最终用户进行身份验证。<br><strong>Used By</strong><br>有能保持client secret机密的服务端的Web应用，有着公开客户端和PKCE的本机应用。</p>
+<h2 id="Implicit-Grant"><a href="#Implicit-Grant" class="headerlink" title="Implicit Grant"></a>Implicit Grant</h2><p><img src="/images/OAuth2/oauth2_implicit_flow2.png" alt="oauth2_implicit_flow2"><br>隐式授权的好处是只需要一次调用IdP，但是问题很明显，就是用户代理现在可以看到访问令牌；此授权也缺乏对客户端进行身份验证的能力，也没有刷新tokens的功能。<br><strong>Used By</strong><br>主要用于SPA单页应用程序，还有一些基于javascript和user-agent的应用。<br><strong>Additional Use</strong><br>在OAuth2的早期阶段，隐式授权倾向于被推荐用于本机应用程序，尤其是手机本机应用。但是现在，通常建议将授权代码授权（使用公共客户端和PKCE）与本机应用程序一起使用。</p>
+<h2 id="Resource-Owner-Password-Credential-Grant"><a href="#Resource-Owner-Password-Credential-Grant" class="headerlink" title="Resource Owner Password Credential Grant"></a>Resource Owner Password Credential Grant</h2><p><img src="/images/OAuth2/oauth2_pass_grant2.png" alt="oauth2_pass_grant2"><br>与隐式授权一样，此授权也具有仅对授权服务器进行一次调用的好处，它允许一个无法与交互式登录集成的应用程序（例如您使用隐式授权和授权授予的时候）。这使得授权服务器在可以与其交互的客户端类型方面具有很大的灵活性，但它还提供了绕过标准化登录工作流机制的机制，该机制可以强制执行诸如双因素身份验证，强制密码重置和类似的理想身份功能之类的操作。</p>
+<p>从集中式身份堆栈的角度来看，绕过这些功能会适得其反并且不合需要;即使身份和访问管理功能不是集中的，这在企业中通常仍然是不受欢迎的。此授权授权支持刷新令牌。<br><strong>Used By</strong><br>任何有权访问最终用户凭据的客户端，处理自己的登录工作流程都可以执行这种授权方式。<br><strong>Additional Uses</strong><br>建议将此授权与您自己的本机应用程序一起使用，因为可以确保对源代码的完全访问和控制，在大型组织中，这可能不是一个可行的方案。</p>
+<h2 id="Client-Credential-Grant"><a href="#Client-Credential-Grant" class="headerlink" title="Client Credential Grant"></a>Client Credential Grant</h2><p><img src="/images/OAuth2/oauth2_client_grant2.png" alt="oauth2_client_grant2"><br>此授权与OAuth2规范定义的其他授权不同，它仅提供对应用程序（或系统）的身份验证，而不是最终用户。刷新令牌不应与此授权一起使用，但OAuth2规范未明确禁止使用。</p>
+<p><strong>Use By</strong><br>任何可以使客户机密保密的东西，不需要最终用户身份验证，并且需要访问第三方资源适用此授权。</p>
+<h1 id="OIDC的认证"><a href="#OIDC的认证" class="headerlink" title="OIDC的认证"></a>OIDC的认证</h1><p>OIDC认证流程主要有三种，Authorization code flow、Implicit flow和Hybrid flow，下面是三种流程的一些特点比较。</p>
+<h2 id="Authorization-Code-Flow"><a href="#Authorization-Code-Flow" class="headerlink" title="Authorization Code Flow"></a>Authorization Code Flow</h2><p><img src="/images/OIDC/OIDC_authorization_code2.png" alt="ODIC_authorization_code2"></p>
+<p><strong>Used By</strong><br>有能保持client secret机密的服务端的Web应用，有着公开客户端和PKCE的本机应用。</p>
+<h2 id="Implicit-Flow"><a href="#Implicit-Flow" class="headerlink" title="Implicit Flow"></a>Implicit Flow</h2><p><img src="/images/OIDC/OIDC_implicit_flow2.png" alt="ODIC_implicit_flow2"></p>
+<p><strong>Used By</strong><br>以上关于OAuth2隐式授权的所有场景都适用于此处。</p>
+<h2 id="Hybrid-Flow"><a href="#Hybrid-Flow" class="headerlink" title="Hybrid Flow"></a>Hybrid Flow</h2><p><strong>Used By</strong></p>
+<ol>
+<li>前端和后端需要一个单独的令牌；</li>
+<li>具有带宽限制，可以对OP进行单次调用，但仍需要比隐式认证中更多的OIDC功能；</li>
+</ol>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>三种流程的特点：<br><img src="/images/OIDC/OIDC_flow_property.png" alt="OIDC flow property"><br>三种流程的返回比较：<br><img src="/images/OIDC/OIDC_response_comp.png" alt="OIDC response comp"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://medium.com/@darutk/diagrams-of-all-the-openid-connect-flows-6968e3990660" target="_blank" rel="noopener">Diagrams of All The OpenID Connect Flows</a></li>
+<li><a href="https://medium.com/@robert.broeckelmann/when-to-use-which-oauth2-grants-and-oidc-flows-ec6a5c00d864" target="_blank" rel="noopener">When To Use Which (OAuth2) Grants and (OIDC) Flows</a></li>
+</ol>
+
+          
+        
+      
     </div>
-    <div class="sidebar-content sidebar-content-show-archive">
-          <div class="sidebar-archive">
-    <!-- 在ejs中将archive按照时间排序 -->
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="total-archive"> Total : 10 </div>
-    
-    <div class="post-archive">
-    
-    
-    
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/08/21/linux/LVM/" >LVM的简单命令总结</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/29/maven/maven问题修复/" >Maven中出现的问题总结</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(二) /" >Docker实践（二）</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/27/Docker实践/Docker实践(一)/" >Docker实践(一)</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/24/共识算法（Consensus Protocol）/" >共识算法（Consensus Protocol）</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/20/区块链一些概念/" >区块链的一些概念</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href= "/2018/01/26/ubuntu问题修复/" >Ubuntu问题修复总结</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2018 </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/2018/02/13/web security model/" >[Untitled Post]</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/apt-get常用命令/" >apt-get的常用命令</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/20</span><a class="archive-post-title" href= "/2018/01/20/hello-world/" >Hello World</a>
-        </li>
-    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/OAuth2协议基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/05/OAuth2协议基础/" itemprop="url">OAuth2协议基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:49:58+08:00">
+                2018-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>传统的客户端-服务器认证模型大致为：客户端想要访问服务器的受限（access-restricted）资源的话，服务器需要“资源所有人”的凭证来进行认证。为了让第三方应用访问服务器的受限资源，需要机制来共享“资源所有人”的凭证，但是这样会产生如下的风险：</p>
+<ol>
+<li>第三方应用需要存储“资源所有人”的凭证，通常需要密码；</li>
+<li>尽管密码认证本身存在安全问题，服务器还是要支持密码认证；</li>
+<li>因为没有缺乏一些细粒度的访问控制，导致第三方应用可以随意访问任意的资源；</li>
+<li>“资源所有人”无法取消第三方应用的访问权限；</li>
+<li>因为密码保存在第三方应用，极易出现数据泄露的情况；</li>
+</ol>
+<p>The OAuth 2.0 Authorization Framework定义在<a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener">rfc6749</a>中，它主要解决了第三方客户端授权方面的问题，比如可以控制访问范围、访问时间长度，并且可以访问进行撤销等等。</p>
+<p>我们可以这样想象，某人开发了一个网站博客，用户必须注册网站才能进行留言，出此之外他开放了一个接口，通过登陆github认证服务器（假设人人都有github账号）就可以留言了。那么为了在他的网站有github账号接口，就需要先去github中注册一个app，给出开发的网址、需要用户哪些权限等等；注册好之后用户就可以通过github账号来留言回复了。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/05/OAuth2协议基础/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/vault详解（六）审计和应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/29/vault详解（六）审计和应用/" itemprop="url">vault详解（六）审计和应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-29T15:43:01+08:00">
+                2018-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="审计"><a href="#审计" class="headerlink" title="审计"></a>审计</h1><p>审计是组成vault的一部分，它保留了详尽的请求和相应日志，因为每个操作都是一个API request/response，审计日志包含每个vault的认证，包括错误信息。多种审计设备可以启用，包括File、Syslog和Socket。</p>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><p>审计日志每一行是一个JSON对象，结构包括：<br>（1）type：说明这个对象是什么，request或者response；<br>（2）敏感信息会提前HMAC-SHA256处理，也可以对hash值进行验证，盐值保存在/sys/audit-hash中；<br>（3）其他信息</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/29/vault详解（六）审计和应用/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/vault详解（五）Storage-Backends/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/vault详解（五）Storage-Backends/" itemprop="url">vault详解（五）Storage Backends</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T16:28:59+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Vault主要用于生产环境以管理机密。因此，Vault服务的任何停机时间都会影响下游客户端。Vault旨在支持高可用性部署，以确保机器或流程故障的破坏性极小。</p>
+<p>Storage Backends是数据真正落盘的地方（注：到达 Storage Backend 时，数据都已经处于加密状态了，安全并不依赖于Storage backend，实际上它是untrusted的），需要在服务启动时在配置里面指定；这类backend同样有很多种，例如：<br>（1）inmem 存放在内存中（dev 模式下即是使用 inmen backend 的，一旦重启，数据就丢失了）；</p>
+<p>（2）file直接存放在本地文件里；</p>
+<p>（3）mysql存放在MySQL数据库里；</p>
+<p>（4）consul/etcd 存放在 Key-Value 集群中（高可用）；</p>
+<p>官方支持的存储引擎包括如下，更多请看<a href="https://www.vaultproject.io/docs/configuration/storage/index.html" target="_blank" rel="noopener">官方文档</a>：<br><img src="/img/kms/vault_mem.png" alt="vault的架构"></p>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>Mysql支持HA高可用性。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>（1）一般参数有<strong>address</strong>：MYSQL主机ip；<strong>database</strong>：数据库名称；<strong>table</strong>：表名称；<strong>tls_ca_file</strong>：证书路径；<strong>max_parallel</strong>：最大并发数；</p>
+<p>（2）认证参数有<strong>username</strong>：用户名；<strong>password</strong>：用户密码；</p>
+<p>（3）HA参数有<strong>ha_enabled</strong>：true或者false；<strong>locak_table</strong>：指定存储高可用信息的表，默认这些表以_lock作为后缀的，如果不存在，vault会自动创建；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">storage <span class="string">"mysql"</span> &#123;</span><br><span class="line">  database = <span class="string">"my-vault"</span></span><br><span class="line">  table    = <span class="string">"vault-data"</span></span><br><span class="line">  username = <span class="string">"user1234"</span></span><br><span class="line">  password = <span class="string">"pass5678"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><h2 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h2><p>Zookeeper支持HA高可用性。</p>
+<h2 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h2><p>（1）一般参数<strong>address</strong>：Zookeeper集群的ip，用逗号隔开；<strong>path</strong>：数据要在zookeeper中存储的路径；</p>
+<p>（2）zNode ACL配置参数：<br><strong>auth_info</strong>：使用Zookeeper AddAuth格式的认证信息字符串，例如某个认证机制：digest:UserName:Password为认证信息字符串；<br><strong>znode_owner</strong>：格式为schema:user-ACL-match，设置访问控制列表，具体查看<a href="https://www.vaultproject.io/docs/configuration/storage/zookeeper.html#znode_owner" target="_blank" rel="noopener">官方文档</a>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Access for user "UserName" with corresponding digest "HIDfRvTv623G=="</span></span><br><span class="line">digest:UserName:HIDfRvTv623G==</span><br><span class="line"></span><br><span class="line"><span class="comment"># Access from any host on the 70.95.0.0 network (Zookeeper 3.5+)</span></span><br><span class="line">ip:70.95.0.0/16</span><br></pre></td></tr></table></figure></p>
+<p>TLS相关参数包括<strong>auth_info</strong>：是否激活TLS（false或者true）；<strong>tls_ca_file</strong>：用于zookeeper的证书的路径；<strong>tls_cert_file</strong>：为zookeeper通信指定客户端证书；<strong>tls_key_file</strong>：为zookeeper通信指定私钥路径；<strong>tls_min_version</strong>：接受的参数为tls10、tls11或者tls12；还有<strong>tls_skip_verify</strong>和<strong>tls_verify_ip</strong>参数。</p>
+<h1 id="Consul"><a href="#Consul" class="headerlink" title="Consul"></a>Consul</h1><h2 id="特点-2"><a href="#特点-2" class="headerlink" title="特点"></a>特点</h2><p>Consul存储后端支持HA高可用性。</p>
+<h2 id="参数-2"><a href="#参数-2" class="headerlink" title="参数"></a>参数</h2><p>（1）一般参数包括<strong>address</strong>：指定consul的地址，建议是local consul agent的地址，不要直接填consul服务器的地址；<strong>path</strong>：vault数据在consul中存储位置；<strong>scheme</strong>：vault和consul通信使用的协议，http或者https；<strong>service</strong>：指定在consul中注册的服务名称，例如“vault”；<strong>session_ttl</strong>：指定最小的session TTL；<strong>lock_wait_time</strong>：lock等待时间；</p>
+<p>（2）集群参数包括<strong>check_timeout</strong>：指定发送health check的间隔时间；<strong>consistency_mode</strong>：一致性模式，default或者strong；<strong>disable_registration</strong>：指定是否要用consul来注册vault；<strong>max_parallel</strong>：consul的并发数；<strong>service_address</strong>：consul中的服务注册指定一个服务器规定的地址；<strong>token</strong>：指定Consul ACL token读和写的权限</p>
+<p>（3）TLS相关参数包括<strong>tls_ca_file</strong>、<strong>tls_cert_file</strong>、<strong>tls_key_file</strong>、<strong>tls_min_version</strong>、<strong>tls_skip_verify</strong>。</p>
+<h1 id="Filesystem"><a href="#Filesystem" class="headerlink" title="Filesystem"></a>Filesystem</h1><h2 id="特点-3"><a href="#特点-3" class="headerlink" title="特点"></a>特点</h2><p>文件系统可以作为vault的存储后端，但是文件系统不具备HA高可用性的特点。</p>
+<h2 id="参数-3"><a href="#参数-3" class="headerlink" title="参数"></a>参数</h2><p><strong>path</strong>：必选参数，指定数据将要存储的路径；</p>
+<p>例子如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">storage <span class="string">"file"</span> &#123;</span><br><span class="line">  path = <span class="string">"/mnt/vault/data"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/vault详解（四）Auth-Methods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/vault详解（四）Auth-Methods/" itemprop="url">vault详解（四）Auth Methods</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T10:05:42+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="认证操作"><a href="#认证操作" class="headerlink" title="认证操作"></a>认证操作</h1><p>Vault auth backend完成的是认证工作：访问者是谁。有多种可通过挂载添加，默认情况下它们会挂载在 auth/<type> 下，下面是有关认证的操作：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vault auth &lt;subcommand&gt; [options] [args]</span><br><span class="line">Subcommands:</span><br><span class="line">    <span class="built_in">disable</span>    Disables an auth method</span><br><span class="line">    <span class="built_in">enable</span>     Enables a new auth method</span><br><span class="line">    <span class="built_in">help</span>       Prints usage <span class="keyword">for</span> an auth method</span><br><span class="line">    list       Lists enabled auth methods</span><br><span class="line">    tune       Tunes an auth method configuration</span><br></pre></td></tr></table></figure></type></p>
+<h1 id="认证方法"><a href="#认证方法" class="headerlink" title="认证方法"></a>认证方法</h1><p>在用户认证的问题上，Vault 同样使用了灵活的插件架构，允许多种认证手段，Vault 将其称为验证方法（Auth method），本节列举了Vault支持下的验证方法。</p>
+<h2 id="Tokens"><a href="#Tokens" class="headerlink" title="Tokens"></a>Tokens</h2><p>Token认证方法是vault内置的方法，也是客户端认证的核心，其他认证方法最终都是转成了token来认证的。Token认证启动时即被加载，且不能禁用。回忆一下，服务器启动时会输出 Root Token，使用 Root token 登录的用户具有系统最高的访问权限。Token 是可继承的，这个继承包括两方面的含义：<br>（1）持有Token的用户创建新的Token（Child token），除非特别指定，否则Child token权限和原来的Token相同；</p>
+<p>（2）当回收（Revoke）某个Token时，其所创建的Child Token，以及Child Token的Child Token都会被一并删除；</p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>token的属性如下：<br>（1）ID - 令牌的主ID是随机生成的值</p>
+<p>（2）Display Name - 可选地，人类可读的显示名称</p>
+<p>（3）Metadata - 用于审计日志记录的元数据</p>
+<p>（4）Number of uses - 可选，限制使用次数</p>
+<p>（5）Parent ID - 可选地，创建此子令牌的父令牌</p>
+<p>（6）Policy - ACL策略的关联列表</p>
+<p>（7）Source Path - 生成令牌的路径（例如auth/github/login）</p>
+<p>虽然 Token 方法非常简便易用，但主要目的是为了支持自身的运行，安全性并不是非常高。对于真正的用户/机器认证场景，Vault 官方推荐使用其他更加成熟的机制，例如 LDAP，Github，AppRole 等，并且这些方法通常有更好的工具支持。</p>
+<h3 id="token分类"><a href="#token分类" class="headerlink" title="token分类"></a>token分类</h3><p>vault中的token分为两类，其一为service tokens，另一个为batch tokens，这部分会简单比较这两种token的异同点。</p>
+<h4 id="service-tokens"><a href="#service-tokens" class="headerlink" title="service tokens"></a>service tokens</h4><p>Service tokens也成为普通vault tokens，他们支持常见的所有特性，例如renewal, revocation, creating child tokens等。</p>
+<h4 id="batch-tokens"><a href="#batch-tokens" class="headerlink" title="batch tokens"></a>batch tokens</h4><p>Batch tokens是被加密过的，携带信息用于vault活动的tokens。</p>
+<p><img src="/img/kms/token_category.png" alt="token的比较"></p>
+<h3 id="token层级结构"><a href="#token层级结构" class="headerlink" title="token层级结构"></a>token层级结构</h3><p>通常，当令牌持有者创建新令牌时，这些令牌将被创建为原始令牌的子节点; 他们创造的令牌将是他们的子令牌；当父令牌被撤销时，其所有子令牌及其所有租约也被撤销。这确保了用户不能通过简单地生成永不停止的子令牌树来逃避撤销。</p>
+<h3 id="orphan令牌（很少使用）"><a href="#orphan令牌（很少使用）" class="headerlink" title="orphan令牌（很少使用）"></a>orphan令牌（很少使用）</h3><p>通常不需要此行为，具有适当访问权限的用户可以创建 orphan令牌。这些令牌没有父级 - 它们是自己的令牌树的根。创建orphan方式如下：<br>（1）通过auth/token/create-orphan端点</p>
+<p>（2）具有sudo功能或root策略，设置orphan参数为true时，访问auth/token/create路径可以创建；</p>
+<p>（3）通过token store创建；</p>
+<p>（4）使用任何其他（Non-token）身份验证方法登录；</p>
+<h3 id="Token-Accessor"><a href="#Token-Accessor" class="headerlink" title="Token Accessor"></a>Token Accessor</h3><p>Token Accessor（令牌访问器），创建令牌时，还会创建并返回Token Accessor；它是一个值，用作对令牌的引用，只能用于执行有限的操作：<br>（1）查找令牌的属性（不包括实际的令牌ID）；</p>
+<p>（2）在路径上查找令牌的功能；</p>
+<p>（3）撤消令牌；</p>
+<h2 id="其他认证机制"><a href="#其他认证机制" class="headerlink" title="其他认证机制"></a>其他认证机制</h2><p>其他认证机制包括很多，下面会列出来并重点挑一些出来介绍。使用之前要先启用，启用和禁用有两种方式，一个是CLI另一个是API。默认的path为auth/<type>，path也可以自己指定：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault auth <span class="built_in">enable</span> -path=my-login userpass</span><br></pre></td></tr></table></figure></type></p>
+<h3 id="AliCloud"><a href="#AliCloud" class="headerlink" title="AliCloud"></a>AliCloud</h3><p>Vault将阿里云视为可信赖的第三方，不需要提供tokens, username/password, client certificates等，阿里云通过RAM（Resource Access Management）和STS来认证，详情可以查看认证应用篇的阿里云部分。</p>
+<h4 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h4><p>（1）启用vault的阿里云认证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault auth <span class="built_in">enable</span> alicloud</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/kms/vault_auth_list.png" alt="vault auth list"><br>（2）配置role的策略<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/alicloud/role/dev-role arn=<span class="string">'acs:ram::5138828231865461:role/dev-role'</span></span><br></pre></td></tr></table></figure></p>
+<p>其中arn为阿里云ram（Resource Access Management）系统的角色的基本信息。</p>
+<p>（3）配置登录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/alicloud/login \</span><br><span class="line">        role=dev-role \</span><br><span class="line">        identity_request_url=<span class="variable">$IDENTITY_REQUEST_URL_BASE_64</span> \</span><br><span class="line">        identity_request_headers=<span class="variable">$IDENTITY_REQUEST_HEADERS_BASE_64</span></span><br></pre></td></tr></table></figure></p>
+<p>（4）登录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault login -method=alicloud access_key=... secret_key=... security_token=... region=...</span><br></pre></td></tr></table></figure></p>
+<h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>JWT可以用来认证vault，但是JWT需要被验证。可以用本地key来验证，也可以使用OIDC（OpenID Connect）产生的key来验证，认证方式有两种，CLI和API：</p>
+<h4 id="CLI-1"><a href="#CLI-1" class="headerlink" title="CLI"></a>CLI</h4><p>默认的路径为/jwt，也可以指定路径-path=/my-path<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/jwt/login role=demo jwt=...</span><br></pre></td></tr></table></figure></p>
+<h4 id="API"><a href="#API" class="headerlink" title="API"></a>API</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl \</span><br><span class="line">    --request POST \</span><br><span class="line">    --data <span class="string">'&#123;"jwt": "your_jwt", "role": "demo"&#125;'</span> \</span><br><span class="line">    http://127.0.0.1:8200/v1/auth/jwt/login</span><br></pre></td></tr></table></figure>
+<p>返回包括client token<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"auth"</span>: &#123;</span><br><span class="line">    <span class="string">"client_token"</span>: <span class="string">"38fe9691-e623-7238-f618-c94d4e7bc674"</span>,</span><br><span class="line">    <span class="string">"accessor"</span>: <span class="string">"78e87a38-84ed-2692-538f-ca8b9f400ab3"</span>,</span><br><span class="line">    <span class="string">"policies"</span>: [</span><br><span class="line">      <span class="string">"default"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"metadata"</span>: &#123;</span><br><span class="line">      <span class="string">"role"</span>: <span class="string">"demo"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"lease_duration"</span>: 2764800,</span><br><span class="line">    <span class="string">"renewable"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>Auth可以在用户认证之前提前配置，步骤如下：<br>（1）启用JWT认证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault auth <span class="built_in">enable</span> jwt</span><br></pre></td></tr></table></figure></p>
+<p>（2）通过/config路径配置local keys或者OIDC Discovery URL<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/jwt/config \</span><br><span class="line">    oidc_discovery_url=<span class="string">"https://myco.auth0.com/"</span></span><br></pre></td></tr></table></figure></p>
+<p>（3）创建角色<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vault write auth/jwt/role/demo \</span><br><span class="line">    bound_subject=<span class="string">"r3qX9DljwFIWhsiqwFiu38209F10atW6@clients"</span> \</span><br><span class="line">    bound_audiences=<span class="string">"https://vault.plugin.auth.jwt.test"</span> \</span><br><span class="line">    user_claim=<span class="string">"https://vault/user"</span> \</span><br><span class="line">    groups_claim=<span class="string">"https://vault/groups"</span> \</span><br><span class="line">    policies=webapps \</span><br><span class="line">    ttl=1h</span><br></pre></td></tr></table></figure></p>
+<p>API配置这这里就不详细介绍，可以参考<a href="https://www.vaultproject.io/api/auth/jwt/index.html" target="_blank" rel="noopener">API docs</a>.</p>
+<h3 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h3><h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><p>Github认证是通过github的personal access token来进行的，认证方式包括CLI和API，如下：</p>
+<h4 id="CLI-2"><a href="#CLI-2" class="headerlink" title="CLI"></a>CLI</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault login -method=github token=<span class="string">"MY_TOKEN"</span></span><br></pre></td></tr></table></figure>
+<h4 id="API-1"><a href="#API-1" class="headerlink" title="API"></a>API</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl \</span><br><span class="line">    --request POST \</span><br><span class="line">    --data <span class="string">'&#123;"token": "MY_TOKEN"&#125;'</span> \</span><br><span class="line">    http://127.0.0.1:8200/v1/auth/github/login</span><br></pre></td></tr></table></figure>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>（1）启用github认证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault auth <span class="built_in">enable</span> github</span><br></pre></td></tr></table></figure></p>
+<p>（2）使用/config endpoint来配置使得vault和github关联<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/github/config organization=myhashicorp</span><br></pre></td></tr></table></figure></p>
+<p>（3）映射github的组织/个人和vault的规则<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/github/map/teams/dev value=dev-policy <span class="comment">#组织</span></span><br><span class="line">$ vault write auth/github/map/users/sethvargo value=sethvargo-policy <span class="comment">#个人</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/kms/vault_auth_github.png" alt="vault auth github"><br>使用API配置可以查看<a href="https://www.vaultproject.io/api/auth/github/index.html" target="_blank" rel="noopener">API docs</a>。</p>
+<h3 id="LDAP"><a href="#LDAP" class="headerlink" title="LDAP"></a>LDAP</h3><h3 id="Okta"><a href="#Okta" class="headerlink" title="Okta"></a>Okta</h3><p>同样的Okta认证vault也有两种方式：</p>
+<h4 id="CLI-3"><a href="#CLI-3" class="headerlink" title="CLI"></a>CLI</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault login -method=okta username=my-username</span><br></pre></td></tr></table></figure>
+<h4 id="API-2"><a href="#API-2" class="headerlink" title="API"></a>API</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl \</span><br><span class="line">    --request POST \</span><br><span class="line">    --data <span class="string">'&#123;"password": "MY_PASSWORD"&#125;'</span> \</span><br><span class="line">    http://127.0.0.1:8200/v1/auth/okta/login/my-username</span><br></pre></td></tr></table></figure>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><p>（1）启用okta认证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault auth <span class="built_in">enable</span> okta</span><br></pre></td></tr></table></figure></p>
+<p>（2）关联Okta账号与vault<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/okta/config \</span><br><span class="line">    base_url=<span class="string">"okta.com"</span> \</span><br><span class="line">    organization=<span class="string">"dev-123456"</span> \</span><br><span class="line">    token=<span class="string">"00KzlTNCqDf0enpQKYSAYUt88KHqXax6dT11xEZz_g"</span></span><br></pre></td></tr></table></figure></p>
+<p>（3）映射Okta group到vault policy<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/okta/groups/engineers policies=autopilot</span><br><span class="line">$ vault write auth/okta/users/tesla groups=engineers</span><br></pre></td></tr></table></figure></p>
+<p>使用API配置可以查看<a href="https://www.vaultproject.io/api/auth/okta/index.html" target="_blank" rel="noopener">API docs</a>。</p>
+<h3 id="TLS-Certificates"><a href="#TLS-Certificates" class="headerlink" title="TLS Certificates"></a>TLS Certificates</h3><p>CA或者自签的证书也可以用于vault的认证，认证方式有两种，CLI和API。</p>
+<h4 id="CLI-4"><a href="#CLI-4" class="headerlink" title="CLI"></a>CLI</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ vault login \</span><br><span class="line">    -method=cert \</span><br><span class="line">    -ca-cert=ca.pem \</span><br><span class="line">    -client-cert=cert.pem \</span><br><span class="line">    -client-key=key.pem \</span><br><span class="line">    name=web</span><br></pre></td></tr></table></figure>
+<h4 id="API-3"><a href="#API-3" class="headerlink" title="API"></a>API</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ curl \</span><br><span class="line">    --request POST \</span><br><span class="line">    --cacert ca.pem \</span><br><span class="line">    --cert cert.pem \</span><br><span class="line">    --key key.pem \</span><br><span class="line">    --data <span class="string">'&#123;"name": "web"&#125;'</span> \</span><br><span class="line">    http://127.0.0.1:8200/v1/auth/cert/login</span><br></pre></td></tr></table></figure>
+<h4 id="配置-3"><a href="#配置-3" class="headerlink" title="配置"></a>配置</h4><p>（1）启用certificate认证<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault auth <span class="built_in">enable</span> cert</span><br></pre></td></tr></table></figure></p>
+<p>（2）配置证书<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/cert/certs/web \</span><br><span class="line">    display_name=web \</span><br><span class="line">    policies=web,prod \</span><br><span class="line">    certificate=@web-cert.pem \</span><br><span class="line">    ttl=3600</span><br></pre></td></tr></table></figure></p>
+<h3 id="Username-amp-password"><a href="#Username-amp-password" class="headerlink" title="Username &amp; password"></a>Username &amp; password</h3><p>认证依然有两种方式，CLI和API。</p>
+<h4 id="CLI-5"><a href="#CLI-5" class="headerlink" title="CLI"></a>CLI</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vault login -method=userpass \</span><br><span class="line">    username=mitchellh \</span><br><span class="line">    password=foo</span><br></pre></td></tr></table></figure>
+<h4 id="API-4"><a href="#API-4" class="headerlink" title="API"></a>API</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl \</span><br><span class="line">    --request POST \</span><br><span class="line">    --data <span class="string">'&#123;"password": "foo"&#125;'</span> \</span><br><span class="line">    http://127.0.0.1:8200/v1/auth/userpass/login/mitchellh</span><br></pre></td></tr></table></figure>
+<h4 id="配置-4"><a href="#配置-4" class="headerlink" title="配置"></a>配置</h4><p>（1）启用userpass认证方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault auth <span class="built_in">enable</span> userpass</span><br></pre></td></tr></table></figure></p>
+<p>（2）配置此用户可以被vault认证登录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vault write auth/userpass/users/mitchellh \</span><br><span class="line">    password=foo \</span><br><span class="line">    policies=admins</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/19/服务发现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/19/服务发现/" itemprop="url">服务发现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-19T10:21:07+08:00">
+                2018-10-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h1><h1 id="consul"><a href="#consul" class="headerlink" title="consul"></a>consul</h1><p>Consul拥有众多的组件，简言之，就是一个用于在你的基础设施中，发现和配置服务的工具。包含以下关键功能：服务发现、健康检查、键值存储和多数据中心支持。再说的通俗一点，就是用于管理分布式系统的利器。</p>
+<h1 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="http://dockone.io/article/667" target="_blank" rel="noopener">服务发现：Zookeeper vs etcd vs Consul</a><br>[2] <a href="https://www.hi-linux.com/posts/28048.html" target="_blank" rel="noopener">Consul 集群部署</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/vault详解（三）Secrets Engines/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/18/vault详解（三）Secrets Engines/" itemprop="url">vault详解（三）Secrets Engines</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-18T14:57:36+08:00">
+                2018-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Secrets engines是存储、产生、加密数据的组织，一些secrets engines仅仅存储和读取数据，例如Redis/Memcached；有些连接了其他服务能够产生动态凭证；还有一些自身提供服务，例如totp generation, certificates等。</p>
+<p>Secrets backend用来存放（生成）秘密的地方；不同的 backend 类似于不同的虚拟文件系统（tmpfs，udev 等），可以挂载到不同的目录，读写到不同的 backend 下会有各自不同的作用。</p>
+<h1 id="Vault-Secrets的操作"><a href="#Vault-Secrets的操作" class="headerlink" title="Vault Secrets的操作"></a>Vault Secrets的操作</h1><p>Vault Secrets操作如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vault auth &lt;subcommand&gt; [options] [args]</span><br><span class="line">subcommand:</span><br><span class="line">    <span class="built_in">disable</span>    Disable a secret engine</span><br><span class="line">    <span class="built_in">enable</span>     Enable a secrets engine</span><br><span class="line">    list       List enabled secrets engines</span><br><span class="line">    move       Move a secrets engine to a new path</span><br><span class="line">    tune       Tune a secrets engine configuration</span><br></pre></td></tr></table></figure></p>
+<p>下面我们会介绍一些常见的secrets engines，了解其他可以参考<a href="https://www.vaultproject.io/docs/secrets/index.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<h1 id="常见的secrets-engines"><a href="#常见的secrets-engines" class="headerlink" title="常见的secrets engines"></a>常见的secrets engines</h1><h2 id="AliCloud"><a href="#AliCloud" class="headerlink" title="AliCloud"></a>AliCloud</h2><p>阿里云secrets engine基于阿里云RAM策略或者阿里云STS凭证动态地产生AliCloud access token。</p>
+<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>绝大多数的secrets engines必须提前配置好，阿里云的也不例外。<br>（1）启用阿里云secrets engine；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vault secrets <span class="built_in">enable</span> alicloud</span><br><span class="line">Success! Enabled the alicloud secrets engine at: alicloud/</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/kms/vault_secrets_list.png" alt="vault secrets list"><br>（2）在阿里云中为分配给vault的access key制定策略；</p>
+<p>（3）在阿里云RAM新建用户，例如”hashicorp-vault”，把相关策略分配给用户；</p>
+<p>（4）为用户创建access key，在用户管理界面可以找到，仅在第一次创建的时候可以看到AccessKey详情，也就是AccessKey Secret的信息，之后仅能看到AccessKey ID；<br><img src="/img/kms/vault_secrets_accesskey.png" alt="vault secrets access key"></p>
+<p>（5）在vault中配置access key<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vault write alicloud/config \</span><br><span class="line">    access_key=LTAI30JIwIQTa6xT \</span><br><span class="line">    secret_key=mIcGAlvLgD7Gvs...</span><br></pre></td></tr></table></figure></p>
+<p>（6）配置角色<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault write alicloud/role/policy-based \</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>产生新的access key通过read creds来操作<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault <span class="built_in">read</span> alicloud/creds/policy-based</span><br></pre></td></tr></table></figure></p>
+<p>如果使用read role_arn来操作<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault <span class="built_in">read</span> alicloud/creds/role-based</span><br></pre></td></tr></table></figure></p>
+<h2 id="Cubbyhole"><a href="#Cubbyhole" class="headerlink" title="Cubbyhole"></a>Cubbyhole</h2><p>Cubbyhole secrets engine用来协同storage来存储任意得secrets，path是由token控制的，所以不需要TTL和refresh interval。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>Cubbyhole是默认开启的，并且它不能被禁用、删除等操作。</p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>（1）写数据；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vault write cubbyhole/my-secret my-value=s3cr3t</span><br><span class="line">Success! Data written to: cubbyhole/my-secret</span><br></pre></td></tr></table></figure></p>
+<p>（2）读数据；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ vault <span class="built_in">read</span> cubbyhole/my-secret</span><br><span class="line">Key         Value</span><br><span class="line">---         -----</span><br><span class="line">my-value    s3cr3t</span><br></pre></td></tr></table></figure></p>
+<h2 id="Key-Value"><a href="#Key-Value" class="headerlink" title="Key/Value"></a>Key/Value</h2><h3 id="Version-1"><a href="#Version-1" class="headerlink" title="Version 1"></a>Version 1</h3><h3 id="Version-2"><a href="#Version-2" class="headerlink" title="Version 2"></a>Version 2</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/vault详解（二）启动/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/18/vault详解（二）启动/" itemprop="url">vault详解（二）启动</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-18T14:54:50+08:00">
+                2018-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="vault安装"><a href="#vault安装" class="headerlink" title="vault安装"></a>vault安装</h1><p>vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">λ vault version</span><br><span class="line">Vault v0.11.3 (<span class="string">'fb601237bfbe4bc16ff679f642248ee8a86e627b'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>运行help命令，查看vault的简单的使用方法，更多命令请查看<a href="https://www.vaultproject.io/docs/commands/index.html" target="_blank" rel="noopener">官网Vault Commands</a>。<br><img src="/img/kms/vault_help.png" alt="vault的help命令"></p>
+<h1 id="vault的启动部署"><a href="#vault的启动部署" class="headerlink" title="vault的启动部署"></a>vault的启动部署</h1><h2 id="开发环境启动"><a href="#开发环境启动" class="headerlink" title="开发环境启动"></a>开发环境启动</h2><p>我们这里在windows系统上启动dev模式<br><img src="/img/kms/vault_server_dev.png" alt="vault的server -dev命令"><br>可以看到几个关键点，监听器lister和存储后端storage为inmem，即内存；另外可以看到出现了root token和unseal key，这只会在初始化vault中出现。在运行vault命令之前一定要设置环境变量（linux环境下用export代替set）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">λ <span class="built_in">set</span> VAULT_ADDR=http://127.0.0.1:8200</span><br></pre></td></tr></table></figure></p>
+<h2 id="查看vault状态"><a href="#查看vault状态" class="headerlink" title="查看vault状态"></a>查看vault状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">D:\Hashicorp\vault</span><br><span class="line">λ <span class="built_in">set</span> VAULT_ADDR=http://127.0.0.1:8200</span><br><span class="line"></span><br><span class="line">D:\Hashicorp\vault</span><br><span class="line">λ vault status</span><br><span class="line">Key             Value</span><br><span class="line">---             -----</span><br><span class="line">Seal Type       shamir</span><br><span class="line">Initialized     <span class="literal">true</span></span><br><span class="line">Sealed          <span class="literal">false</span></span><br><span class="line">Total Shares    1</span><br><span class="line">Threshold       1</span><br><span class="line">Version         0.11.3</span><br><span class="line">Cluster Name    vault-cluster-5ca969b5</span><br><span class="line">Cluster ID      e274fc76-b587-d195-44f8-161c8c7c2e27</span><br><span class="line">HA Enabled      <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>这里面提到了seal算法为shamir（seal type），shamir算法包括共享总数（Total Shares）和阈值（Threshold），根据任意大于等于阈值数量的unseal key可以解封vault；HA Enabled设置为false，说明没有提供高可用性，即没有部署集群，下面介绍真实环境下的部署：</p>
+<h2 id="生产环境启动"><a href="#生产环境启动" class="headerlink" title="生产环境启动"></a>生产环境启动</h2><h3 id="启动前的配置"><a href="#启动前的配置" class="headerlink" title="启动前的配置"></a>启动前的配置</h3><p>生产环境模式需要配置，配置文件使用<strong>HCL</strong>（HashiCorp configuration language）文件，主要配置如下参数：</p>
+<h4 id="存储（storage）"><a href="#存储（storage）" class="headerlink" title="存储（storage）"></a>存储（storage）</h4><p>此配置<strong>必选</strong>，设置vault详解（一）中提到的存储后端，包括consul、MySQL等多种后端支持；</p>
+<h4 id="监听器（listener）"><a href="#监听器（listener）" class="headerlink" title="监听器（listener）"></a>监听器（listener）</h4><p>此配置<strong>必选</strong>，监听器可以有一个或多个，用来监听API请求；</p>
+<h4 id="密封算法（seal）"><a href="#密封算法（seal）" class="headerlink" title="密封算法（seal）"></a>密封算法（seal）</h4><p>此配置<strong>可选</strong>，如果没有选择，则默认采用Shamir共享密钥算法，还有其他可选算法，见<a href="https://www.vaultproject.io/docs/configuration/seal/index.html" target="_blank" rel="noopener">官方文档</a>，这里只介绍阿里云KMS：</p>
+<p>阿里云密钥管理服务可以按照需要创建主密钥，使用主密钥产生、加密和解密数据密钥；阿里云KMS通过以下方式激活：<br>（1）在配置文件中设置alicloudkms配置代码段<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">seal <span class="string">"alicloudkms"</span> &#123;</span><br><span class="line">  region     = <span class="string">"us-east-1"</span></span><br><span class="line">  access_key = <span class="string">"0wNEpMMlzy7szvai"</span></span><br><span class="line">  secret_key = <span class="string">"PupkTg8jdmau1cXxYacgE736PJj4cA"</span></span><br><span class="line">  kms_key_id = <span class="string">"08c33a6f-4e0a-4a1b-a3fa-7ddfa1d4fb73"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>（2）在环境变量中设置<br>VAULT_SEAL_TYPE设置为alicloudkms，同时需要设置VAULT_ALICLOUDKMS_SEAL_KEY_ID来激活阿里云KMS。</p>
+<h4 id="telemetry"><a href="#telemetry" class="headerlink" title="telemetry"></a>telemetry</h4><p>此配置<strong>可选</strong>，specifies various configurations for Vault to publish metrics to upstream systems.</p>
+<h4 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h4><p>此配置<strong>可选</strong>，vault0.1版本以上提供UI界面，配置文件中设置如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ui = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">listener <span class="string">"tcp"</span> &#123;</span><br><span class="line">  address = <span class="string">"10.0.1.35:8200"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>UI和vault server运行的端口一样，所以必须配置至少一个监听器来访问UI界面。</p>
+<h4 id="配置文件例子"><a href="#配置文件例子" class="headerlink" title="配置文件例子"></a>配置文件例子</h4><h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><p>策略是用HCL (HashiCorp Configuration Language)或者JSON编写的，并且规定了一些可以访问的vault中的路径，例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This section grants all access on "secret/*". Further restrictions can be</span></span><br><span class="line"><span class="comment"># applied to this broad policy, as shown below.</span></span><br><span class="line">path <span class="string">"secret/*"</span> &#123;</span><br><span class="line">  capabilities = [<span class="string">"create"</span>, <span class="string">"read"</span>, <span class="string">"update"</span>, <span class="string">"delete"</span>, <span class="string">"list"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Even though we allowed secret/*, this line explicitly denies</span></span><br><span class="line"><span class="comment"># secret/super-secret. This takes precedence.</span></span><br><span class="line">path <span class="string">"secret/super-secret"</span> &#123;</span><br><span class="line">  capabilities = [<span class="string">"deny"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Policies can also specify allowed, disallowed, and required parameters. Here</span></span><br><span class="line"><span class="comment"># the key "secret/restricted" can only contain "foo" (any value) and "bar" (one</span></span><br><span class="line"><span class="comment"># of "zip" or "zap").</span></span><br><span class="line">path <span class="string">"secret/restricted"</span> &#123;</span><br><span class="line">  capabilities = [<span class="string">"create"</span>]</span><br><span class="line">  allowed_parameters = &#123;</span><br><span class="line">    <span class="string">"foo"</span> = []</span><br><span class="line">    <span class="string">"bar"</span> = [<span class="string">"zip"</span>, <span class="string">"zap"</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="PGP、GPG和Keybase"><a href="#PGP、GPG和Keybase" class="headerlink" title="PGP、GPG和Keybase"></a>PGP、GPG和Keybase</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>PGP全称是Pretty Good Privacy，是一个基于RSA公钥加密体系的邮件加密软件。PGP主要的特点是它可以在一个非安全的网络环境下，使得从未谋面的人取得信任。相比PKI，PGP根本不需要HTTPS，也不需要CA，仅需要一个可信赖的密钥托管服务器（基于LDAP的服务器）。由于PGP被广泛应用，最终形成一个开放的标准—OpenPGP。</p>
+<p>GPG全称是GNU Privacy Guard，是OpenPGP标准（RFC 4880）的独立实现，通过GPG可以对密钥进行管理、对文件和电子邮件进行加密/解密和数字签名等。GPG由于源代码开放，因此很难隐藏后门，比PGP等商业软件更加安全。</p>
+<h2 id="为什么使用PGP"><a href="#为什么使用PGP" class="headerlink" title="为什么使用PGP"></a>为什么使用PGP</h2><p>为什么要在vault中使用PGP，主要因为早期初始化启动vault后会产生unseal的明文显示的keys，这个就违背了vault的安全初衷，而且也使得分发keys变得困难。之后，vault在0.3版本之后引入了可选择地使用PGP keys进行初始化操作。在这种模式下，当vault初始化后产生unseal keys后，用户的PGP的公钥会立刻加密这些keys。</p>
+<h2 id="使用PGP初始化"><a href="#使用PGP初始化" class="headerlink" title="使用PGP初始化"></a>使用PGP初始化</h2><p>第一步必须先产生、获取和导入公钥到将要初始化vault的机器上，这个过程可以通过<strong>keybase</strong>和<strong>GPG</strong>来实现。这里我们使用GPG来实现，keybase的详解可以从其他博文里查找。</p>
+<p>（1）使用GPG初始化<br><img src="/img/kms/vault_reinit.png" alt="vault重新初始化"></p>
+<p>（2）使用GPG解封key<br>首先需要解密出key：<br><img src="/img/kms/vault_de_key.png" alt="vault还原key"><br>然后解封如图：<br><img src="/img/kms/vault_unseal.png" alt="vault解封"><br>关于keybase个GPG的详细说明请查看<a href="https://www.vaultproject.io/docs/concepts/pgp-gpg-keybase.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<p><strong>注意1</strong>：重新初始化需要先停掉vault，删除storage后端中vault的数据，再进行初始化，否则会提示vault已经初始化。<br><strong>注意2</strong>：在GPG解密的时候，不会主动弹出passphrase输入窗口，需要先执行”export GPG_TTY=$(tty)”命令，因为它不知道在哪个tty窗口弹出，详情请看<a href="export GPG_TTY=$(tty">这里</a>)。<br><strong>注意3</strong>：GPG在产生密钥时，需要采集随机信息保证熵值，可以安装”yum install rng-tools”自动采集，详情看<a href="https://serverfault.com/questions/471412/gpg-gen-key-hangs-at-gaining-enough-entropy-on-centos-6" target="_blank" rel="noopener">这里</a>。</p>
+<h1 id="租期、更新和撤销"><a href="#租期、更新和撤销" class="headerlink" title="租期、更新和撤销"></a>租期、更新和撤销</h1><p>对于每个动态的secret和认证token，vault都会创建一个lease（租期），其中metadata（元数据）包括time duration、renewability等。撤销有三种方式，API、CLI和vault自动撤销过期的租期。</p>
+<p>vault read命令请求secret，vault总会返回一个lease ID，通过vault renew和vault revoke操作lease ID去管理secret的租期。 </p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://www.vaultproject.io/docs/index.html" target="_blank" rel="noopener">Hashicorp Vault文档</a><br>[2] <a href="https://yuhao.space/blog/2018/02/vault-introduction/" target="_blank" rel="noopener">私密信息管理利器 HashiCorp Vault——简介</a><br>[3] <a href="https://www.jianxiangqiao.com/pgp-gpg-openpgp/" target="_blank" rel="noopener">PGP、GPG、OpenPGP三者之间的联系</a><br>[4] <a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">GPG入门教程，阮一峰</a><br>[5] <a href="https://huangjunwen.github.io/post/2017/vault/" target="_blank" rel="noopener">vault笔记</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/17/数据安全概览/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/17/数据安全概览/" itemprop="url">数据安全概览</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-17T18:13:29+08:00">
+                2018-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
-        <div class="sidebar-tags">
-    <div class="sidebar-tags-name">
+
+  <aside id="sidebar" class="sidebar">
     
-        <span class="sidebar-tag-name"><a href= "#">linux/命令</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">区块链</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">分布式/算法</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">docker</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">maven</a></span>
-    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
     </div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br/>
-    1、请确保node版本大于6.2<br/>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
-    3、在根目录_config.yml里添加配置：
-    <pre style="color: #787878; font-size: 0.6rem;">
-jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: false
-    tags: true</pre>
-    </div> 
-    <div class="sidebar-tag-list"></div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
 </div>
-    </div>
-</div> 
-    <script>
-    var jsInfo = {
-        root: '/'
-    }
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
-    <!-- 不蒜子  -->
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
     
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
     
-    <!-- CNZZ统计  -->
+<!-- END LOCAL -->
+
     
-    </div>
-    </body>
+
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
 </html>
-
-

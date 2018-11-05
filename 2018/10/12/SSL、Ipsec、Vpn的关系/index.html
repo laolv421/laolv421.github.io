@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="引言一些概念IP隧道IP隧道是指一种可在两网络间用网际协议进行通信的通道。在该通道里，会先封装其他网络协议的数据包，之后再传输信息。 IP隧道经常用于连接两个不是用路由直接链接的IP网络，IP隧道会通过底层路由协议来架构中间传输网络。若IP隧道与两个或多个IPSec一起使用时，可以创建虚拟专用网（Virtual Private Network，VPN），让二个或多个被公开网上（如因特网）隔开的私有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSL、Ipsec、Vpn、代理的关系">
+<meta property="og:url" content="http://yoursite.com/2018/10/12/SSL、Ipsec、Vpn的关系/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="引言一些概念IP隧道IP隧道是指一种可在两网络间用网际协议进行通信的通道。在该通道里，会先封装其他网络协议的数据包，之后再传输信息。 IP隧道经常用于连接两个不是用路由直接链接的IP网络，IP隧道会通过底层路由协议来架构中间传输网络。若IP隧道与两个或多个IPSec一起使用时，可以创建虚拟专用网（Virtual Private Network，VPN），让二个或多个被公开网上（如因特网）隔开的私有">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/img/网络相关/ipsec_trans_mod.png">
+<meta property="og:image" content="http://yoursite.com/img/网络相关/ipsec_tun_mod.png">
+<meta property="og:image" content="http://yoursite.com/img/网络相关/ipsec_vpn.png">
+<meta property="og:image" content="http://yoursite.com/img/网络相关/ipsec_tun.png">
+<meta property="og:image" content="http://yoursite.com/img/网络相关/ipsec_trans_tun.png">
+<meta property="og:updated_time" content="2018-10-12T09:26:54.469Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SSL、Ipsec、Vpn、代理的关系">
+<meta name="twitter:description" content="引言一些概念IP隧道IP隧道是指一种可在两网络间用网际协议进行通信的通道。在该通道里，会先封装其他网络协议的数据包，之后再传输信息。 IP隧道经常用于连接两个不是用路由直接链接的IP网络，IP隧道会通过底层路由协议来架构中间传输网络。若IP隧道与两个或多个IPSec一起使用时，可以创建虚拟专用网（Virtual Private Network，VPN），让二个或多个被公开网上（如因特网）隔开的私有">
+<meta name="twitter:image" content="http://yoursite.com/img/网络相关/ipsec_trans_mod.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/12/SSL、Ipsec、Vpn的关系/"/>
+
+
+
+
+
+  <title>SSL、Ipsec、Vpn、代理的关系 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/SSL、Ipsec、Vpn的关系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SSL、Ipsec、Vpn、代理的关系</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T10:24:30+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/12/SSL、Ipsec、Vpn的关系/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/12/SSL、Ipsec、Vpn的关系/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><h2 id="IP隧道"><a href="#IP隧道" class="headerlink" title="IP隧道"></a>IP隧道</h2><p>IP隧道是指一种可在两网络间用网际协议进行通信的通道。在该通道里，会先封装其他网络协议的数据包，之后再传输信息。</p>
+<p>IP隧道经常用于连接两个不是用路由直接链接的IP网络，IP隧道会通过底层路由协议来架构中间传输网络。若IP隧道与两个或多个IPSec一起使用时，可以创建虚拟专用网（Virtual Private Network，VPN），让二个或多个被公开网上（如因特网）隔开的私有网络彼此访问，另一个主要应用也是目前常用的，让各IPv6网上隔着IPv4网络上通信。</p>
+<h2 id="隧道协议"><a href="#隧道协议" class="headerlink" title="隧道协议"></a>隧道协议</h2><p>隧道协议（Tunneling Protocol）是一种网上协议，在其中，使用一种网上协议（发送协议），将另一个不同的网上协议，封装在负载部分。使用隧道的原因是在不兼容的网上上传输数据，或在不安全网上上提供一个安全路径。</p>
+<p>隧道则是对比分层式的模型，如OSI模型或TCP/IP。隧道协议通常（但并非总是）在一个比负载协议还高的层级，或同一层。要了解协议堆栈，负载和发送协议都须了解。传统的分层式协议，如OSI模型或TCP/IP模型，HTTP协议 ，并不被认为是隧道协议。隧道是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序。</p>
+<p>常用的隧道协议包括：基于数据包的有IPSec和基于流的有SSH、SOCKS等，更多请查看<a href="https://zh.wikipedia.org/wiki/%E9%9A%A7%E9%81%93%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">维基百科</a>。</p>
+<h2 id="End-to-End加密"><a href="#End-to-End加密" class="headerlink" title="End-to-End加密"></a>End-to-End加密</h2><p>End-to-End（端到端）不是一种协议或者技术，而是描述了一种系统如何设计的概念，一个只有参与通讯的用户可以读取信息的通信系统。总的来说，它可以防止潜在的窃听者——包括 电信供应商、互联网服务供应商甚至是该通讯系统的提供者——获取能够用以解密通讯的密钥。</p>
+<p>在一个端到端加密的系统中，用于加解密的密钥必须被、且仅被参与通讯的各方掌握。为实现这一目的，端到端加密系统可以使用事先预定好的一串字符（称为“预共享密钥”）来加密数据（如PGP），也可以使用该字符串生成一次性密码来进行加密（如DUKPT）。此外，参与通讯的各方还可以通过协商（迪菲-赫尔曼密钥交换协议）创建密钥（如OTR）。</p>
+<p>典型的基于中心服务器的通信系统尚不包括端到端加密功能，此类系统至多只能保证客户端到服务端之间的通讯受到保护。这意味着通讯双方必须信任服务端的运营者，因为他可以阅读通讯的全部明文内容。相比之下，端到端加密被认为是更安全的，因为这种机制极大减少了第三方干扰或破坏通讯加密的可能性。</p>
+<h1 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h1><p>Secure Socket Layer，建立在应用层</p>
+<h1 id="IPSec"><a href="#IPSec" class="headerlink" title="IPSec"></a>IPSec</h1><p>VPN只是IPSec的一种应用方式，IPSec其实是IP Security的简称，它的目的是为IP提供高安全性特性，VPN则是在实现这种安全特性的方式下产生的解决方案。</p>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>IPSec是一个框架性架构，具体由两类协议组成：</p>
+<h3 id="AH协议"><a href="#AH协议" class="headerlink" title="AH协议"></a>AH协议</h3><p>AH协议（Authentication Header，使用较少），可以同时提供数据完整性确认、数据来源确认、防重放等安全特性；AH常用摘要算法（单向Hash函数）MD5和SHA1实现该特性。</p>
+<h3 id="ESP协议"><a href="#ESP协议" class="headerlink" title="ESP协议"></a>ESP协议</h3><p>ESP协议（Encapsulated Security Payload，使用较广），可以同时提供数据完整性确认、数据加密、防重放等安全特性；ESP通常使用DES、3DES、AES等加密算法实现数据加密，使用MD5或SHA1来实现数据完整性。</p>
+<p>因为AH无法提供数据加密，所有数据在传输时以明文传输，而ESP提供数据加密；其次AH因为提供数据来源确认（源IP地址一旦改变，AH校验失败），所以无法穿越NAT。当然，IPSec在极端的情况下可以同时使用AH和ESP实现最完整的安全特性，但是此种方案极其少见。</p>
+<h2 id="封装模式"><a href="#封装模式" class="headerlink" title="封装模式"></a>封装模式</h2><p>IPSec提供了两种封装模式，<strong>传输模式</strong>（Transport）和<strong>隧道模式</strong>（Tunnel）。</p>
+<h3 id="传输模式"><a href="#传输模式" class="headerlink" title="传输模式"></a>传输模式</h3><p><img src="/img/网络相关/ipsec_trans_mod.png" alt="IPSec的传输模式"><br>上图为传输模式下IPSec的两种协议，AH和ESP的结构，可以看出传输模式在AH、ESP处理前后IP头部保持不变，主要用于End-to-End的应用场景。</p>
+<h3 id="隧道模式"><a href="#隧道模式" class="headerlink" title="隧道模式"></a>隧道模式</h3><p><img src="/img/网络相关/ipsec_tun_mod.png" alt="IPSec的隧道模式"><br>上图为隧道模式下IPSec的两种协议，AH和ESP的结构，而 隧道模式则在AH、ESP处理之后再封装了一个外网IP头，主要用于Site-to-Site的应用场景。</p>
+<h2 id="IPSec-VPN的应用场景"><a href="#IPSec-VPN的应用场景" class="headerlink" title="IPSec VPN的应用场景"></a>IPSec VPN的应用场景</h2><p><img src="/img/网络相关/ipsec_vpn.png" alt="IPSec VPN应用需求"></p>
+<h3 id="Site-to-Site"><a href="#Site-to-Site" class="headerlink" title="Site-to-Site"></a>Site-to-Site</h3><p>Site-to-Site（站点到站点或者网关到网关），3个机构分布在互联网的3个不同的地方，各使用一个网关相互建立VPN隧道，企业内网（若干PC）之间的数据通过这些网关建立的IPSec隧道实现安全互联。<br><img src="/img/网络相关/ipsec_tun.png" alt="IPSec隧道模式解析"></p>
+<h3 id="End-to-End"><a href="#End-to-End" class="headerlink" title="End-to-End"></a>End-to-End</h3><p>End-to-End（端到端或者PC到PC）： 两个PC之间的通信由两个PC之间的IPSec会话保护，而不是网关；</p>
+<h3 id="End-to-Site"><a href="#End-to-Site" class="headerlink" title="End-to-Site"></a>End-to-Site</h3><p>End-to-Site（端到站点或者PC到网关）：两个PC之间的通信由网关和异地PC之间的IPSec进行保护；</p>
+<p><img src="/img/网络相关/ipsec_trans_tun.png" alt="IPSec传输模式和隧道模式的适用场景"></p>
+<h1 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h1><p>虚拟私人网络（VPN）可以让用户安全地连接到另一个地方的网络，电脑和VPN服务器之间建立了一条虚拟通道，所有的网络数据都加密后经过VPN服务器传输，保证了网络数据的安全性。VPN和代理最大的不同在于对所有网络数据都进行加密，包括电脑上安装的所有应用程序的网络连接也将通过VPN传输，因此VPN服务器的配置相当关键，这关系到连接的速度、定位信息和安全性。</p>
+<h2 id="VPN的优势"><a href="#VPN的优势" class="headerlink" title="VPN的优势"></a>VPN的优势</h2><p>（1）快速。总的来说和不用VPN时的网速差不多。</p>
+<p>（2）不同地理位置切换方便。由于VPN服务商在全球各地都有服务器，因此可以切换不同的地区，这样就可以访问到一些地理位置受限的网络内容。</p>
+<p>（3）理想的P2P文件分享机制。尽管很多VPN服务商都禁用了该功能，但是VPN确实最适合进行P2P文件分享的。</p>
+<h2 id="VPN的劣势"><a href="#VPN的劣势" class="headerlink" title="VPN的劣势"></a>VPN的劣势</h2><p>选择VPN服务商时最重要的就是不要存储数据和通信日志。一旦政府要求VPN服务提供商提供日志文件，那用户的隐私都会被暴露。除此之外，VPN服务商还需要在服务器上部署负载均衡和服务器随机选择，这样方便用户随时切换VPN服务器。</p>
+<p>（1）VPN服务商可以掌握用户的行为记录，很多国家的VPN根据当地法律需要保存日志上交政府部门备案。</p>
+<p>（2）VPN的服务器会遭到执法部门没收，因此选择VPN服务商时最好是不会保存日志文件以免日后个人隐私暴露。</p>
+<p>（3）VPN的价格比较高。</p>
+<h1 id="SSL-VPN和IPSec-VPN的关系"><a href="#SSL-VPN和IPSec-VPN的关系" class="headerlink" title="SSL VPN和IPSec VPN的关系"></a>SSL VPN和IPSec VPN的关系</h1><h2 id="表现形式"><a href="#表现形式" class="headerlink" title="表现形式"></a>表现形式</h2><p>（1）IPSec VPN多用于“网—网”连接，SSL VPN用于“移动客户—网”连接。SSL VPN的移动用户使用标准的浏览器，无需安装客户端程序，即可通过SSL VPN隧道接入内部网络；而IPSec VPN的移动用户需要安装专门的IPSec客户端软件。<br>　　<br>（2）SSL VPN是基于应用层的VPN，IPSec VPN是基于网络层的VPN。IPSec VPN对所有的IP应用均透明；而SSL VPN保护基于Web的应用更有优势，当然好的产品也支持TCP/UDP的C/S应用，例如文件共享、网络邻居、Ftp、Telnet、Oracle等。<br>　　<br>（3）SSL VPN用户不受上网方式限制，SSL VPN隧道可以穿透Firewall；而IPSec客户端需要支持“NAT穿透”功能才能穿透Firewall，而且需要Firewall打开UDP500端口。<br>　　<br>（4）SSL VPN只需要维护中心节点的网关设备，客户端免维护，降低了部署和支持费用。而IPSec VPN需要管理通讯的每个节点，网管专业性较强。<br>　　<br>（5）SSL VPN 更容易提供细粒度访问控制，可以对用户的权限、资源、服务、文件进行更加细致的控制，与第三方认证系统（如：radius、AD等）结合更加便捷。而IPSec VPN主要基于IP组对用户进行访问控制。</p>
+<h2 id="技术与应用"><a href="#技术与应用" class="headerlink" title="技术与应用"></a>技术与应用</h2><h3 id="底层协议"><a href="#底层协议" class="headerlink" title="底层协议"></a>底层协议</h3><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><h3 id="互补"><a href="#互补" class="headerlink" title="互补"></a>互补</h3><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://zhuanlan.zhihu.com/p/31947969" target="_blank" rel="noopener">最佳匿名上网方法：Proxy、Tor、VPN比较</a><br>[2] <a href="https://blog.csdn.net/Poetic_Vienna/article/details/52250821" target="_blank" rel="noopener">SSL VPN和IPsec VPN的比较和选择</a><br>[3] <a href="http://www.h3c.com.cn/MiniSite/Technology_Circle/Technology_Column/ICG/ICG_Technology/201005/675214_97665_0.htm" target="_blank" rel="noopener">技术点详解—IPSec VPN基本原理</a><br>[4] <a href="https://zh.wikipedia.org/wiki/%E7%AB%AF%E5%88%B0%E7%AB%AF%E5%8A%A0%E5%AF%86" target="_blank" rel="noopener">端到端加密， 维基百科</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/大话php/" rel="next" title="大话php">
+                <i class="fa fa-chevron-left"></i> 大话php
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/12/密钥管理/" rel="prev" title="密钥管理">
+                密钥管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些概念"><span class="nav-number">2.</span> <span class="nav-text">一些概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP隧道"><span class="nav-number">2.1.</span> <span class="nav-text">IP隧道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隧道协议"><span class="nav-number">2.2.</span> <span class="nav-text">隧道协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End-to-End加密"><span class="nav-number">2.3.</span> <span class="nav-text">End-to-End加密</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL"><span class="nav-number">3.</span> <span class="nav-text">SSL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IPSec"><span class="nav-number">4.</span> <span class="nav-text">IPSec</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#协议"><span class="nav-number">4.1.</span> <span class="nav-text">协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AH协议"><span class="nav-number">4.1.1.</span> <span class="nav-text">AH协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ESP协议"><span class="nav-number">4.1.2.</span> <span class="nav-text">ESP协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装模式"><span class="nav-number">4.2.</span> <span class="nav-text">封装模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传输模式"><span class="nav-number">4.2.1.</span> <span class="nav-text">传输模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隧道模式"><span class="nav-number">4.2.2.</span> <span class="nav-text">隧道模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPSec-VPN的应用场景"><span class="nav-number">4.3.</span> <span class="nav-text">IPSec VPN的应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Site-to-Site"><span class="nav-number">4.3.1.</span> <span class="nav-text">Site-to-Site</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#End-to-End"><span class="nav-number">4.3.2.</span> <span class="nav-text">End-to-End</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#End-to-Site"><span class="nav-number">4.3.3.</span> <span class="nav-text">End-to-Site</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VPN"><span class="nav-number">5.</span> <span class="nav-text">VPN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VPN的优势"><span class="nav-number">5.1.</span> <span class="nav-text">VPN的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VPN的劣势"><span class="nav-number">5.2.</span> <span class="nav-text">VPN的劣势</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL-VPN和IPSec-VPN的关系"><span class="nav-number">6.</span> <span class="nav-text">SSL VPN和IPSec VPN的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表现形式"><span class="nav-number">6.1.</span> <span class="nav-text">表现形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术与应用"><span class="nav-number">6.2.</span> <span class="nav-text">技术与应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#底层协议"><span class="nav-number">6.2.1.</span> <span class="nav-text">底层协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接方式"><span class="nav-number">6.2.2.</span> <span class="nav-text">连接方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全"><span class="nav-number">6.2.3.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互补"><span class="nav-number">6.2.4.</span> <span class="nav-text">互补</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

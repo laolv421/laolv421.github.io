@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据安全," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是数据安全数据安全规划数据保障数据传输阿里云提供了向外与互联网通信的HTTPS加密通道，其中管理控制台以及OpenAPI网关均支持HTTPS数据加密传输协议，采用SSL/TLS协议。 数据存储阿里云密钥管理服务（KMS）让客户能在密钥生成、存储、使用、管理上，享有无比安全又便捷的体验。在数据到达云平台，并准备写入云数据库(RDS)时，阿里云提供透明数据加密（TDE）的能力，做到写入加密、读出解">
+<meta name="keywords" content="数据安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里云的数据安全">
+<meta property="og:url" content="http://yoursite.com/2018/10/17/阿里云的数据安全/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="什么是数据安全数据安全规划数据保障数据传输阿里云提供了向外与互联网通信的HTTPS加密通道，其中管理控制台以及OpenAPI网关均支持HTTPS数据加密传输协议，采用SSL/TLS协议。 数据存储阿里云密钥管理服务（KMS）让客户能在密钥生成、存储、使用、管理上，享有无比安全又便捷的体验。在数据到达云平台，并准备写入云数据库(RDS)时，阿里云提供透明数据加密（TDE）的能力，做到写入加密、读出解">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-26T02:56:05.743Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阿里云的数据安全">
+<meta name="twitter:description" content="什么是数据安全数据安全规划数据保障数据传输阿里云提供了向外与互联网通信的HTTPS加密通道，其中管理控制台以及OpenAPI网关均支持HTTPS数据加密传输协议，采用SSL/TLS协议。 数据存储阿里云密钥管理服务（KMS）让客户能在密钥生成、存储、使用、管理上，享有无比安全又便捷的体验。在数据到达云平台，并准备写入云数据库(RDS)时，阿里云提供透明数据加密（TDE）的能力，做到写入加密、读出解">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/17/阿里云的数据安全/"/>
+
+
+
+
+
+  <title>阿里云的数据安全 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/17/阿里云的数据安全/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">阿里云的数据安全</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-17T14:48:06+08:00">
+                2018-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/17/阿里云的数据安全/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/17/阿里云的数据安全/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是数据安全"><a href="#什么是数据安全" class="headerlink" title="什么是数据安全"></a>什么是数据安全</h1><h1 id="数据安全规划"><a href="#数据安全规划" class="headerlink" title="数据安全规划"></a>数据安全规划</h1><h2 id="数据保障"><a href="#数据保障" class="headerlink" title="数据保障"></a>数据保障</h2><h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3><p>阿里云提供了向外与互联网通信的HTTPS加密通道，其中管理控制台以及OpenAPI网关均支持HTTPS数据加密传输协议，采用SSL/TLS协议。</p>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>阿里云密钥管理服务（KMS）让客户能在密钥生成、存储、使用、管理上，享有无比安全又便捷的体验。在数据到达云平台，并准备写入云数据库(RDS)时，阿里云提供透明数据加密（TDE）的能力，做到写入加密、读出解密的安全机制。</p>
+<h4 id="KMS"><a href="#KMS" class="headerlink" title="KMS"></a>KMS</h4><p>密钥管理服务（Key Management Service，简称：KMS）是阿里云提供的一款安全、易用的管理类服务。用户无需花费大量成本来保护密钥的保密性、完整性和可用性。</p>
+<h3 id="数据使用"><a href="#数据使用" class="headerlink" title="数据使用"></a>数据使用</h3><h4 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h4><p>RAM (Resource Access Management) 是阿里云为客户提供的 用户身份管理 与 资源访问控制 服务。使用 RAM，您可以创建、管理用户账号（比如员工、系统或应用程序），并可以控制这些用户账号对您名下资源具有的操作权限。当您的企业存在多用户协同操作资源时，使用 RAM 可以让您避免与其他用户共享云账号密钥，按需为用户分配最小权限，从而降低您的企业信息安全风险。</p>
+<h5 id="Policy语法结构"><a href="#Policy语法结构" class="headerlink" title="Policy语法结构"></a>Policy语法结构</h5><h3 id="数据销毁"><a href="#数据销毁" class="headerlink" title="数据销毁"></a>数据销毁</h3><p>当客户删除数据或离开云服务时，阿里云将遵循严格的数据销毁标准，并物理销毁已废弃的硬件。</p>
+<h2 id="身份认证和访问控制"><a href="#身份认证和访问控制" class="headerlink" title="身份认证和访问控制"></a>身份认证和访问控制</h2><p>阿里云向客户提供了身份管理与访问控制服务(RAM)；而对于自身，除员工身份识别机制外，更基于内控要求也打造了领先行业的权限管理平台(ACL)。</p>
+<h3 id="身份认证"><a href="#身份认证" class="headerlink" title="身份认证"></a>身份认证</h3><p>Access Key (Access Key ID + Access Key Secret)与多因素认证(MFA)。 </p>
+<h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p>与验证客户身份搭配的是访问控制服务(RAM)，让客户创建、管理客户账号，并以User(独立身份管理)及Role(与本地身份联结)两种不同的模式执行。</p>
+<h2 id="网络安全保障"><a href="#网络安全保障" class="headerlink" title="网络安全保障"></a>网络安全保障</h2><h3 id="网络隔离"><a href="#网络隔离" class="headerlink" title="网络隔离"></a>网络隔离</h3><p>专有网络VPC是阿里云于云服务生产网络中构建出的一个隔离的网络环境，客户可完全掌控自己的虚拟网络，包括选择自有IP地址范围、划分网段、配置路由表和网关等。不同的VPC之间彻底逻辑隔离, 客户可在自己创建的VPC内创建和管理云产品实例。阿里云也提供安全组设置能力。</p>
+<h2 id="基础设施保障"><a href="#基础设施保障" class="headerlink" title="基础设施保障"></a>基础设施保障</h2><h2 id="安全合规"><a href="#安全合规" class="headerlink" title="安全合规"></a>安全合规</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://help.aliyun.com/product/28625.html?spm=a2c4g.11186623.6.540.3d145baa3hKahs" target="_blank" rel="noopener">阿里云文档–访问控制</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据安全/" rel="tag"># 数据安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/16/vault详解（一）简介/" rel="next" title="vault详解（一）简介">
+                <i class="fa fa-chevron-left"></i> vault详解（一）简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/17/数据安全概览/" rel="prev" title="数据安全概览">
+                数据安全概览 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是数据安全"><span class="nav-number">1.</span> <span class="nav-text">什么是数据安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据安全规划"><span class="nav-number">2.</span> <span class="nav-text">数据安全规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据保障"><span class="nav-number">2.1.</span> <span class="nav-text">数据保障</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传输"><span class="nav-number">2.1.1.</span> <span class="nav-text">数据传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据存储"><span class="nav-number">2.1.2.</span> <span class="nav-text">数据存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KMS"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">KMS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据使用"><span class="nav-number">2.1.3.</span> <span class="nav-text">数据使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RAM"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">RAM</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Policy语法结构"><span class="nav-number">2.1.3.1.1.</span> <span class="nav-text">Policy语法结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据销毁"><span class="nav-number">2.1.4.</span> <span class="nav-text">数据销毁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#身份认证和访问控制"><span class="nav-number">2.2.</span> <span class="nav-text">身份认证和访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#身份认证"><span class="nav-number">2.2.1.</span> <span class="nav-text">身份认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问控制"><span class="nav-number">2.2.2.</span> <span class="nav-text">访问控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络安全保障"><span class="nav-number">2.3.</span> <span class="nav-text">网络安全保障</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络隔离"><span class="nav-number">2.3.1.</span> <span class="nav-text">网络隔离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础设施保障"><span class="nav-number">2.4.</span> <span class="nav-text">基础设施保障</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全合规"><span class="nav-number">2.5.</span> <span class="nav-text">安全合规</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OAuth2," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述传统的客户端-服务器认证模型大致为：客户端想要访问服务器的受限（access-restricted）资源的话，服务器需要“资源所有人”的凭证来进行认证。为了让第三方应用访问服务器的受限资源，需要机制来共享“资源所有人”的凭证，但是这样会产生如下的风险：  第三方应用需要存储“资源所有人”的凭证，通常需要密码； 尽管密码认证本身存在安全问题，服务器还是要支持密码认证； 因为没有缺乏一些细粒度的访">
+<meta name="keywords" content="OAuth2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OAuth2协议基础">
+<meta property="og:url" content="http://yoursite.com/2018/11/05/OAuth2协议基础/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="概述传统的客户端-服务器认证模型大致为：客户端想要访问服务器的受限（access-restricted）资源的话，服务器需要“资源所有人”的凭证来进行认证。为了让第三方应用访问服务器的受限资源，需要机制来共享“资源所有人”的凭证，但是这样会产生如下的风险：  第三方应用需要存储“资源所有人”的凭证，通常需要密码； 尽管密码认证本身存在安全问题，服务器还是要支持密码认证； 因为没有缺乏一些细粒度的访">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/protocol_flow.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/github_oauth2_reg.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/oauth2_authorization_flow.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/oauth2_implicit_flow.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/oauth2_username_password_flow.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/oauth2_client_credentials_flow.png">
+<meta property="og:image" content="http://yoursite.com/images/OAuth2/OAuth2_application.png">
+<meta property="og:updated_time" content="2018-11-05T07:52:24.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OAuth2协议基础">
+<meta name="twitter:description" content="概述传统的客户端-服务器认证模型大致为：客户端想要访问服务器的受限（access-restricted）资源的话，服务器需要“资源所有人”的凭证来进行认证。为了让第三方应用访问服务器的受限资源，需要机制来共享“资源所有人”的凭证，但是这样会产生如下的风险：  第三方应用需要存储“资源所有人”的凭证，通常需要密码； 尽管密码认证本身存在安全问题，服务器还是要支持密码认证； 因为没有缺乏一些细粒度的访">
+<meta name="twitter:image" content="http://yoursite.com/images/OAuth2/protocol_flow.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/05/OAuth2协议基础/"/>
+
+
+
+
+
+  <title>OAuth2协议基础 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/OAuth2协议基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OAuth2协议基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:49:58+08:00">
+                2018-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/05/OAuth2协议基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/11/05/OAuth2协议基础/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>传统的客户端-服务器认证模型大致为：客户端想要访问服务器的受限（access-restricted）资源的话，服务器需要“资源所有人”的凭证来进行认证。为了让第三方应用访问服务器的受限资源，需要机制来共享“资源所有人”的凭证，但是这样会产生如下的风险：</p>
+<ol>
+<li>第三方应用需要存储“资源所有人”的凭证，通常需要密码；</li>
+<li>尽管密码认证本身存在安全问题，服务器还是要支持密码认证；</li>
+<li>因为没有缺乏一些细粒度的访问控制，导致第三方应用可以随意访问任意的资源；</li>
+<li>“资源所有人”无法取消第三方应用的访问权限；</li>
+<li>因为密码保存在第三方应用，极易出现数据泄露的情况；</li>
+</ol>
+<p>The OAuth 2.0 Authorization Framework定义在<a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener">rfc6749</a>中，它主要解决了第三方客户端授权方面的问题，比如可以控制访问范围、访问时间长度，并且可以访问进行撤销等等。</p>
+<p>我们可以这样想象，某人开发了一个网站博客，用户必须注册网站才能进行留言，出此之外他开放了一个接口，通过登陆github认证服务器（假设人人都有github账号）就可以留言了。那么为了在他的网站有github账号接口，就需要先去github中注册一个app，给出开发的网址、需要用户哪些权限等等；注册好之后用户就可以通过github账号来留言回复了。</p>
+<a id="more"></a>
+<h2 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h2><p>介绍协议之前需要定义一些重要的概念。</p>
+<h3 id="角色："><a href="#角色：" class="headerlink" title="角色："></a>角色：</h3><ol>
+<li><p>资源所有者（Resource Owner)是互联网中的消费者，例如github用户就是资源所有者；</p>
+</li>
+<li><p>资源服务器（Resource Server）是API接口（the APIs that a client can fetch or post something with the given access token issued by authorization server），比如github： <a href="https://api.github.com。" target="_blank" rel="noopener">https://api.github.com。</a></p>
+</li>
+<li><p>客户端（client）是代表资源所有者及其授权发出受保护资源请求的应用程序，比如某人开发的网站。它至少包含三个信息：（a）客户端标识符，client_id；（b）客户端密码，client_secret；ClientID/ClientSecret是Windows Live Connect 的说法，Twitter和Facebook分别叫做ConsumerKey/ComsumerSecret和AppID/AppSecret。如果采用Google提供的OAuth 2.0 API，ClientID和ClientSecret是不需要的；（c）客户端令牌单点认证方法。</p>
+</li>
+<li><p>认证服务器（Authorization Server）为授权，签发令牌，刷新令牌和撤销令牌提供了多个端点，比如github。当资源所有者（用户）授予授权时，此服务器将向客户端发出访问令牌；资源服务器和认证服务器可以是在一起，也可以分开。</p>
+</li>
+</ol>
+<h3 id="协议流（protocol-flow）"><a href="#协议流（protocol-flow）" class="headerlink" title="协议流（protocol flow）"></a>协议流（protocol flow）</h3><p><img src="/images/OAuth2/protocol_flow.png" width="450" align="center"><br>（A）用户打开客户端以后，客户端要求用户给予授权。</p>
+<p>（B）用户同意给予客户端授权，根据客户端的机密性（是否会暴露client secret）来选择授权类型，大概有4种授权类型。</p>
+<p>（C）客户端使用上一步获得的授权，向认证服务器申请令牌。</p>
+<p>（D）认证服务器对客户端进行认证以后，确认无误，同意发放令牌。</p>
+<p>（E）客户端使用令牌，向资源服务器申请获取资源。</p>
+<p>（F）资源服务器确认令牌无误，同意向客户端开放资源。</p>
+<h3 id="协议端点（Protocol-Endpoints）"><a href="#协议端点（Protocol-Endpoints）" class="headerlink" title="协议端点（Protocol Endpoints）"></a>协议端点（Protocol Endpoints）</h3><p>OAuth给授权过程定义了Authorization、Token和Redirection三种端点。Authorization端点用来完成用户授权，在授权码模式（Authorization Code）和隐含模式（Implicit）下被用到；Token端点用来交换与获取access token，不能包含fragment（hash），在隐含模式（Implicit）下则无需提供该端点；Redirection端点用来接收授权凭证，Public客户端或者Implicit授权的Confidential客户端必须在Redirection端点中注册。</p>
+<h3 id="授权许可类型"><a href="#授权许可类型" class="headerlink" title="授权许可类型"></a>授权许可类型</h3><ol>
+<li><p>授权码（Authorization Code）<br>授权码通过使用认证服务器做为客户端与资源所有者的中介而获得。客户端不是直接从资源所有者请求授权，而是引导资源所有者到认证服务器；</p>
+</li>
+<li><p>隐式授权（Implicit Authorization）<br>隐式许可是为用如JavaScript等脚本语言在浏览器中实现的客户端而优化的一种简化的授权码流程；</p>
+</li>
+<li><p>密码凭据（resource owner password credentials）<br>资源所有者密码凭据（即用户名和密码），可以直接作为获取访问令牌的授权许可。这种凭据只能应该当资源所有者和客户端之间具有高度信任时（例如，客户端是设备的操作系统的一部分，或者是一个高度特权应用程序），以及当其他授权许可类型（例如授权码）不可用时被使用；</p>
+</li>
+<li><p>客户端凭据（Client Credentials Grant）<br>当授权范围限于客户端控制下的受保护资源或事先与认证服务器商定的受保护资源时客户端凭据可以被用作为一种授权许可。典型的当客户端代表自己表演（客户端也是资源所有者）或者基于与认证服务器事先商定的授权请求对受保护资源的访问权限时，客户端凭据被用作为授权许可；</p>
+</li>
+</ol>
+<h3 id="access-token（访问令牌）"><a href="#access-token（访问令牌）" class="headerlink" title="access token（访问令牌）"></a>access token（访问令牌）</h3><p>访问令牌是获取受限资源的凭证，token通常对于客户是不透明的，它限制了访问范围和访问时间。Access token用抽象但是可以被资源所有人理解的字符串来替代不同的授权结构，如username、password这类的，同时基于资源服务器安全的需要，access token有着多种格式、结构和使用方法。</p>
+<h3 id="refresh-token"><a href="#refresh-token" class="headerlink" title="refresh token"></a>refresh token</h3><p>Refresh token是获取access token的凭证，由认证服务器发给客户端，同时用来获取新的access token，当access token失效、过期、重新获取额外的受限范围（access tokens may have a shorter lifetime and fewer permissions than authorized by the resource owner）。</p>
+<p>Refresh token同样对客户端来说一般是不透明的，和access token不同，它只被认证服务器使用，不会发给资源服务器。</p>
+<h2 id="客户端注册（Client-Registration）"><a href="#客户端注册（Client-Registration）" class="headerlink" title="客户端注册（Client Registration）"></a>客户端注册（Client Registration）</h2><p>下面开始介绍流程，受先肯定是客户端去认证服务器注册，如上文提到的开发的网站要先去github注册。对于一个应用程序来说，如果它想要使用OAuth，那么首先它要在服务提供商那里注册。资源服务器不可能随意要求任何客户端来向它请求访问资源，比如<a href="https://www.barretlee.com/blog/2016/01/10/oauth2-introduce/" target="_blank" rel="noopener">这篇文章的例子</a>讲的很好。客户端和资源服务器协商包括注册应用、权限申请、网站域名等，结束协商之后资源服务器会给客户端两个东西，client ID和Client Secret，下图是我在github中注册的应用：</p>
+<p><img src="/images/OAuth2/github_oauth2_reg.png" width="400/"></p>
+<p>上面注册的URL意义在于服务器只会把用户重定向回URI以避免一些安全攻击，包括规定访问范围scope，任何HTTP的从定向请求都必须使用TLS保护，所以要求使用HTTPS。这样的要求是为了防止token在传输的过程中被截获。对于原生APP，重定向的URI可以被注册为一个自定义的URL scheme。</p>
+<h3 id="客户端类型"><a href="#客户端类型" class="headerlink" title="客户端类型"></a>客户端类型</h3><p>基于客户端是否能够在认证服务器上安全地认证，也就是能够保证客户凭证的机密性，OAuth定义了如下两种客户类型：</p>
+<ol>
+<li>机密（Confidential）。 </li>
+<li>公开（Public）。</li>
+</ol>
+<p>详细的OAuth2应用场景请查看其他文章。</p>
+<h3 id="客户端标记（Client-Identifier）"><a href="#客户端标记（Client-Identifier）" class="headerlink" title="客户端标记（Client Identifier）"></a>客户端标记（Client Identifier）</h3><p>客户端标记不是secret，它只是能够代表客户端注册信息的一个独特的字符串，禁止用它单独来做客户端的认证。客户端标记是没有定义size的，认证服务器在生成客户端标记的时候应该确定它的大小。</p>
+<h3 id="客户端身份认证（Client-Authentication）"><a href="#客户端身份认证（Client-Authentication）" class="headerlink" title="客户端身份认证（Client Authentication）"></a>客户端身份认证（Client Authentication）</h3><p>因为OAuth2解决的是授权问题，缺乏认证，所以还要加入客户端的身份认证才能使用。如果客户端类型是机密的，客户端和授权服务器建立适合于认证服务器的安全性要求的客户端身份验证方法。认证服务器可以接受符合其安全要求的任何形式的客户端身份验证。机密客户端通常颁发（或建立）一组客户端凭据用于与授权服务器进行身份验证（例如，密码、公/私钥对）。</p>
+<p>认证服务器可以与公开客户端建立客户端身份验证方法。然而，认证服务器不能依靠公开客户端身份验证达到识别客户端的目的。同时客户端在每次请求中禁止使用超过一种的认证方法。</p>
+<ol>
+<li><p>客户端密码认证（Client Password）<br>拥有密码的客户端可使用HTTP Basic authentication scheme来被认证服务器认证，同时客户端标记会以”application/x-www-form-urlencoded”编码，具体查看http摘要认证。应用程序注册完成之后，服务提供商会颁发给应用程序一个“客户端认证信息(client credentials)”，包括Client ID和Client Secret。</p>
+</li>
+<li><p>其他认证，包括token认证、摘要认证等等。</p>
+</li>
+</ol>
+<h2 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h2><h3 id="术语定义"><a href="#术语定义" class="headerlink" title="术语定义"></a>术语定义</h3><ol>
+<li>response_type：表示授权类型</li>
+<li>client_id：表示客户端的ID</li>
+<li>redirect_uri：表示重定向URI</li>
+<li>scope：表示申请的权限范围</li>
+<li>state：表示客户端的当前状态，可以指定任意值，认证服务器会原封不动地返回这个值</li>
+<li>code：表示授权码，必选项。该码的有效期应该很短，通常设为10分钟，客户端只能使用该码一次，否则会被授权服务器拒绝。该码与客户端ID和重定向URI，是一一对应关系</li>
+</ol>
+<h3 id="授权码（Authorization-Code）"><a href="#授权码（Authorization-Code）" class="headerlink" title="授权码（Authorization Code）"></a>授权码（Authorization Code）</h3><p>下图非常详细地描述了授权过程，也就是说客户端已经在认证服务器注册好，并得到了Client ID和Client Secret，这里只介绍几个关键的过程。</p>
+<p><img src="/images/OAuth2/oauth2_authorization_flow.png" alt="AuthorizationCode png"></p>
+<ol>
+<li><p>用户访问客户端，后者将前者导向认证服务器，对应上图的Redirect to AuthZ Server:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /authorize?response_type=code&amp;client_id=s6BhdRkqt3&amp;state=xyz</span><br><span class="line">        &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>假设用户给予授权，认证服务器将用户导向客户端事先指定的”重定向URI”（redirection URI），同时附上一个授权码，对应Redirect to Web Server with Authorization Code：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 302 Found</span><br><span class="line">Location: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">          &amp;state=xyz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户端收到授权码，附上早先的”重定向URI”，向认证服务器申请令牌。这一步是在客户端的后台的服务器上完成的，对用户不可见，client secret此时也作为参数去访问认证服务器，对应上图中的Present Authorization Code：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">&amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>认证服务器核对了授权码和重定向URI，确认无误后，向客户端发送访问令牌（access token）和更新令牌（refresh token），对应Return Access Token：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">     Content-Type: application/json;charset=UTF-8</span><br><span class="line">     Cache-Control: no-store</span><br><span class="line">     Pragma: no-cache</span><br><span class="line"></span><br><span class="line">     &#123;</span><br><span class="line">       <span class="string">"access_token"</span>:<span class="string">"2YotnFZFEjr1zCsicMWpAA"</span>,</span><br><span class="line">       <span class="string">"token_type"</span>:<span class="string">"example"</span>,</span><br><span class="line">       <span class="string">"expires_in"</span>:3600,</span><br><span class="line">       <span class="string">"refresh_token"</span>:<span class="string">"tGzv3JOkF0XG5Qx2TlKWIA"</span>,</span><br><span class="line">       <span class="string">"example_parameter"</span>:<span class="string">"example_value"</span></span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用access token去访问资源服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">方式一：</span><br><span class="line">GET https://api.github.com/user?access_token=e72e16c7e42f292c6912e7710c838347ae178b4a</span><br><span class="line"></span><br><span class="line">方式二：</span><br><span class="line">curl -H <span class="string">"Authorization: token OAUTH-TOKEN e72e16c7e42f292c6912e7710c838347ae178b4a"</span> https://api.github.com/user</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="隐式授权（Implicit-Authorization）"><a href="#隐式授权（Implicit-Authorization）" class="headerlink" title="隐式授权（Implicit Authorization）"></a>隐式授权（Implicit Authorization）</h3><p>正如同上面提到过的隐式授权主要用于非机密客户端，JS脚本类，如下图：<br><img src="/images/OAuth2/oauth2_implicit_flow.png" alt="implicit png"></p>
+<ol>
+<li><p>客户端将用户导向认证服务器，对应上图中的Redirect to AuthZ response_type=token过程:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /authorize?response_type=token&amp;client_id=s6BhdRkqt3&amp;state=xyz</span><br><span class="line">        &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1</span><br><span class="line">    Host: server.example.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>假设用户给予授权，认证服务器将用户导向客户端指定的”重定向URI”，并在URI的ash（#fragment）部分包含了访问令牌，对应Redirect to Web Server with Access Token in # fragment：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 302 Found</span><br><span class="line">     Location: http://example.com/cb<span class="comment">#access_token=2YotnFZFEjr1zCsicMWpAAH</span></span><br><span class="line">               &amp;state=xyz&amp;token_type=example&amp;expires_in=3600</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="密码凭据（resource-owner-password-credentials）"><a href="#密码凭据（resource-owner-password-credentials）" class="headerlink" title="密码凭据（resource owner password credentials）"></a>密码凭据（resource owner password credentials）</h3><p><img src="/images/OAuth2/oauth2_username_password_flow.png" alt="oauth2_username_password_flow"></p>
+<ol>
+<li><p>客户端将用户名和密码发给认证服务器，向后者请求令牌。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">     Host: server.example.com</span><br><span class="line">     Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line">     Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">     grant_type=password&amp;username=johndoe&amp;password=A3ddj3w</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>认证服务器确认无误后，向客户端提供访问令牌。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">     Content-Type: application/json;charset=UTF-8</span><br><span class="line">     Cache-Control: no-store</span><br><span class="line">     Pragma: no-cache</span><br><span class="line"></span><br><span class="line">     &#123;</span><br><span class="line">       <span class="string">"access_token"</span>:<span class="string">"2YotnFZFEjr1zCsicMWpAA"</span>,</span><br><span class="line">       <span class="string">"token_type"</span>:<span class="string">"example"</span>,</span><br><span class="line">       <span class="string">"expires_in"</span>:3600,</span><br><span class="line">       <span class="string">"refresh_token"</span>:<span class="string">"tGzv3JOkF0XG5Qx2TlKWIA"</span>,</span><br><span class="line">       <span class="string">"example_parameter"</span>:<span class="string">"example_value"</span></span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="客户端凭据模式"><a href="#客户端凭据模式" class="headerlink" title="客户端凭据模式"></a>客户端凭据模式</h3><p><img src="/images/OAuth2/oauth2_client_credentials_flow.png" alt="oauth2_client_credentials_flow"></p>
+<ol>
+<li><p>客户端向认证服务器进行身份认证，并要求一个访问令牌。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">     Host: server.example.com</span><br><span class="line">     Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line">     Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">     grant_type=client_credentials</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>认证服务器确认无误后，向客户端提供访问令牌。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">     Content-Type: application/json;charset=UTF-8</span><br><span class="line">     Cache-Control: no-store</span><br><span class="line">     Pragma: no-cache</span><br><span class="line"></span><br><span class="line">     &#123;</span><br><span class="line">       <span class="string">"access_token"</span>:<span class="string">"2YotnFZFEjr1zCsicMWpAA"</span>,</span><br><span class="line">       <span class="string">"token_type"</span>:<span class="string">"example"</span>,</span><br><span class="line">       <span class="string">"expires_in"</span>:3600,</span><br><span class="line">       <span class="string">"example_parameter"</span>:<span class="string">"example_value"</span></span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p><img src="/images/OAuth2/OAuth2_application.png" alt="OAuth2"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">理解OAuth 2.0 阮一峰</a></li>
+<li><a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener">rfc6749</a></li>
+<li><a href="https://www.jianshu.com/p/243b85771be2" target="_blank" rel="noopener">Oauth2.0详解及安全使用 木子小三金</a></li>
+<li><a href="https://www.barretlee.com/blog/2016/01/10/oauth2-introduce/" target="_blank" rel="noopener">简述 OAuth 2.0 的运作流程</a></li>
+<li><a href="https://www.jianshu.com/p/6392420faf99" target="_blank" rel="noopener">OAuth2.0 协议入门指南 登高且赋</a></li>
+<li><a href="https://yq.aliyun.com/articles/226789?spm=a2c4e.11153940.blogcont226788.26.5fd52809aeLBoQ" target="_blank" rel="noopener">谈谈基于OAuth 2.0的第三方认证</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OAuth2/" rel="tag"># OAuth2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/29/vault详解（六）审计和应用/" rel="next" title="vault详解（六）审计和应用">
+                <i class="fa fa-chevron-left"></i> vault详解（六）审计和应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/05/OAuth2和OIDC的不同模式的应用场景/" rel="prev" title="OAuth2和OIDC的不同模式的应用场景">
+                OAuth2和OIDC的不同模式的应用场景 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些定义"><span class="nav-number">2.</span> <span class="nav-text">一些定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#角色："><span class="nav-number">2.1.</span> <span class="nav-text">角色：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协议流（protocol-flow）"><span class="nav-number">2.2.</span> <span class="nav-text">协议流（protocol flow）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协议端点（Protocol-Endpoints）"><span class="nav-number">2.3.</span> <span class="nav-text">协议端点（Protocol Endpoints）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#授权许可类型"><span class="nav-number">2.4.</span> <span class="nav-text">授权许可类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#access-token（访问令牌）"><span class="nav-number">2.5.</span> <span class="nav-text">access token（访问令牌）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#refresh-token"><span class="nav-number">2.6.</span> <span class="nav-text">refresh token</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端注册（Client-Registration）"><span class="nav-number">3.</span> <span class="nav-text">客户端注册（Client Registration）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端类型"><span class="nav-number">3.1.</span> <span class="nav-text">客户端类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端标记（Client-Identifier）"><span class="nav-number">3.2.</span> <span class="nav-text">客户端标记（Client Identifier）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端身份认证（Client-Authentication）"><span class="nav-number">3.3.</span> <span class="nav-text">客户端身份认证（Client Authentication）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#授权"><span class="nav-number">4.</span> <span class="nav-text">授权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#术语定义"><span class="nav-number">4.1.</span> <span class="nav-text">术语定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#授权码（Authorization-Code）"><span class="nav-number">4.2.</span> <span class="nav-text">授权码（Authorization Code）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式授权（Implicit-Authorization）"><span class="nav-number">4.3.</span> <span class="nav-text">隐式授权（Implicit Authorization）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#密码凭据（resource-owner-password-credentials）"><span class="nav-number">4.4.</span> <span class="nav-text">密码凭据（resource owner password credentials）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端凭据模式"><span class="nav-number">4.5.</span> <span class="nav-text">客户端凭据模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">4.6.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
