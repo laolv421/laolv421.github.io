@@ -79,23 +79,18 @@
 
 
 
-<meta name="description" content="使用Docker镜像本文主要参考Docker — 从入门到实践的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。 获取镜像Docker中有大量的镜像可以使用，在Docker Hub中，如下图所示；  选择redis的detail，有比较详细的说明；  从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为： 1$ docker pull [选项] [Docke">
+<meta name="description" content="使用Docker镜像本文主要参考Docker — 从入门到实践的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。 获取镜像从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为： 1$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker实践（二）">
 <meta property="og:url" content="http://yoursite.com/2018/08/21/Docker实践/Docker实践(二) /index.html">
 <meta property="og:site_name" content="小黄驴的窝">
-<meta property="og:description" content="使用Docker镜像本文主要参考Docker — 从入门到实践的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。 获取镜像Docker中有大量的镜像可以使用，在Docker Hub中，如下图所示；  选择redis的detail，有比较详细的说明；  从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为： 1$ docker pull [选项] [Docke">
+<meta property="og:description" content="使用Docker镜像本文主要参考Docker — 从入门到实践的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。 获取镜像从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为： 1$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/img/Docker实践/Docker实践（二）/docker_hub.png">
-<meta property="og:image" content="http://yoursite.com/img/Docker实践/Docker实践（二）/docker_redis.png">
-<meta property="og:image" content="http://yoursite.com/img/Docker实践/Docker实践（二）/docker_image_ls.png">
-<meta property="og:image" content="http://yoursite.com/img/Docker实践/Docker实践（二）/docker_system_df.png">
-<meta property="og:updated_time" content="2018-01-29T07:32:58.000Z">
+<meta property="og:updated_time" content="2018-11-07T10:02:10.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker实践（二）">
-<meta name="twitter:description" content="使用Docker镜像本文主要参考Docker — 从入门到实践的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。 获取镜像Docker中有大量的镜像可以使用，在Docker Hub中，如下图所示；  选择redis的detail，有比较详细的说明；  从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为： 1$ docker pull [选项] [Docke">
-<meta name="twitter:image" content="http://yoursite.com/img/Docker实践/Docker实践（二）/docker_hub.png">
+<meta name="twitter:description" content="使用Docker镜像本文主要参考Docker — 从入门到实践的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。 获取镜像从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为： 1$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]">
 
 
 
@@ -346,22 +341,17 @@
 
       
         <h2 id="使用Docker镜像"><a href="#使用Docker镜像" class="headerlink" title="使用Docker镜像"></a>使用Docker镜像</h2><p>本文主要参考<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">Docker — 从入门到实践</a>的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。</p>
-<h3 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h3><p>Docker中有大量的镜像可以使用，在<a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>中，如下图所示；</p>
-<p><img src="/img/Docker实践/Docker实践（二）/docker_hub.png" alt="Docker Hub" title="Docker Hub"></p>
-<p>选择redis的detail，有比较详细的说明；</p>
-<p><img src="/img/Docker实践/Docker实践（二）/docker_redis.png" alt="Docker redis" title="Docker redis"></p>
-<p>从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为：</p>
+<h3 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h3><p>从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>具体的选项可以通过docker pull –help命令看到，这里我们说一下镜像名称的格式。<br>（a）Docker 镜像仓库地址：地址的格式一般是 &lt;域名/IP&gt;[:端口号] 。默认地址是 Docker Hub。<br>（b）仓库名：如之前所说，这里的仓库名是两段式名称，即 &lt;用户名&gt;/&lt;软件名&gt; 。对于 Docker Hub，如果不给出用户名，则默认为 library ，也就是官方镜像。</p>
 <p>下面的命令中没有给出 Docker 镜像仓库地址，因此将会从 Docker Hub 获取镜像。而镜像名称是 ubuntu:16.04 ，因此将会获取官方镜像 library/ubuntu 仓库中标签为 16.04 的镜像。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull ubuntu:16.04</span><br><span class="line">16.04: Pulling from library/ubuntu</span><br><span class="line">bf5d46315322: Pull complete</span><br><span class="line">9f13e0ac480c: Pull complete</span><br><span class="line">e8988b5b3097: Pull complete</span><br><span class="line">40af181810e7: Pull complete</span><br><span class="line">e6f7c7e5c03e: Pull complete</span><br><span class="line">Digest: sha256:147913621d9cdea08853f6ba9116c2e27a3ceffecf3b492983ae97c3d643fbbe</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> ubuntu:16.04</span><br></pre></td></tr></table></figure>
 <h3 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h3><p>有了镜像后，我们就能够以这个镜像为基础启动并运行一个容器。以上面的 ubuntu:16.04 为例，如果我们打算启动里面的 bash 并且进行交互式操作的话，可以执行下面的命令。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it --rm ubuntu:16.04 bash</span><br></pre></td></tr></table></figure>
 <h3 id="列出镜像"><a href="#列出镜像" class="headerlink" title="列出镜像"></a>列出镜像</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls</span><br></pre></td></tr></table></figure>
-<p><img src="/img/Docker实践/Docker实践（二）/docker_image_ls.png" alt="Docker列出镜像" title="Docker列出镜像"></p>
 <p>列表包含了仓库名、标签、镜像ID、创建时间以及所占用的空间，镜像ID则是镜像的唯一标识，一个镜像可以对应多个标签。可以通过以下命令来便捷的查看镜像、容器、数据卷所占用的空间；</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker system df</span><br></pre></td></tr></table></figure>
-<p><img src="/img/Docker实践/Docker实践（二）/docker_system_df.png" alt="Docker查看镜像" title="Docker查看镜像"></p>
 <p>一般来说，虚悬镜像已经失去了存在的价值，是可以随意删除的，可以用下面的命令删除；</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image prune</span><br></pre></td></tr></table></figure>
 <p>不加任何参数的情况下， docker image ls 会列出所有顶级镜像，但是有时候我们只希望列出部分镜像，docker image ls有好几个参数可以帮助做到这个事情；<br>（a）根据仓库名列出镜像</p>
@@ -422,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/21/apt-get常用命令/" rel="next" title="apt-get的常用命令">
-                <i class="fa fa-chevron-left"></i> apt-get的常用命令
+              <a href="/2018/08/21/Docker实践/Docker实践(一)/" rel="next" title="Docker实践(一)">
+                <i class="fa fa-chevron-left"></i> Docker实践(一)
               </a>
             
           </div>
@@ -432,8 +422,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/21/Docker实践/Docker实践(一)/" rel="prev" title="Docker实践(一)">
-                Docker实践(一) <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/21/linux/LVM/" rel="prev" title="LVM的简单命令总结">
+                LVM的简单命令总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -522,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -533,7 +523,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -544,7 +534,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

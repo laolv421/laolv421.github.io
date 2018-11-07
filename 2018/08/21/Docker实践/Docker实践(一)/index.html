@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="小黄驴的窝">
 <meta property="og:description" content="Docker安装笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看《Docker — 从入门到实践》，这里面非常详细地介绍了各个主要系统的安装。 1. 卸载旧版本旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：1$ sudo apt-get remove docker">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-01-27T07:45:36.000Z">
+<meta property="og:updated_time" content="2018-11-07T10:02:28.888Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker实践(一)">
 <meta name="twitter:description" content="Docker安装笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看《Docker — 从入门到实践》，这里面非常详细地介绍了各个主要系统的安装。 1. 卸载旧版本旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：1$ sudo apt-get remove docker">
@@ -342,6 +342,7 @@
       
         <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">《Docker — 从入门到实践》</a>，这里面非常详细地介绍了各个主要系统的安装。</p>
 <h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1. 卸载旧版本"></a>1. 卸载旧版本</h3><p>旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker.io</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <h3 id="2-安装内核模块"><a href="#2-安装内核模块" class="headerlink" title="2. 安装内核模块"></a>2. 安装内核模块</h3><p>从Ubuntu 14.04开始，一部分内核模块移到了可选内核模块包 ( linux-image-extra-* ) ，以减少内核软件包的体积。正常安装的系统应该会包含可选内核模块包，而一些裁剪后的系统可能会将其精简掉。 AUFS 内核驱动属于可选内核模块的一部分，作为推荐的 Docker 存储层驱动，一般建议安装可选内核模块包以使用 AUFS 。</p>
 <p>如果系统没有安装可选内核模块的话，可以执行下面的命令来安装可选内核模块包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
@@ -400,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/21/Docker实践/Docker实践(二) /" rel="next" title="Docker实践（二）">
-                <i class="fa fa-chevron-left"></i> Docker实践（二）
+              <a href="/2018/08/21/apt-get常用命令/" rel="next" title="apt-get的常用命令">
+                <i class="fa fa-chevron-left"></i> apt-get的常用命令
               </a>
             
           </div>
@@ -410,8 +411,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/21/linux/LVM/" rel="prev" title="LVM的简单命令总结">
-                LVM的简单命令总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/21/Docker实践/Docker实践(二) /" rel="prev" title="Docker实践（二）">
+                Docker实践（二） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -500,7 +501,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -511,7 +512,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -522,7 +523,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

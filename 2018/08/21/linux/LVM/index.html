@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="lvm," />
 
 
 
@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：剩下两张图为细节上的体现： LVM命令1.分区：fdi">
+<meta name="description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：">
+<meta name="keywords" content="lvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LVM的简单命令总结">
 <meta property="og:url" content="http://yoursite.com/2018/08/21/linux/LVM/index.html">
 <meta property="og:site_name" content="小黄驴的窝">
-<meta property="og:description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：剩下两张图为细节上的体现： LVM命令1.分区：fdi">
+<meta property="og:description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/img/LVM/LVM_1.png">
-<meta property="og:image" content="http://yoursite.com/img/LVM/LVM_2.gif">
-<meta property="og:image" content="http://yoursite.com/img/LVM/LVM_3.jpg">
-<meta property="og:updated_time" content="2018-03-08T12:57:12.000Z">
+<meta property="og:image" content="http://yoursite.com/images/linux/lvm1.png">
+<meta property="og:image" content="http://yoursite.com/images/linux/lvm2.gif">
+<meta property="og:updated_time" content="2018-11-07T10:23:43.587Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LVM的简单命令总结">
-<meta name="twitter:description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：剩下两张图为细节上的体现： LVM命令1.分区：fdi">
-<meta name="twitter:image" content="http://yoursite.com/img/LVM/LVM_1.png">
+<meta name="twitter:description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：">
+<meta name="twitter:image" content="http://yoursite.com/images/linux/lvm1.png">
 
 
 
@@ -306,6 +306,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -344,7 +366,9 @@
 
       
         <p>LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。</p>
-<h3 id="LVM中pv、vg和lv之间的关系"><a href="#LVM中pv、vg和lv之间的关系" class="headerlink" title="LVM中pv、vg和lv之间的关系"></a>LVM中pv、vg和lv之间的关系</h3><p>下图形象地展现了physical volume、volume group和logical volume之间的关系：<br><img src="/img/LVM/LVM_1.png" alt="sourcelist文件的截图" title="LVM的截图1"><br>剩下两张图为细节上的体现：<br><img src="/img/LVM/LVM_2.gif" alt="sourcelist文件的截图" title="LVM的截图2"><br><img src="/img/LVM/LVM_3.jpg" alt="sourcelist文件的截图" title="LVM的截图3"></p>
+<h3 id="LVM中pv、vg和lv之间的关系"><a href="#LVM中pv、vg和lv之间的关系" class="headerlink" title="LVM中pv、vg和lv之间的关系"></a>LVM中pv、vg和lv之间的关系</h3><p>下图形象地展现了physical volume、volume group和logical volume之间的关系：<br><img src="/images/linux/lvm1.png" alt="sourcelist文件的截图"></p>
+<a id="more"></a>
+<p>下图为细节上的体现：<br><img src="/images/linux/lvm2.gif" alt="sourcelist文件的截图"></p>
 <h3 id="LVM命令"><a href="#LVM命令" class="headerlink" title="LVM命令"></a>LVM命令</h3><h4 id="1-分区：fdisk命令"><a href="#1-分区：fdisk命令" class="headerlink" title="1.分区：fdisk命令"></a>1.分区：fdisk命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fdisk /dev/sda</span><br></pre></td></tr></table></figure>
 <h4 id="2-创建physical-volume"><a href="#2-创建physical-volume" class="headerlink" title="2.创建physical volume"></a>2.创建physical volume</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pvcreate /dev/sda2</span><br></pre></td></tr></table></figure>
 <h3 id="3-扩容volume-group-vg名字假设为cl"><a href="#3-扩容volume-group-vg名字假设为cl" class="headerlink" title="3.扩容volume group(vg名字假设为cl)"></a>3.扩容volume group(vg名字假设为cl)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vgextend cl /dev/sda2</span><br></pre></td></tr></table></figure>
@@ -366,6 +390,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/lvm/" rel="tag"># lvm</a>
+          
+        </div>
+      
 
       
       
@@ -375,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/21/Docker实践/Docker实践(一)/" rel="next" title="Docker实践(一)">
-                <i class="fa fa-chevron-left"></i> Docker实践(一)
+              <a href="/2018/08/21/Docker实践/Docker实践(二) /" rel="next" title="Docker实践（二）">
+                <i class="fa fa-chevron-left"></i> Docker实践（二）
               </a>
             
           </div>
@@ -385,8 +415,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/07/Tomcat-SSL配置/" rel="prev" title="Tomcat-SSL配置">
-                Tomcat-SSL配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/05/OAuth2协议基础/" rel="prev" title="OAuth2协议基础">
+                OAuth2协议基础 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -475,7 +505,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -486,7 +516,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -497,7 +527,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
