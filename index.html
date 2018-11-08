@@ -1016,7 +1016,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/Docker实践/Docker实践(二) /">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/容器/Docker实践(一)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -1035,7 +1035,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/Docker实践/Docker实践(二) /" itemprop="url">Docker实践（二）</a></h1>
+                <a class="post-title-link" href="/2018/08/21/容器/Docker实践(一)/" itemprop="url">Docker实践(一)</a></h1>
         
 
         <div class="post-meta">
@@ -1057,6 +1057,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/容器/" itemprop="url" rel="index">
+                    <span itemprop="name">容器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1086,12 +1108,11 @@
 
       
         
-          <h2 id="使用Docker镜像"><a href="#使用Docker镜像" class="headerlink" title="使用Docker镜像"></a>使用Docker镜像</h2><p>本文主要参考<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">Docker — 从入门到实践</a>的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。</p>
-<h3 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h3><p>从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</span><br></pre></td></tr></table></figure>
+          <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">《Docker — 从入门到实践》</a>，这里面非常详细地介绍了各个主要系统的安装。</p>
+<h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1. 卸载旧版本"></a>1. 卸载旧版本</h3><p>旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker.io</span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/21/Docker实践/Docker实践(二) /#more" rel="contents">
+            <a class="btn" href="/2018/08/21/容器/Docker实践(一)/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1142,7 +1163,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/Docker实践/Docker实践(一)/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/容器/Docker实践(二) /">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -1161,7 +1182,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/Docker实践/Docker实践(一)/" itemprop="url">Docker实践(一)</a></h1>
+                <a class="post-title-link" href="/2018/08/21/容器/Docker实践(二) /" itemprop="url">Docker实践（二）</a></h1>
         
 
         <div class="post-meta">
@@ -1183,6 +1204,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/容器/" itemprop="url" rel="index">
+                    <span itemprop="name">容器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1212,11 +1255,12 @@
 
       
         
-          <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">《Docker — 从入门到实践》</a>，这里面非常详细地介绍了各个主要系统的安装。</p>
-<h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1. 卸载旧版本"></a>1. 卸载旧版本</h3><p>旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker.io</span><br></pre></td></tr></table></figure></p>
+          <h2 id="使用Docker镜像"><a href="#使用Docker镜像" class="headerlink" title="使用Docker镜像"></a>使用Docker镜像</h2><p>本文主要参考<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">Docker — 从入门到实践</a>的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。</p>
+<h3 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h3><p>从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/21/Docker实践/Docker实践(一)/#more" rel="contents">
+            <a class="btn" href="/2018/08/21/容器/Docker实践(二) /#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1321,8 +1365,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/命令/" itemprop="url" rel="index">
-                    <span itemprop="name">命令</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -1463,7 +1507,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
