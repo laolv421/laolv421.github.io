@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="lvm," />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：">
-<meta name="keywords" content="lvm">
+<meta name="description" content="因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。 正片开始apt-get是什么？apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LVM的简单命令总结">
-<meta property="og:url" content="http://yoursite.com/2018/08/21/linux/LVM/index.html">
+<meta property="og:title" content="apt-get的常用命令">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/linux/apt-get常用命令/index.html">
 <meta property="og:site_name" content="小黄驴的窝">
-<meta property="og:description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：">
+<meta property="og:description" content="因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。 正片开始apt-get是什么？apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/images/linux/lvm1.png">
-<meta property="og:image" content="http://yoursite.com/images/linux/lvm2.gif">
-<meta property="og:updated_time" content="2018-11-07T10:23:43.587Z">
+<meta property="og:updated_time" content="2018-11-07T10:24:37.840Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LVM的简单命令总结">
-<meta name="twitter:description" content="LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。 LVM中pv、vg和lv之间的关系下图形象地展现了physical volume、volume group和logical volume之间的关系：">
-<meta name="twitter:image" content="http://yoursite.com/images/linux/lvm1.png">
+<meta name="twitter:title" content="apt-get的常用命令">
+<meta name="twitter:description" content="因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。 正片开始apt-get是什么？apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/21/linux/LVM/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/21/linux/apt-get常用命令/"/>
 
 
 
 
 
-  <title>LVM的简单命令总结 | 小黄驴的窝</title>
+  <title>apt-get的常用命令 | 小黄驴的窝</title>
   
 
 
@@ -266,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/linux/LVM/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/linux/apt-get常用命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -283,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LVM的简单命令总结</h1>
+          <h1 class="post-title" itemprop="name headline">apt-get的常用命令</h1>
         
 
         <div class="post-meta">
@@ -318,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/命令/" itemprop="url" rel="index">
+                    <span itemprop="name">命令</span>
                   </a>
                 </span>
 
@@ -336,8 +333,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/21/linux/LVM/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/21/linux/LVM/" itemprop="commentsCount"></span>
+                <a href="/2018/08/21/linux/apt-get常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/08/21/linux/apt-get常用命令/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -365,16 +362,41 @@
       
 
       
-        <p>LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。</p>
-<h3 id="LVM中pv、vg和lv之间的关系"><a href="#LVM中pv、vg和lv之间的关系" class="headerlink" title="LVM中pv、vg和lv之间的关系"></a>LVM中pv、vg和lv之间的关系</h3><p>下图形象地展现了physical volume、volume group和logical volume之间的关系：<br><img src="/images/linux/lvm1.png" alt="sourcelist文件的截图"></p>
+        <p>因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。</p>
+<h2 id="正片开始"><a href="#正片开始" class="headerlink" title="正片开始"></a>正片开始</h2><h3 id="apt-get是什么？"><a href="#apt-get是什么？" class="headerlink" title="apt-get是什么？"></a>apt-get是什么？</h3><p>apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一个下载安装软件包的简单命令行接口，一般需要root权限执行，所以一般跟着sudo命令。<br>使用apt-get命令的第一步就是引入必需的软件库，Debian的软件库也就是所有Debian软件包的集合，它们存在互联网上的一些公共站点上。把它们的地址加入，apt-get就能搜索到我们想要的软件。/etc/apt/sources.list是存放这些地址列表的配置文件，其格式如下： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb [web或ftp地址] [发行版名字] [main/contrib/non-free]</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>下图为细节上的体现：<br><img src="/images/linux/lvm2.gif" alt="sourcelist文件的截图"></p>
-<h3 id="LVM命令"><a href="#LVM命令" class="headerlink" title="LVM命令"></a>LVM命令</h3><h4 id="1-分区：fdisk命令"><a href="#1-分区：fdisk命令" class="headerlink" title="1.分区：fdisk命令"></a>1.分区：fdisk命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fdisk /dev/sda</span><br></pre></td></tr></table></figure>
-<h4 id="2-创建physical-volume"><a href="#2-创建physical-volume" class="headerlink" title="2.创建physical volume"></a>2.创建physical volume</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pvcreate /dev/sda2</span><br></pre></td></tr></table></figure>
-<h3 id="3-扩容volume-group-vg名字假设为cl"><a href="#3-扩容volume-group-vg名字假设为cl" class="headerlink" title="3.扩容volume group(vg名字假设为cl)"></a>3.扩容volume group(vg名字假设为cl)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vgextend cl /dev/sda2</span><br></pre></td></tr></table></figure>
-<h3 id="4-扩容logical-volume"><a href="#4-扩容logical-volume" class="headerlink" title="4.扩容logical volume"></a>4.扩容logical volume</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lvextend -l +50%FREE -r /dev/cl/root</span><br></pre></td></tr></table></figure>
-<p>如果命令忘记加 -r (resize) 的话，需要加如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xfs_growfs /dev/cl/root</span><br></pre></td></tr></table></figure></p>
-<h3 id="5-补充命令"><a href="#5-补充命令" class="headerlink" title="5.补充命令"></a>5.补充命令</h3><p>(1) pvs、vgs、lvs分别对应physical volume display、volume group display、logical volume display三种查看命令；<br>(2) fdisk -l、cat /proc/partitions两个命令都可以查看分区情况；<br>(3) partprobe命令用于重读（某）分区表，无需重启系统；<br>(4) df命令用于查看磁盘（分区）使用情况，-h(human readable) -T(display filesystem type)</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get [选项] 命令</span><br></pre></td></tr></table></figure>
+<p>命令如下：</p>
+<p>update - 重新获取软件包列表 </p>
+<p>upgrade - 进行更新 </p>
+<p>install - 安装新的软件包 </p>
+<p>remove - 移除软件包 </p>
+<p>autoremove - 自动移除全部不使用的软件包 </p>
+<p>purge - 移除软件包和配置文件 </p>
+<p>source - 下载源码档案 </p>
+<p>build-dep - 为源码包配置编译依赖 </p>
+<p>dist-upgrade - 发行版升级</p>
+<p>dselect-upgrade - 依照 dselect 的选择更新 </p>
+<p>clean - 清除下载的归档文件 </p>
+<p>autoclean - 清除旧的的已下载的归档文件 </p>
+<p>check - 检验是否有损坏的依赖</p>
+<p>选项： </p>
+<p>-h 本帮助文件。 </p>
+<p>-q 输出到日志 - 无进展指示 </p>
+<p>-qq 不输出信息，错误除外 </p>
+<p>-d 仅下载 - 不安装或解压归档文件 </p>
+<p>-s 不实际安装。模拟执行命令</p>
+<p>-y 假定对所有的询问选是，不提示 </p>
+<p>-f 尝试修正系统依赖损坏处 </p>
+<p>-m 如果归档无法定位，尝试继续</p>
+<p>-u 同时显示更新软件包的列表 </p>
+<p>-b 获取源码包后编译 -V 显示详细的版本号</p>
+<h3 id="常见的使用例子"><a href="#常见的使用例子" class="headerlink" title="常见的使用例子"></a>常见的使用例子</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$ apt-cache search packagename 在软件包列表中搜索字符串</span><br><span class="line">$ apt-cache show packagename 获取包的相关信息，如说明、大小、版本等</span><br><span class="line">$ apt-cache depends packagename 了解使用依赖</span><br><span class="line">$ apt-cache rdepends packagename 是查看该包被哪些包依赖</span><br><span class="line">$ apt-cache search string 在软件包列表中搜索字符串 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ apt-get install packagename 安装包</span><br><span class="line">$ apt-get install packagename --reinstall 重新安装包</span><br><span class="line">$ apt-get -f install 修复安装”-f = –fix-missing”</span><br><span class="line">$ apt-get remove packagename 删除包，保留配置文件</span><br><span class="line">$ apt-get remove packagename --purge 删除包，包括删除配置文件等，会把已装或已卸的软件都备份在硬盘上</span><br><span class="line">$ apt-get autoclean 清理无用的包，可以让这个命令来删除你已经删掉的软件</span><br><span class="line">$ apt-get clean 清理无用的包，这个命令会把安装的软件的备份也删除，不过这样不会影响软件的使用的</span><br><span class="line">$ apt-get update 更新源</span><br><span class="line">$ apt-get upgrade 更新已安装的包</span><br><span class="line">$ apt-get dist-upgrade 升级系统到新版本</span><br><span class="line">$ apt-get dselect-upgrade 使用 dselect 升级</span><br><span class="line">$ apt-get build-dep packagename 安装相关的编译环境</span><br><span class="line">$ apt-get <span class="built_in">source</span> packagename 下载该包的源代码</span><br><span class="line">$ apt-get check 检查是否有损坏的依赖</span><br><span class="line"></span><br><span class="line">$ dpkg --force-all --purge packagename 有些软件很难卸载，而且还阻止了别的软件的应用，就可以用这个，不过有点冒险</span><br><span class="line">$ dpkg -S file——这个文件属于哪个已安装软件包</span><br><span class="line">$ dpkg -L package——列出软件包中的所有文件</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://www.cnblogs.com/pswzone/archive/2012/04/09/2438885.html" target="_blank" rel="noopener">apt-get常用命令</a></li>
+<li><a href="http://bbs.chinaunix.net/tree/index_168_1/" target="_blank" rel="noopener">Ubuntu apt-get 使用指南</a></li>
+</ol>
 
       
     </div>
@@ -392,7 +414,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/lvm/" rel="tag"># lvm</a>
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
         </div>
       
@@ -405,18 +427,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/21/Docker实践/Docker实践(二) /" rel="next" title="Docker实践（二）">
-                <i class="fa fa-chevron-left"></i> Docker实践（二）
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/05/认证/OAuth2协议基础/" rel="prev" title="OAuth2协议基础">
-                OAuth2协议基础 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/21/Docker实践/Docker实践(一)/" rel="prev" title="Docker实践(一)">
+                Docker实践(一) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -576,7 +594,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#LVM中pv、vg和lv之间的关系"><span class="nav-number">1.</span> <span class="nav-text">LVM中pv、vg和lv之间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LVM命令"><span class="nav-number">2.</span> <span class="nav-text">LVM命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-分区：fdisk命令"><span class="nav-number">2.1.</span> <span class="nav-text">1.分区：fdisk命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-创建physical-volume"><span class="nav-number">2.2.</span> <span class="nav-text">2.创建physical volume</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-扩容volume-group-vg名字假设为cl"><span class="nav-number">3.</span> <span class="nav-text">3.扩容volume group(vg名字假设为cl)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-扩容logical-volume"><span class="nav-number">4.</span> <span class="nav-text">4.扩容logical volume</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-补充命令"><span class="nav-number">5.</span> <span class="nav-text">5.补充命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正片开始"><span class="nav-number">1.</span> <span class="nav-text">正片开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apt-get是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">apt-get是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">1.2.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的使用例子"><span class="nav-number">1.3.</span> <span class="nav-text">常见的使用例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>

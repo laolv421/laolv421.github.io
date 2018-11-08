@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OpenID,OIDC," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="OpenID协议OpenID协议是一个去中心化的网上身份认证系统。对于支持OpenID的网站，用户不需要记住像用户名和密码这样的传统验证标记。取而代之的是，他们只需要预先在一个作为OpenID身份提供者（identity provider, IdP）的网站上注册。OpenID是去中心化的，任何网站都可以使用OpenID来作为用户登录的一种方式，任何网站也都可以作为OpenID身份提供者。OpenI">
+<meta name="keywords" content="OpenID,OIDC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenID Connect协议基础">
+<meta property="og:url" content="http://yoursite.com/2018/11/05/认证/OpenID-Connect协议基础/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="OpenID协议OpenID协议是一个去中心化的网上身份认证系统。对于支持OpenID的网站，用户不需要记住像用户名和密码这样的传统验证标记。取而代之的是，他们只需要预先在一个作为OpenID身份提供者（identity provider, IdP）的网站上注册。OpenID是去中心化的，任何网站都可以使用OpenID来作为用户登录的一种方式，任何网站也都可以作为OpenID身份提供者。OpenI">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/OpenID/openid_signin.png">
+<meta property="og:image" content="http://yoursite.com/images/OpenID/openid_org_cn.png">
+<meta property="og:image" content="http://yoursite.com/images/OpenID/openid_flow.png">
+<meta property="og:image" content="http://yoursite.com/images/OIDC/OIDC_authorization_code_flow.png">
+<meta property="og:image" content="http://yoursite.com/images/OIDC/OIDC_implicit_flow.png">
+<meta property="og:image" content="http://yoursite.com/images/OIDC/implicit_response_type.png">
+<meta property="og:updated_time" content="2018-11-08T07:26:01.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenID Connect协议基础">
+<meta name="twitter:description" content="OpenID协议OpenID协议是一个去中心化的网上身份认证系统。对于支持OpenID的网站，用户不需要记住像用户名和密码这样的传统验证标记。取而代之的是，他们只需要预先在一个作为OpenID身份提供者（identity provider, IdP）的网站上注册。OpenID是去中心化的，任何网站都可以使用OpenID来作为用户登录的一种方式，任何网站也都可以作为OpenID身份提供者。OpenI">
+<meta name="twitter:image" content="http://yoursite.com/images/OpenID/openid_signin.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/05/认证/OpenID-Connect协议基础/"/>
+
+
+
+
+
+  <title>OpenID Connect协议基础 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/认证/OpenID-Connect协议基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenID Connect协议基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:53:24+08:00">
+                2018-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/05/认证/OpenID-Connect协议基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/11/05/认证/OpenID-Connect协议基础/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="OpenID协议"><a href="#OpenID协议" class="headerlink" title="OpenID协议"></a>OpenID协议</h1><p>OpenID协议是一个去中心化的网上身份认证系统。对于支持OpenID的网站，用户不需要记住像用户名和密码这样的传统验证标记。取而代之的是，他们只需要预先在一个作为OpenID身份提供者（identity provider, IdP）的网站上注册。OpenID是去中心化的，任何网站都可以使用OpenID来作为用户登录的一种方式，任何网站也都可以作为OpenID身份提供者。OpenID既解决了问题而又不需要依赖于中心性的网站来确认数字身份，但是目前OpenID协议已经过时，只有很少的网站支持OpenID，前段时间OpenID的重要支持者stackoverflow也宣布不再支持OpenID登录。下图是stackoverflow支持OpenID认证的截图：<br><img src="/images/OpenID/openid_signin.png" width="600/"></p>
+<a id="more"></a>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>用户登录不同的网站需要不同的账号密码，对于用户来说，使用不同的密码并且定期更换时不可能的，维护密码是一大问题。OpenID作为一个无密码登录协议，它的出现很好地解决了这个难题。OpenID只需要使用一套账号密码系统，用这套账号密码可以登录所有支持OpenID协议的网站。</p>
+<p>OpenID的出现是在2005年，随即很多公司和组织表示支持OpenID，包括Google、Facebook、Yahoo、Microsoft等等，但是现在由于OAuth的出现导致OpenID的落寞，现在OAuth和OIDC变得愈加流行。</p>
+<h2 id="OpenID提供商例子"><a href="#OpenID提供商例子" class="headerlink" title="OpenID提供商例子"></a>OpenID提供商例子</h2><p>下面简单列出一些OpenID提供商的例子，来源于维基百科，虽然可能有的OpenID提供商已经不可用，主要由于OpenID的废弃：</p>
+<ol>
+<li>openid.org.cn - 多国语言，免费 - OpenID格式：<a href="http://用户名.openid.org.cn/" target="_blank" rel="noopener">http://用户名.openid.org.cn/</a></li>
+<li>87id - 中英文，免费，支持IPv6 - OpenID格式：<a href="http://用户名.87id.com/" target="_blank" rel="noopener">http://用户名.87id.com/</a></li>
+<li>openid.35.com - 中英文，免费 - OpenID格式：<a href="http://openid.35.com/users/用户名/" target="_blank" rel="noopener">http://openid.35.com/users/用户名/</a></li>
+<li>login.comrite.com - 中英文，免费 - OpenID格式：<a href="http://login.comrite.com/用户名" target="_blank" rel="noopener">http://login.comrite.com/用户名</a></li>
+</ol>
+<p>下面是在 <a href="http://openid.org.cn" target="_blank" rel="noopener">http://openid.org.cn</a> 提供商的截图：<br><img src="/images/OpenID/openid_org_cn.png" alt="openid_org_cn"></p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="获得OpenID"><a href="#获得OpenID" class="headerlink" title="获得OpenID"></a>获得OpenID</h3><p>要想获得OpenID，就要去OpenID Provider注册，OpenID可以是URL或者标识符，例如 <a href="http://laolv.openid.org.cn" target="_blank" rel="noopener">http://laolv.openid.org.cn</a> ，任何支持OpenID的网站，用户都可以用此来认证登录。</p>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p>当用户在网站输入OpenID登录，用户被重定向到OpenID Provider，需要在OpenID Provider认证用户自己的身份，一般采用密码方式。认证成功之后，用户又被重定向回网站。<br><img src="/images/OpenID/openid_flow.png" width="600"></p>
+<h1 id="OpenID-Connect协议"><a href="#OpenID-Connect协议" class="headerlink" title="OpenID Connect协议"></a>OpenID Connect协议</h1><p>OpenID Connect简称OIDC，2014年公布的协议，吸取了SAML、OpenID的经验，并在OAuth2基础上实现身份认证功能。它调用采用API-friendly的RESTful HTTP API形式，同时OpenID Connect实现了可选择的签名和加密算法，并使用JSON格式来操作。现在OpenID Connect已经成为了单点登录和互联网身份认证提供方法的标准。</p>
+<h2 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h2><p>其他文章介绍OAuth2可以授权第三方通过例如Google账号来访问受保护的信息，但是并不提供账号的信息给第三方，第三方此时是对用户的情况一无所知的。回忆一下，OAuth2的流程是仅能得到access token这类的东西，但是如果第三方需要更多用户的信息，OAuth2是做不到这个的，OIDC此时可以很好地处理这个问题。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><p>OpenID Connect主要有三个方面的亮点：</p>
+<ol>
+<li>易于使用的身份令牌；用户的身份是用JWT（Json Web Token）协议来加密的，这个令牌也被叫做ID token；</li>
+<li>基于OAuth2.0协议；OAuth2.0同时支持web应用和本机应用（native/mobile apps）；</li>
+<li>简单性；集成基本的应用非常容易，同时提供了适应多种场景的不同安全方法选择；</li>
+</ol>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>主要有RP、OP和EU名词，解释如下：</p>
+<ol>
+<li>Relying Party(RP)：依赖方，通常是第三方应用程序(客户端)，例如博客；</li>
+<li>OpenID Provider(OP)：OpenID提供方，通常是一个 OpenID 认证服务器（例如开源的<a href="https://github.com/ory/hydra" target="_blank" rel="noopener">Hydra</a>、<a href="https://wso2.com/identity-and-access-management/" target="_blank" rel="noopener">WSO2</a>），它能为依赖方提供断言以证实用户拥有某个标识；</li>
+<li>End-User(EU)：终端用户，指持有账号的人，例如github用户；</li>
+<li>ID Token：JWT格式的数据，格式大致为header+body+signature，body中包含EU身份认证的信息，由OP生成；</li>
+<li>OpenID Provider Endpoint：OpenID提供方中的端点，主要包括Authorisation endpoint、Token endpoint、UserInfo Endpoint和Optional Endpoint；</li>
+</ol>
+<h2 id="关键知识点"><a href="#关键知识点" class="headerlink" title="关键知识点"></a>关键知识点</h2><h3 id="ID-Token"><a href="#ID-Token" class="headerlink" title="ID Token"></a>ID Token</h3><p>ID Token是一种JWT(JSON Web Token)格式数据，基于base 64 URL-safe编码，主要由以下几部分构成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">iss：必须。Issuer Identifier，OP的唯一标识，一个区分大小写的https URL，不包含query和fragment组件</span><br><span class="line">sub：必须。Subject Identifier，iss提供的EU的标识，在iss范围内唯一，最长为255个ASCII个字符，区分大小写</span><br><span class="line">aud：必须。Audience(s)，代表relaying party（client app），必须包含OAuth2的client_id，分大小写的字符串数组</span><br><span class="line">exp：必须。Expiration time，超过此时间的ID Token会作废</span><br><span class="line">iat：必须。Issued At Time，JWT的构建的时间</span><br><span class="line">auth_time：AuthenticationTime，EU完成认证的时间。如果RP发送AuthN请求的时候携带max_age的参数，则此Claim是必须的</span><br><span class="line">nonce：RP发送认证请求的时候提供的随机字符串，用来减缓重放攻击，也可以用来关联客户端Session。如果nonce存在，客户端必须验证nonce</span><br><span class="line">acr：可选。Authentication Context Class Reference，表示一个认证上下文引用值，可以用来标识认证上下文类</span><br><span class="line">amr：可选。Authentication Methods References，表示一组认证方法</span><br><span class="line">azp：可选。Authorized party，结合aud使用。只有在被认证的一方和受众（aud）不一致时才使用此值，一般情况下很少使用</span><br></pre></td></tr></table></figure></p>
+<p>例子如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">"iss"</span>: <span class="string">"https://server.example.com"</span>,</span><br><span class="line">   <span class="string">"sub"</span>: <span class="string">"24400320"</span>,</span><br><span class="line">   <span class="string">"aud"</span>: <span class="string">"s6BhdRkqt3"</span>,</span><br><span class="line">   <span class="string">"nonce"</span>: <span class="string">"n-0S6_WzA2Mj"</span>,</span><br><span class="line">   <span class="string">"exp"</span>: 1311281970,</span><br><span class="line">   <span class="string">"iat"</span>: 1311280970,</span><br><span class="line">   <span class="string">"auth_time"</span>: 1311280969,</span><br><span class="line">   <span class="string">"acr"</span>: <span class="string">"urn:mace:incommon:iap:silver"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编码之后的ID token为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlOWdkazcifQ.ewogImlzcyI6ICJodHRw</span><br><span class="line">Oi8vc2VydmVyLmV4YW1wbGUuY29tIiwKICJzdWIiOiAiMjQ4Mjg5NzYxMDAxIiw</span><br><span class="line">KICJhdWQiOiAiczZCaGRSa3F0MyIsCiAibm9uY2UiOiAibi0wUzZfV3pBMk1qIi</span><br><span class="line">wKICJleHAiOiAxMzExMjgxOTcwLAogImlhdCI6IDEzMTEyODA5NzAKfQ.ggW8hZ</span><br><span class="line">1EuVLuxNuuIJKX_V8a_OMXzR0EHR9R6jgdqrOOF4daGU96Sr_P6qJp6IcmD3HP9</span><br><span class="line">9Obi1PRs-cwh3LO-p146waJ8IhehcwL7F09JdijmBqkvPeB2T9CJNqeGpe-gccM</span><br><span class="line">g4vfKjkM8FcGvnzZUN4_KSP0aAp1tOJ1zZwgjxqGByKHiOtX7TpdQyHE5lcMiKP</span><br><span class="line">XfEIQILVq0pc_E2DzL7emopWoaoZTF_m0_N0YzFC6g6EJbOEoRoSK5hoDalrcvR</span><br><span class="line">YLSrQAZZKflyuVCyixEoV9GfNQC3_osjzw2PAithfubEEBLuVVk4XUVrWOLrLl0</span><br><span class="line">nx7RkKU8NXNHq-rvKMzqg</span><br></pre></td></tr></table></figure></p>
+<p>不仅仅在基本的登录过程可以使用，ID token还有如下使用场景：</p>
+<ol>
+<li><p>stateless sessions；ID token放入浏览器可以实现一个比较轻型的无状态会话，这就消除了在服务器段存储（包括内存和本地硬盘）session的负担，因为会话可以通过ID token来验证；</p>
+</li>
+<li><p>向第三方传递身份；当需要验证身份的时候，可以向其他应用组件或者后端服务传递ID token；</p>
+</li>
+<li><p>token exchange；ID token可以换取access key，在分布式和企业应用也可以用到；</p>
+</li>
+</ol>
+<h3 id="claims（用户信息）"><a href="#claims（用户信息）" class="headerlink" title="claims（用户信息）"></a>claims（用户信息）</h3><p>OpenID Connect明确了一些用户的标准信息或者用户的属性，客户端声明方式如下：</p>
+<ol>
+<li>声明的属性类型用scope值来指定；</li>
+<li><p>支持扩展属性；</p>
+<p>声明Json格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">"sub"</span>                     : <span class="string">"alice"</span>,</span><br><span class="line">   <span class="string">"email"</span>                   : <span class="string">"alice@wonderland.net"</span>,</span><br><span class="line">   <span class="string">"email_verified"</span>          : <span class="literal">true</span>,</span><br><span class="line">   <span class="string">"name"</span>                    : <span class="string">"Alice Adams"</span>,</span><br><span class="line">   <span class="string">"given_name"</span>              : <span class="string">"Alice"</span>,</span><br><span class="line">   <span class="string">"family_name"</span>             : <span class="string">"Adams"</span>,</span><br><span class="line">   <span class="string">"phone_number"</span>            : <span class="string">"+359 (99) 100200305"</span>,</span><br><span class="line">   <span class="string">"profile"</span>                 : <span class="string">"https://c2id.com/users/alice"</span>,</span><br><span class="line">   <span class="string">"https://c2id.com/groups"</span> : [ <span class="string">"audit"</span>, <span class="string">"admin"</span> ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="OpenID-Connect-provider-endpoints"><a href="#OpenID-Connect-provider-endpoints" class="headerlink" title="OpenID Connect provider endpoints"></a>OpenID Connect provider endpoints</h3><ol>
+<li><p>Authorisation endpoint；OP中认证用户和处理授权的端点；</p>
+</li>
+<li><p>Token endpoint：产生ID token和access token的端点</p>
+</li>
+<li><p>UserInfo Endpoint：用户信息端点（受OAuth2保护），当RP使用Access Token访问时，返回授权用户的信息，此接口必须使用HTTPS。<br>有效的access token获取用户信息如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /userinfo HTTP/1.1</span><br><span class="line">Host: openid.c2id.com</span><br><span class="line">Authorization: Bearer SlAV32hkKG</span><br></pre></td></tr></table></figure>
+<p>回复如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"sub"</span>                     : <span class="string">"alice"</span>,</span><br><span class="line">  <span class="string">"email"</span>                   : <span class="string">"alice@wonderland.net"</span>,</span><br><span class="line">  <span class="string">"email_verified"</span>          :  <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"name"</span>                    : <span class="string">"Alice Adams"</span>,</span><br><span class="line">  <span class="string">"picture"</span>                 : <span class="string">"https://c2id.com/users/alice.jpg"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sub是必须的，其他是可选的。</p>
+</li>
+<li><p>Optional endpoints<br>可以参考<a href="https://connect2id.com/learn/openid-connect#optional-endpoints" target="_blank" rel="noopener">这篇文章</a>结合资料来了解。</p>
+</li>
+</ol>
+<h2 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h2><h3 id="Authorization-code-flow"><a href="#Authorization-code-flow" class="headerlink" title="Authorization code flow"></a>Authorization code flow</h3><p><img src="/images/OIDC/OIDC_authorization_code_flow.png" alt="AuthorizationCode"></p>
+<ol>
+<li><p>所有的Token都是通过OP的Token EndPoint来发放的，构建一个OIDC的Authentication Request需要提供如下的参数：</p>
+<ul>
+<li><strong>response_type</strong>：必选，值为code，表示认证流程为授权码流程；</li>
+<li>scope：必选。OIDC的请求必须包含值为”openid”的scope的参数；</li>
+<li>client_id：必选。RP在OP中注册的客户端识别码；</li>
+<li>redirect_uri：必选。RP回调地址；</li>
+<li>state：推荐。同OAuth2，防止CSRF。</li>
+</ul>
+<p>例子如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET /authorize?</span><br><span class="line">    response_type=code</span><br><span class="line">    &amp;scope=openid%20profile%20email</span><br><span class="line">    &amp;client_id=s6BhdRkqt3</span><br><span class="line">    &amp;state=af0ifjsldkj</span><br><span class="line">    &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Redirect with Authorization Code，认证服务器首先对请求参数做严格的验证，然后会重定向到RP指定的回调地址(redirect_uri)，并且把code和state参数传递过去如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 302 Found</span><br><span class="line">Location: https://client.example.org/cb?</span><br><span class="line">    code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">    &amp;state=af0ifjsldkj</span><br></pre></td></tr></table></figure>
+<p> 同时，RP必须验证state的值af0ifjsldkj，并在后面步骤会使用code来换取ID token。这里和OAuth2一样，authorization code也是在后端和认证服务器之间交互的，不对前端透明。</p>
+</li>
+<li><p>Token Endpoint拿到code后，返回access token和ID token，请求包基本同OAuth2一样，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">Host: openid.c2id.com</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line"></span><br><span class="line">grant_type=authorization_code</span><br><span class="line"> &amp;code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line"> &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb</span><br></pre></td></tr></table></figure>
+<p>回复包如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">  Content-Type: application/json</span><br><span class="line">  Cache-Control: no-store</span><br><span class="line">  Pragma: no-cache</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">   <span class="string">"access_token"</span>: <span class="string">"SlAV32hkKG"</span>,</span><br><span class="line">   <span class="string">"token_type"</span>: <span class="string">"Bearer"</span>,</span><br><span class="line">   <span class="string">"refresh_token"</span>: <span class="string">"8xLOxBtZp8"</span>,</span><br><span class="line">   <span class="string">"expires_in"</span>: 3600,</span><br><span class="line">   <span class="string">"id_token"</span>: <span class="string">"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlOWdkazcifQ.ewogImlzc</span></span><br><span class="line"><span class="string">     yI6ICJodHRwOi8vc2VydmVyLmV4YW1wbGUuY29tIiwKICJzdWIiOiAiMjQ4Mjg5</span></span><br><span class="line"><span class="string">     NzYxMDAxIiwKICJhdWQiOiAiczZCaGRSa3F0MyIsCiAibm9uY2UiOiAibi0wUzZ</span></span><br><span class="line"><span class="string">     fV3pBMk1qIiwKICJleHAiOiAxMzExMjgxOTcwLAogImlhdCI6IDEzMTEyODA5Nz</span></span><br><span class="line"><span class="string">     AKfQ.ggW8hZ1EuVLuxNuuIJKX_V8a_OMXzR0EHR9R6jgdqrOOF4daGU96Sr_P6q</span></span><br><span class="line"><span class="string">     Jp6IcmD3HP99Obi1PRs-cwh3LO-p146waJ8IhehcwL7F09JdijmBqkvPeB2T9CJ</span></span><br><span class="line"><span class="string">     NqeGpe-gccMg4vfKjkM8FcGvnzZUN4_KSP0aAp1tOJ1zZwgjxqGByKHiOtX7Tpd</span></span><br><span class="line"><span class="string">     QyHE5lcMiKPXfEIQILVq0pc_E2DzL7emopWoaoZTF_m0_N0YzFC6g6EJbOEoRoS</span></span><br><span class="line"><span class="string">     K5hoDalrcvRYLSrQAZZKflyuVCyixEoV9GfNQC3_osjzw2PAithfubEEBLuVVk4</span></span><br><span class="line"><span class="string">     XUVrWOLrLl0nx7RkKU8NXNHq-rvKMzqg"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>RP拿到这些信息之后，需要对id_token以及access_token进行验证。同时回复包中包含token type的信息，这是表明access token的类型为Bearer，有其他文章会介绍token的类型。为了确保和OAuth2兼容，需要加上access token，即使ID token已经可以作为验证身份的字段了；也就是说access token是没起到实际的作用的，在OpenID应用中是被忽略的。</p>
+</li>
+</ol>
+<h3 id="implicit-flow"><a href="#implicit-flow" class="headerlink" title="implicit flow"></a>implicit flow</h3><p>隐式模式，或者默认模式，流程图如下<br><img src="/images/OIDC/OIDC_implicit_flow.png" alt="implicit"><br>在隐式模式下，token是在authorization endpoint颁发而不是在token endpoint，没有认证码，只有token生成。请求参数和authorization code flow不大一样：</p>
+<ol>
+<li><strong>response_type</strong>有两种，一个是id_token，另一个是id_token token。</li>
+</ol>
+<p><img src="/images/OIDC/implicit_response_type.png" width="500"></p>
+<ol>
+<li><strong>nonce</strong>：关联client session的参数，降低replay attack攻击风险；</li>
+<li><strong>at_hash（Access Token hash value）</strong>：access token的hash值；</li>
+</ol>
+<p>请求参数例子如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /authorize?</span><br><span class="line">    response_type=id_token%20token</span><br><span class="line">    &amp;client_id=s6BhdRkqt3</span><br><span class="line">    &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb</span><br><span class="line">    &amp;scope=openid%20profile</span><br><span class="line">    &amp;state=af0ifjsldkj</span><br><span class="line">    &amp;nonce=n-0S6_WzA2Mj HTTP/1.1</span><br><span class="line">  Host: server.example.com</span><br></pre></td></tr></table></figure></p>
+<h3 id="Hybrid-flow"><a href="#Hybrid-flow" class="headerlink" title="Hybrid flow"></a>Hybrid flow</h3><p>混合模式简而言之就是以上提到的两种模式的混合，<strong>response_type</strong>有三种形式：</p>
+<ol>
+<li>response_type=code token</li>
+<li>response_type=code id_token</li>
+<li>response_type=code id_token token</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://www.jianshu.com/p/be7cc032a4e9" target="_blank" rel="noopener">OpenID Connect 协议入门指南 登高且赋</a></li>
+<li><a href="https://www.cnblogs.com/linianhui/p/openid-connect-core.html" target="_blank" rel="noopener">OIDC（OpenId Connect）身份认证授权（核心部分）</a></li>
+<li><a href="https://connect2id.com/learn/openid-connect#intro" target="_blank" rel="noopener">OpenID Connect explained</a></li>
+<li><a href="https://medium.com/@piraveenaparalogarajah/what-is-openid-efe74e37b4d7" target="_blank" rel="noopener">What is OpenID ??</a></li>
+<li><a href="https://www.slideshare.net/rmetzler/identity-on-the-web-openid-vs-oauth" target="_blank" rel="noopener">OpenID vs OAuth - Identity on the Web</a></li>
+<li><a href="https://medium.com/@hasiniwitharana/openid-connect-532465308090" target="_blank" rel="noopener">OpenID Connect Basics</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenID/" rel="tag"># OpenID</a>
+          
+            <a href="/tags/OIDC/" rel="tag"># OIDC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/05/认证/OAuth2和OIDC的不同模式的应用场景/" rel="next" title="OAuth2和OIDC的不同模式的应用场景">
+                <i class="fa fa-chevron-left"></i> OAuth2和OIDC的不同模式的应用场景
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/08/认证/Kerberos协议/" rel="prev" title="Kerberos协议">
+                Kerberos协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenID协议"><span class="nav-number">1.</span> <span class="nav-text">OpenID协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenID提供商例子"><span class="nav-number">1.2.</span> <span class="nav-text">OpenID提供商例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">1.3.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获得OpenID"><span class="nav-number">1.3.1.</span> <span class="nav-text">获得OpenID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录"><span class="nav-number">1.3.2.</span> <span class="nav-text">登录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenID-Connect协议"><span class="nav-number">2.</span> <span class="nav-text">OpenID Connect协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景-1"><span class="nav-number">2.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">2.3.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键知识点"><span class="nav-number">2.4.</span> <span class="nav-text">关键知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ID-Token"><span class="nav-number">2.4.1.</span> <span class="nav-text">ID Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#claims（用户信息）"><span class="nav-number">2.4.2.</span> <span class="nav-text">claims（用户信息）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenID-Connect-provider-endpoints"><span class="nav-number">2.4.3.</span> <span class="nav-text">OpenID Connect provider endpoints</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认证流程"><span class="nav-number">2.5.</span> <span class="nav-text">认证流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Authorization-code-flow"><span class="nav-number">2.5.1.</span> <span class="nav-text">Authorization code flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implicit-flow"><span class="nav-number">2.5.2.</span> <span class="nav-text">implicit flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hybrid-flow"><span class="nav-number">2.5.3.</span> <span class="nav-text">Hybrid flow</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

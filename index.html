@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/OpenID-Connect协议基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/认证/Kerberos协议/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -281,7 +281,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/05/OpenID-Connect协议基础/" itemprop="url">OpenID Connect协议基础</a></h1>
+                <a class="post-title-link" href="/2018/11/08/认证/Kerberos协议/" itemprop="url">Kerberos协议</a></h1>
         
 
         <div class="post-meta">
@@ -293,8 +293,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:53:24+08:00">
-                2018-11-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-08T15:29:43+08:00">
+                2018-11-08
               </time>
             
 
@@ -318,17 +318,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/认证/" itemprop="url" rel="index">
                     <span itemprop="name">认证</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/认证/授权/" itemprop="url" rel="index">
-                    <span itemprop="name">授权</span>
                   </a>
                 </span>
 
@@ -365,10 +354,11 @@
 
       
         
-          <h1 id="OpenID协议"><a href="#OpenID协议" class="headerlink" title="OpenID协议"></a>OpenID协议</h1><p>OpenID协议是一个去中心化的网上身份认证系统。对于支持OpenID的网站，用户不需要记住像用户名和密码这样的传统验证标记。取而代之的是，他们只需要预先在一个作为OpenID身份提供者（identity provider, IdP）的网站上注册。OpenID是去中心化的，任何网站都可以使用OpenID来作为用户登录的一种方式，任何网站也都可以作为OpenID身份提供者。OpenID既解决了问题而又不需要依赖于中心性的网站来确认数字身份，但是目前OpenID协议已经过时，只有很少的网站支持OpenID，前段时间OpenID的重要支持者stackoverflow也宣布不再支持OpenID登录。下图是stackoverflow支持OpenID认证的截图：<br><img src="/images/OpenID/openid_signin.png" width="600/"></p>
+          <p>常见的身份协议包括OAuth2(2010), OpenID Connect(2014), SAML(2002)，SAML2(2005), WS-Trust(2007)和WS-Federation(2003)等，出这些之外，还有一个最古老的身份认证协议Kerberos v4(1988)。本文会介绍Kerberos v5协议，并且介绍Kerberos在现实中的应用。</p>
+<p>Kerberos是以Needham-Schroeder symmetric key protocol为出发点，它是现代计算机网络中最广泛部署的身份验证和授权系统。目前Kerberos的最新版本是v5，由Neuman和Kohl于1993年出版，旨在克服v4版本的限制和安全问题，v5版本在<a href="https://tools.ietf.org/html/rfc4120" target="_blank" rel="noopener">RFC4120</a>中定义最终版，Kerberos第5版Generic Security Service Application Programming Interface( GSS-API )机制在<a href="https://tools.ietf.org/html/rfc4121" target="_blank" rel="noopener">RFC4121</a>中定义最终版，这定义了Kerberos实现应该使用的一组标准函数（API库）。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/05/OpenID-Connect协议基础/#more" rel="contents">
+            <a class="btn" href="/2018/11/08/认证/Kerberos协议/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -419,7 +409,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/OAuth2和OIDC的不同模式的应用场景/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/认证/OpenID-Connect协议基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -438,7 +428,153 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/05/OAuth2和OIDC的不同模式的应用场景/" itemprop="url">OAuth2和OIDC的不同模式的应用场景</a></h1>
+                <a class="post-title-link" href="/2018/11/05/认证/OpenID-Connect协议基础/" itemprop="url">OpenID Connect协议基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:53:24+08:00">
+                2018-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="OpenID协议"><a href="#OpenID协议" class="headerlink" title="OpenID协议"></a>OpenID协议</h1><p>OpenID协议是一个去中心化的网上身份认证系统。对于支持OpenID的网站，用户不需要记住像用户名和密码这样的传统验证标记。取而代之的是，他们只需要预先在一个作为OpenID身份提供者（identity provider, IdP）的网站上注册。OpenID是去中心化的，任何网站都可以使用OpenID来作为用户登录的一种方式，任何网站也都可以作为OpenID身份提供者。OpenID既解决了问题而又不需要依赖于中心性的网站来确认数字身份，但是目前OpenID协议已经过时，只有很少的网站支持OpenID，前段时间OpenID的重要支持者stackoverflow也宣布不再支持OpenID登录。下图是stackoverflow支持OpenID认证的截图：<br><img src="/images/OpenID/openid_signin.png" width="600/"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/05/认证/OpenID-Connect协议基础/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/认证/OAuth2和OIDC的不同模式的应用场景/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/05/认证/OAuth2和OIDC的不同模式的应用场景/" itemprop="url">OAuth2和OIDC的不同模式的应用场景</a></h1>
         
 
         <div class="post-meta">
@@ -475,17 +611,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/认证/" itemprop="url" rel="index">
                     <span itemprop="name">认证</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/认证/授权/" itemprop="url" rel="index">
-                    <span itemprop="name">授权</span>
                   </a>
                 </span>
 
@@ -538,7 +663,7 @@
 <p>这篇文章将准确探索何时应该使用这些，会包含一些实例，当然可能引入更多的问题，我们也会尽力地在这里解决。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/05/OAuth2和OIDC的不同模式的应用场景/#more" rel="contents">
+            <a class="btn" href="/2018/11/05/认证/OAuth2和OIDC的不同模式的应用场景/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -589,7 +714,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/OAuth2协议基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/认证/OAuth2协议基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -608,7 +733,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/05/OAuth2协议基础/" itemprop="url">OAuth2协议基础</a></h1>
+                <a class="post-title-link" href="/2018/11/05/认证/OAuth2协议基础/" itemprop="url">OAuth2协议基础</a></h1>
         
 
         <div class="post-meta">
@@ -645,17 +770,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/认证/" itemprop="url" rel="index">
                     <span itemprop="name">认证</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/认证/授权/" itemprop="url" rel="index">
-                    <span itemprop="name">授权</span>
                   </a>
                 </span>
 
@@ -704,7 +818,7 @@
 <p>我们可以这样想象，某人开发了一个网站博客，用户必须注册网站才能进行留言，出此之外他开放了一个接口，通过登陆github认证服务器（假设人人都有github账号）就可以留言了。那么为了在他的网站有github账号接口，就需要先去github中注册一个app，给出开发的网址、需要用户哪些权限等等；注册好之后用户就可以通过github账号来留言回复了。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/05/OAuth2协议基础/#more" rel="contents">
+            <a class="btn" href="/2018/11/05/认证/OAuth2协议基础/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1153,7 +1267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/apt-get常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/linux/apt-get常用命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -1172,7 +1286,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/apt-get常用命令/" itemprop="url">apt-get的常用命令</a></h1>
+                <a class="post-title-link" href="/2018/08/21/linux/apt-get常用命令/" itemprop="url">apt-get的常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -1250,7 +1364,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb [web或ftp地址] [发行版名字] [main/contrib/non-free]</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/21/apt-get常用命令/#more" rel="contents">
+            <a class="btn" href="/2018/08/21/linux/apt-get常用命令/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1338,7 +1452,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
