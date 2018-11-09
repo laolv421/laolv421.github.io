@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/容器/Docker实践(二) /">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/认证/OAuth2协议基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -281,7 +281,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/容器/Docker实践(二) /" itemprop="url">Docker实践（二）</a></h1>
+                <a class="post-title-link" href="/2018/11/05/认证/OAuth2协议基础/" itemprop="url">OAuth2协议基础</a></h1>
         
 
         <div class="post-meta">
@@ -293,8 +293,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-21T20:22:10+08:00">
-                2018-08-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-05T15:49:58+08:00">
+                2018-11-05
               </time>
             
 
@@ -316,8 +316,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/容器/" itemprop="url" rel="index">
-                    <span itemprop="name">容器</span>
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
                   </a>
                 </span>
 
@@ -354,12 +354,19 @@
 
       
         
-          <h2 id="使用Docker镜像"><a href="#使用Docker镜像" class="headerlink" title="使用Docker镜像"></a>使用Docker镜像</h2><p>本文主要参考<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">Docker — 从入门到实践</a>的框架内容，并补充了一些该文之外的内容，希望回头看会有不一样的收获。</p>
-<h3 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h3><p>从Docker镜像仓库获取镜像的命令是docker pull。其命令格式为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</span><br></pre></td></tr></table></figure>
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>传统的客户端-服务器认证模型大致为：客户端想要访问服务器的受限（access-restricted）资源的话，服务器需要“资源所有人”的凭证来进行认证。为了让第三方应用访问服务器的受限资源，需要机制来共享“资源所有人”的凭证，但是这样会产生如下的风险：</p>
+<ol>
+<li>第三方应用需要存储“资源所有人”的凭证，通常需要密码；</li>
+<li>尽管密码认证本身存在安全问题，服务器还是要支持密码认证；</li>
+<li>因为没有缺乏一些细粒度的访问控制，导致第三方应用可以随意访问任意的资源；</li>
+<li>“资源所有人”无法取消第三方应用的访问权限；</li>
+<li>因为密码保存在第三方应用，极易出现数据泄露的情况；</li>
+</ol>
+<p>The OAuth 2.0 Authorization Framework定义在<a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener">rfc6749</a>中，它主要解决了第三方客户端授权方面的问题，比如可以控制访问范围、访问时间长度，并且可以访问进行撤销等等。</p>
+<p>我们可以这样想象，某人开发了一个网站博客，用户必须注册网站才能进行留言，出此之外他开放了一个接口，通过登陆github认证服务器（假设人人都有github账号）就可以留言了。那么为了在他的网站有github账号接口，就需要先去github中注册一个app，给出开发的网址、需要用户哪些权限等等；注册好之后用户就可以通过github账号来留言回复了。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/21/容器/Docker实践(二) /#more" rel="contents">
+            <a class="btn" href="/2018/11/05/认证/OAuth2协议基础/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -410,7 +417,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/linux/apt-get常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/vault详解（六）审计和应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -429,7 +436,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/linux/apt-get常用命令/" itemprop="url">apt-get的常用命令</a></h1>
+                <a class="post-title-link" href="/2018/10/29/vault详解（六）审计和应用/" itemprop="url">vault详解（六）审计和应用</a></h1>
         
 
         <div class="post-meta">
@@ -441,8 +448,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-21T20:22:10+08:00">
-                2018-08-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-29T15:43:01+08:00">
+                2018-10-29
               </time>
             
 
@@ -464,8 +471,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/安全管理工具/" itemprop="url" rel="index">
+                    <span itemprop="name">安全管理工具</span>
                   </a>
                 </span>
 
@@ -502,12 +509,11 @@
 
       
         
-          <p>因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。</p>
-<h2 id="正片开始"><a href="#正片开始" class="headerlink" title="正片开始"></a>正片开始</h2><h3 id="apt-get是什么？"><a href="#apt-get是什么？" class="headerlink" title="apt-get是什么？"></a>apt-get是什么？</h3><p>apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一个下载安装软件包的简单命令行接口，一般需要root权限执行，所以一般跟着sudo命令。<br>使用apt-get命令的第一步就是引入必需的软件库，Debian的软件库也就是所有Debian软件包的集合，它们存在互联网上的一些公共站点上。把它们的地址加入，apt-get就能搜索到我们想要的软件。/etc/apt/sources.list是存放这些地址列表的配置文件，其格式如下： </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb [web或ftp地址] [发行版名字] [main/contrib/non-free]</span><br></pre></td></tr></table></figure>
+          <h1 id="审计"><a href="#审计" class="headerlink" title="审计"></a>审计</h1><p>审计是组成vault的一部分，它保留了详尽的请求和相应日志，因为每个操作都是一个API request/response，审计日志包含每个vault的认证，包括错误信息。多种审计设备可以启用，包括File、Syslog和Socket。</p>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><p>审计日志每一行是一个JSON对象，结构包括：<br>（1）type：说明这个对象是什么，request或者response；<br>（2）敏感信息会提前HMAC-SHA256处理，也可以对hash值进行验证，盐值保存在/sys/audit-hash中；<br>（3）其他信息</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/21/linux/apt-get常用命令/#more" rel="contents">
+            <a class="btn" href="/2018/10/29/vault详解（六）审计和应用/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -545,11 +551,1097 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/vault详解（五）Storage-Backends/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/vault详解（五）Storage-Backends/" itemprop="url">vault详解（五）Storage Backends</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T16:28:59+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全管理工具/" itemprop="url" rel="index">
+                    <span itemprop="name">安全管理工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Vault主要用于生产环境以管理机密。因此，Vault服务的任何停机时间都会影响下游客户端。Vault旨在支持高可用性部署，以确保机器或流程故障的破坏性极小。</p>
+<p>Storage Backends是数据真正落盘的地方（注：到达 Storage Backend 时，数据都已经处于加密状态了，安全并不依赖于Storage backend，实际上它是untrusted的），需要在服务启动时在配置里面指定；这类backend同样有很多种，例如：<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/26/vault详解（五）Storage-Backends/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/vault详解（四）Auth-Methods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/vault详解（四）Auth-Methods/" itemprop="url">vault详解（四）Auth Methods</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T10:05:42+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全管理工具/" itemprop="url" rel="index">
+                    <span itemprop="name">安全管理工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="认证操作"><a href="#认证操作" class="headerlink" title="认证操作"></a>认证操作</h1><p>Vault auth backend完成的是认证工作：访问者是谁。有多种可通过挂载添加，默认情况下它们会挂载在 auth/<type> 下，下面是有关认证的操作：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vault auth &lt;subcommand&gt; [options] [args]</span><br><span class="line">Subcommands:</span><br><span class="line">    <span class="built_in">disable</span>    Disables an auth method</span><br><span class="line">    <span class="built_in">enable</span>     Enables a new auth method</span><br><span class="line">    <span class="built_in">help</span>       Prints usage <span class="keyword">for</span> an auth method</span><br><span class="line">    list       Lists enabled auth methods</span><br><span class="line">    tune       Tunes an auth method configuration</span><br></pre></td></tr></table></figure></type></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/26/vault详解（四）Auth-Methods/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/19/服务发现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/19/服务发现/" itemprop="url">服务发现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-19T10:21:07+08:00">
+                2018-10-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="zookeeper"><a href="#zookeeper" class="headerlink" title="zookeeper"></a>zookeeper</h1><h1 id="consul"><a href="#consul" class="headerlink" title="consul"></a>consul</h1><p>Consul拥有众多的组件，简言之，就是一个用于在你的基础设施中，发现和配置服务的工具。包含以下关键功能：服务发现、健康检查、键值存储和多数据中心支持。再说的通俗一点，就是用于管理分布式系统的利器。</p>
+<h1 id="etcd"><a href="#etcd" class="headerlink" title="etcd"></a>etcd</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="http://dockone.io/article/667" target="_blank" rel="noopener">服务发现：Zookeeper vs etcd vs Consul</a><br>[2] <a href="https://www.hi-linux.com/posts/28048.html" target="_blank" rel="noopener">Consul 集群部署</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/17/数据安全概览/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/17/数据安全概览/" itemprop="url">数据安全概览</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-17T18:13:29+08:00">
+                2018-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/17/阿里云的数据安全/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/17/阿里云的数据安全/" itemprop="url">阿里云的数据安全</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-17T14:48:06+08:00">
+                2018-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="什么是数据安全"><a href="#什么是数据安全" class="headerlink" title="什么是数据安全"></a>什么是数据安全</h1><h1 id="数据安全规划"><a href="#数据安全规划" class="headerlink" title="数据安全规划"></a>数据安全规划</h1><h2 id="数据保障"><a href="#数据保障" class="headerlink" title="数据保障"></a>数据保障</h2><h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3><p>阿里云提供了向外与互联网通信的HTTPS加密通道，其中管理控制台以及OpenAPI网关均支持HTTPS数据加密传输协议，采用SSL/TLS协议。</p>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>阿里云密钥管理服务（KMS）让客户能在密钥生成、存储、使用、管理上，享有无比安全又便捷的体验。在数据到达云平台，并准备写入云数据库(RDS)时，阿里云提供透明数据加密（TDE）的能力，做到写入加密、读出解密的安全机制。</p>
+<h4 id="KMS"><a href="#KMS" class="headerlink" title="KMS"></a>KMS</h4><p>密钥管理服务（Key Management Service，简称：KMS）是阿里云提供的一款安全、易用的管理类服务。用户无需花费大量成本来保护密钥的保密性、完整性和可用性。</p>
+<h3 id="数据使用"><a href="#数据使用" class="headerlink" title="数据使用"></a>数据使用</h3><h4 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h4><p>RAM (Resource Access Management) 是阿里云为客户提供的 用户身份管理 与 资源访问控制 服务。使用 RAM，您可以创建、管理用户账号（比如员工、系统或应用程序），并可以控制这些用户账号对您名下资源具有的操作权限。当您的企业存在多用户协同操作资源时，使用 RAM 可以让您避免与其他用户共享云账号密钥，按需为用户分配最小权限，从而降低您的企业信息安全风险。</p>
+<h5 id="Policy语法结构"><a href="#Policy语法结构" class="headerlink" title="Policy语法结构"></a>Policy语法结构</h5><h3 id="数据销毁"><a href="#数据销毁" class="headerlink" title="数据销毁"></a>数据销毁</h3><p>当客户删除数据或离开云服务时，阿里云将遵循严格的数据销毁标准，并物理销毁已废弃的硬件。</p>
+<h2 id="身份认证和访问控制"><a href="#身份认证和访问控制" class="headerlink" title="身份认证和访问控制"></a>身份认证和访问控制</h2><p>阿里云向客户提供了身份管理与访问控制服务(RAM)；而对于自身，除员工身份识别机制外，更基于内控要求也打造了领先行业的权限管理平台(ACL)。</p>
+<h3 id="身份认证"><a href="#身份认证" class="headerlink" title="身份认证"></a>身份认证</h3><p>Access Key (Access Key ID + Access Key Secret)与多因素认证(MFA)。 </p>
+<h3 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h3><p>与验证客户身份搭配的是访问控制服务(RAM)，让客户创建、管理客户账号，并以User(独立身份管理)及Role(与本地身份联结)两种不同的模式执行。</p>
+<h2 id="网络安全保障"><a href="#网络安全保障" class="headerlink" title="网络安全保障"></a>网络安全保障</h2><h3 id="网络隔离"><a href="#网络隔离" class="headerlink" title="网络隔离"></a>网络隔离</h3><p>专有网络VPC是阿里云于云服务生产网络中构建出的一个隔离的网络环境，客户可完全掌控自己的虚拟网络，包括选择自有IP地址范围、划分网段、配置路由表和网关等。不同的VPC之间彻底逻辑隔离, 客户可在自己创建的VPC内创建和管理云产品实例。阿里云也提供安全组设置能力。</p>
+<h2 id="基础设施保障"><a href="#基础设施保障" class="headerlink" title="基础设施保障"></a>基础设施保障</h2><h2 id="安全合规"><a href="#安全合规" class="headerlink" title="安全合规"></a>安全合规</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://help.aliyun.com/product/28625.html?spm=a2c4g.11186623.6.540.3d145baa3hKahs" target="_blank" rel="noopener">阿里云文档–访问控制</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/密钥管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/12/密钥管理/" itemprop="url">密钥管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T17:44:22+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="密钥管理方案"><a href="#密钥管理方案" class="headerlink" title="密钥管理方案"></a>密钥管理方案</h1><p>由于私密信息的管理是一个带有普遍性的需求，所以业界对该问题也已经有多种处理办法。这里引入一些常见的密钥管理方案：<br>（1）运维工具(Chef,Puppet，Consul等)由于经常需要记录各种连接信息，这些运维工具也有自己的加密机制，例如 Chef data bag/Puppet Hiera。如果重点在于运维，对安全性要求不是很高，那么使用这些工具来处理私密信息也是完全可行的。它们的问题在于安全性不够高，容易发生泄露问题；</p>
+<p>（2）硬件安全模块（Hardware Security Model, HSM） 按照定义来说是基于硬件的，不过也有 Amazon CloudHSM 这样的服务形式。HSM 的安全等级是足够高的，不过它们通常价格昂贵、管理麻烦，基于硬件的形式对云平台通常不太友好，大多数中小企业一般不会考虑。如果你确实有 HSM 可用的话，那么用它来管理 Vault 的主密钥也是一个合理的选择，不过用 HSM 来管理所有私密信息通常是太过重量级了；</p>
+<p>（3）Amazon KMS(Key Management Service) 从名字上就能看出，KMS 注重的是密钥的管理，Vault 则更加灵活。KMS 和 Amazon 自身的云平台集成更佳，并且是一个纯粹的云端解决方案，而 Vault 既可以本地运行，也可以部署到云端（有官方的 Docker 镜像可用）；</p>
+<p>（4）Square Keywhiz 我们知道 Square 主要是做网络支付的公司，业务特点决定了他们对于安全也非常重视，Keywhize 就是他们开发的私密信息管理工具，和Hashicorp valut类似的产品；</p>
+<p>（5）商业解决方案 某些存储平台，例如 SQL Server，提供了自己的列加密机制。如果你的项目大量依赖于这些平台、且迁移到其他平台的可能性很小，那么使用内置的机制也无可厚非。它的（潜在）问题是不开源、不透明，存在供应商锁定的风险；</p>
+<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><p>（1）HSM：硬件安全模块（Hardware Security Module）：一种提供安全密钥存储和密码运算、具备防爆破的硬件设备；</p>
+<p>（2）密码机（Cipher Machine ）：一种硬件安全模块；</p>
+<p>（3）DEK（Data Encryption Key）：由客户创建和管理，通过 KEK 或 LMKs 加密。如果创建密钥时，选择的算法名称中包含 HSM，则由 LMKs 加密（硬件密钥）；如果创建密钥时，选择的算法名称中不包含 HSM，则由 KEK 加密（软件密钥）；</p>
+<p>（4）KEK（Key Encryption Key）：调用硬件安全模块产生，在硬件安全模块内经过 LMKs 加密输出，明文不在硬件安全模块外部出现；</p>
+<p>（5）LMKs（Local Master Keys）：本地主密钥，由硬件安全模块产生和管理，驻存在其硬件密钥存储部件，明文不出硬件安全模块；</p>
+<p>（6）密钥体系：密钥体系包含的密钥类型有LMKs、DEK和KEK；</p>
+<p>（7）密码运算服务：基于硬件安全模块的密码运算能力，供客户使用硬件密钥进行密码运算的服务；</p>
+<p>（8）管理操作界面：供产品客户的密钥管理员进行业务密钥管理、证书管理的操作界面；</p>
+<p>（9）密钥管理服务OpenAPI：供密钥管理服务产品客户的云应用集成业务密钥和使用业务密钥进行密码运算的OpenAPI；</p>
+<h1 id="PCI-DSS的要求"><a href="#PCI-DSS的要求" class="headerlink" title="PCI DSS的要求"></a>PCI DSS的要求</h1><p>PCI DSS对密钥管理并没有非常明确的规定。PCI DSS只是指出，应该尽可能地减少存储密钥的地方，这一要求很有道理。应该对密钥管理员进行强认证。理想的情况是，实际更改密钥管理系统的过程要求不止一名的管理员参加。建议采用一些管理员互相监督的形式。当你真正尝试部署密钥管理系统时，仅仅遵守PCI DSS指南可能还不够。</p>
+<h1 id="HSM"><a href="#HSM" class="headerlink" title="HSM"></a>HSM</h1><p>硬件安全模块 (HSM) 是专为保护加密密钥生命周期而设计的专用加密处理器。硬件安全模块通过在可靠且防篡改的设备中安全地管理、处理和保存加密密钥，已成为为世界上具有最高安全意识的组织保护加密基础设施的信赖起点。HSM 通过为广泛的应用程序提供保护加密密钥和配置加密、解密、身份认证和数码签名服务，为交易、身份资料和应用程序提供保护。<br><img src="/img/网络相关/HSM.png" alt="IPSec的传输模式"></p>
+<h2 id="HSM的特点"><a href="#HSM的特点" class="headerlink" title="HSM的特点"></a>HSM的特点</h2><p>（1）是一款特殊的硬件，经过国家密码实验室检测通过的合格的设备；</p>
+<p>（2）开放有限的网络接口，实施严格的访问控制；</p>
+<p>（3）动态隐藏保护秘钥体系；</p>
+<h1 id="HSM-vs-KSM"><a href="#HSM-vs-KSM" class="headerlink" title="HSM vs KSM"></a>HSM vs KSM</h1><p>HSM的目的是保证秘钥安全存储，通常的方法是存储key-encryption-key（KEK）在HSM中，来加密data-encryption-key（DEK）。当需要解密DEK时，请求HSM返回解密好的DEK。</p>
+<h1 id="OpenVZ"><a href="#OpenVZ" class="headerlink" title="OpenVZ"></a>OpenVZ</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://wiki.openvz.org" target="_blank" rel="noopener">OpenVZ文档</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/SSL、Ipsec、Vpn的关系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/12/SSL、Ipsec、Vpn的关系/" itemprop="url">SSL、Ipsec、Vpn、代理的关系</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T10:24:30+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><h2 id="IP隧道"><a href="#IP隧道" class="headerlink" title="IP隧道"></a>IP隧道</h2><p>IP隧道是指一种可在两网络间用网际协议进行通信的通道。在该通道里，会先封装其他网络协议的数据包，之后再传输信息。</p>
+<p>IP隧道经常用于连接两个不是用路由直接链接的IP网络，IP隧道会通过底层路由协议来架构中间传输网络。若IP隧道与两个或多个IPSec一起使用时，可以创建虚拟专用网（Virtual Private Network，VPN），让二个或多个被公开网上（如因特网）隔开的私有网络彼此访问，另一个主要应用也是目前常用的，让各IPv6网上隔着IPv4网络上通信。</p>
+<h2 id="隧道协议"><a href="#隧道协议" class="headerlink" title="隧道协议"></a>隧道协议</h2><p>隧道协议（Tunneling Protocol）是一种网上协议，在其中，使用一种网上协议（发送协议），将另一个不同的网上协议，封装在负载部分。使用隧道的原因是在不兼容的网上上传输数据，或在不安全网上上提供一个安全路径。</p>
+<p>隧道则是对比分层式的模型，如OSI模型或TCP/IP。隧道协议通常（但并非总是）在一个比负载协议还高的层级，或同一层。要了解协议堆栈，负载和发送协议都须了解。传统的分层式协议，如OSI模型或TCP/IP模型，HTTP协议 ，并不被认为是隧道协议。隧道是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序。</p>
+<p>常用的隧道协议包括：基于数据包的有IPSec和基于流的有SSH、SOCKS等，更多请查看<a href="https://zh.wikipedia.org/wiki/%E9%9A%A7%E9%81%93%E5%8D%8F%E8%AE%AE" target="_blank" rel="noopener">维基百科</a>。</p>
+<h2 id="End-to-End加密"><a href="#End-to-End加密" class="headerlink" title="End-to-End加密"></a>End-to-End加密</h2><p>End-to-End（端到端）不是一种协议或者技术，而是描述了一种系统如何设计的概念，一个只有参与通讯的用户可以读取信息的通信系统。总的来说，它可以防止潜在的窃听者——包括 电信供应商、互联网服务供应商甚至是该通讯系统的提供者——获取能够用以解密通讯的密钥。</p>
+<p>在一个端到端加密的系统中，用于加解密的密钥必须被、且仅被参与通讯的各方掌握。为实现这一目的，端到端加密系统可以使用事先预定好的一串字符（称为“预共享密钥”）来加密数据（如PGP），也可以使用该字符串生成一次性密码来进行加密（如DUKPT）。此外，参与通讯的各方还可以通过协商（迪菲-赫尔曼密钥交换协议）创建密钥（如OTR）。</p>
+<p>典型的基于中心服务器的通信系统尚不包括端到端加密功能，此类系统至多只能保证客户端到服务端之间的通讯受到保护。这意味着通讯双方必须信任服务端的运营者，因为他可以阅读通讯的全部明文内容。相比之下，端到端加密被认为是更安全的，因为这种机制极大减少了第三方干扰或破坏通讯加密的可能性。</p>
+<h1 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h1><p>Secure Socket Layer，建立在应用层</p>
+<h1 id="IPSec"><a href="#IPSec" class="headerlink" title="IPSec"></a>IPSec</h1><p>VPN只是IPSec的一种应用方式，IPSec其实是IP Security的简称，它的目的是为IP提供高安全性特性，VPN则是在实现这种安全特性的方式下产生的解决方案。</p>
+<h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>IPSec是一个框架性架构，具体由两类协议组成：</p>
+<h3 id="AH协议"><a href="#AH协议" class="headerlink" title="AH协议"></a>AH协议</h3><p>AH协议（Authentication Header，使用较少），可以同时提供数据完整性确认、数据来源确认、防重放等安全特性；AH常用摘要算法（单向Hash函数）MD5和SHA1实现该特性。</p>
+<h3 id="ESP协议"><a href="#ESP协议" class="headerlink" title="ESP协议"></a>ESP协议</h3><p>ESP协议（Encapsulated Security Payload，使用较广），可以同时提供数据完整性确认、数据加密、防重放等安全特性；ESP通常使用DES、3DES、AES等加密算法实现数据加密，使用MD5或SHA1来实现数据完整性。</p>
+<p>因为AH无法提供数据加密，所有数据在传输时以明文传输，而ESP提供数据加密；其次AH因为提供数据来源确认（源IP地址一旦改变，AH校验失败），所以无法穿越NAT。当然，IPSec在极端的情况下可以同时使用AH和ESP实现最完整的安全特性，但是此种方案极其少见。</p>
+<h2 id="封装模式"><a href="#封装模式" class="headerlink" title="封装模式"></a>封装模式</h2><p>IPSec提供了两种封装模式，<strong>传输模式</strong>（Transport）和<strong>隧道模式</strong>（Tunnel）。</p>
+<h3 id="传输模式"><a href="#传输模式" class="headerlink" title="传输模式"></a>传输模式</h3><p><img src="/img/网络相关/ipsec_trans_mod.png" alt="IPSec的传输模式"><br>上图为传输模式下IPSec的两种协议，AH和ESP的结构，可以看出传输模式在AH、ESP处理前后IP头部保持不变，主要用于End-to-End的应用场景。</p>
+<h3 id="隧道模式"><a href="#隧道模式" class="headerlink" title="隧道模式"></a>隧道模式</h3><p><img src="/img/网络相关/ipsec_tun_mod.png" alt="IPSec的隧道模式"><br>上图为隧道模式下IPSec的两种协议，AH和ESP的结构，而 隧道模式则在AH、ESP处理之后再封装了一个外网IP头，主要用于Site-to-Site的应用场景。</p>
+<h2 id="IPSec-VPN的应用场景"><a href="#IPSec-VPN的应用场景" class="headerlink" title="IPSec VPN的应用场景"></a>IPSec VPN的应用场景</h2><p><img src="/img/网络相关/ipsec_vpn.png" alt="IPSec VPN应用需求"></p>
+<h3 id="Site-to-Site"><a href="#Site-to-Site" class="headerlink" title="Site-to-Site"></a>Site-to-Site</h3><p>Site-to-Site（站点到站点或者网关到网关），3个机构分布在互联网的3个不同的地方，各使用一个网关相互建立VPN隧道，企业内网（若干PC）之间的数据通过这些网关建立的IPSec隧道实现安全互联。<br><img src="/img/网络相关/ipsec_tun.png" alt="IPSec隧道模式解析"></p>
+<h3 id="End-to-End"><a href="#End-to-End" class="headerlink" title="End-to-End"></a>End-to-End</h3><p>End-to-End（端到端或者PC到PC）： 两个PC之间的通信由两个PC之间的IPSec会话保护，而不是网关；</p>
+<h3 id="End-to-Site"><a href="#End-to-Site" class="headerlink" title="End-to-Site"></a>End-to-Site</h3><p>End-to-Site（端到站点或者PC到网关）：两个PC之间的通信由网关和异地PC之间的IPSec进行保护；</p>
+<p><img src="/img/网络相关/ipsec_trans_tun.png" alt="IPSec传输模式和隧道模式的适用场景"></p>
+<h1 id="VPN"><a href="#VPN" class="headerlink" title="VPN"></a>VPN</h1><p>虚拟私人网络（VPN）可以让用户安全地连接到另一个地方的网络，电脑和VPN服务器之间建立了一条虚拟通道，所有的网络数据都加密后经过VPN服务器传输，保证了网络数据的安全性。VPN和代理最大的不同在于对所有网络数据都进行加密，包括电脑上安装的所有应用程序的网络连接也将通过VPN传输，因此VPN服务器的配置相当关键，这关系到连接的速度、定位信息和安全性。</p>
+<h2 id="VPN的优势"><a href="#VPN的优势" class="headerlink" title="VPN的优势"></a>VPN的优势</h2><p>（1）快速。总的来说和不用VPN时的网速差不多。</p>
+<p>（2）不同地理位置切换方便。由于VPN服务商在全球各地都有服务器，因此可以切换不同的地区，这样就可以访问到一些地理位置受限的网络内容。</p>
+<p>（3）理想的P2P文件分享机制。尽管很多VPN服务商都禁用了该功能，但是VPN确实最适合进行P2P文件分享的。</p>
+<h2 id="VPN的劣势"><a href="#VPN的劣势" class="headerlink" title="VPN的劣势"></a>VPN的劣势</h2><p>选择VPN服务商时最重要的就是不要存储数据和通信日志。一旦政府要求VPN服务提供商提供日志文件，那用户的隐私都会被暴露。除此之外，VPN服务商还需要在服务器上部署负载均衡和服务器随机选择，这样方便用户随时切换VPN服务器。</p>
+<p>（1）VPN服务商可以掌握用户的行为记录，很多国家的VPN根据当地法律需要保存日志上交政府部门备案。</p>
+<p>（2）VPN的服务器会遭到执法部门没收，因此选择VPN服务商时最好是不会保存日志文件以免日后个人隐私暴露。</p>
+<p>（3）VPN的价格比较高。</p>
+<h1 id="SSL-VPN和IPSec-VPN的关系"><a href="#SSL-VPN和IPSec-VPN的关系" class="headerlink" title="SSL VPN和IPSec VPN的关系"></a>SSL VPN和IPSec VPN的关系</h1><h2 id="表现形式"><a href="#表现形式" class="headerlink" title="表现形式"></a>表现形式</h2><p>（1）IPSec VPN多用于“网—网”连接，SSL VPN用于“移动客户—网”连接。SSL VPN的移动用户使用标准的浏览器，无需安装客户端程序，即可通过SSL VPN隧道接入内部网络；而IPSec VPN的移动用户需要安装专门的IPSec客户端软件。<br>　　<br>（2）SSL VPN是基于应用层的VPN，IPSec VPN是基于网络层的VPN。IPSec VPN对所有的IP应用均透明；而SSL VPN保护基于Web的应用更有优势，当然好的产品也支持TCP/UDP的C/S应用，例如文件共享、网络邻居、Ftp、Telnet、Oracle等。<br>　　<br>（3）SSL VPN用户不受上网方式限制，SSL VPN隧道可以穿透Firewall；而IPSec客户端需要支持“NAT穿透”功能才能穿透Firewall，而且需要Firewall打开UDP500端口。<br>　　<br>（4）SSL VPN只需要维护中心节点的网关设备，客户端免维护，降低了部署和支持费用。而IPSec VPN需要管理通讯的每个节点，网管专业性较强。<br>　　<br>（5）SSL VPN 更容易提供细粒度访问控制，可以对用户的权限、资源、服务、文件进行更加细致的控制，与第三方认证系统（如：radius、AD等）结合更加便捷。而IPSec VPN主要基于IP组对用户进行访问控制。</p>
+<h2 id="技术与应用"><a href="#技术与应用" class="headerlink" title="技术与应用"></a>技术与应用</h2><h3 id="底层协议"><a href="#底层协议" class="headerlink" title="底层协议"></a>底层协议</h3><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><h3 id="互补"><a href="#互补" class="headerlink" title="互补"></a>互补</h3><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://zhuanlan.zhihu.com/p/31947969" target="_blank" rel="noopener">最佳匿名上网方法：Proxy、Tor、VPN比较</a><br>[2] <a href="https://blog.csdn.net/Poetic_Vienna/article/details/52250821" target="_blank" rel="noopener">SSL VPN和IPsec VPN的比较和选择</a><br>[3] <a href="http://www.h3c.com.cn/MiniSite/Technology_Circle/Technology_Column/ICG/ICG_Technology/201005/675214_97665_0.htm" target="_blank" rel="noopener">技术点详解—IPSec VPN基本原理</a><br>[4] <a href="https://zh.wikipedia.org/wiki/%E7%AB%AF%E5%88%B0%E7%AB%AF%E5%8A%A0%E5%AF%86" target="_blank" rel="noopener">端到端加密， 维基百科</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/大话php/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/10/大话php/" itemprop="url">大话php</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-10T16:34:05+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="php安装"><a href="#php安装" class="headerlink" title="php安装"></a>php安装</h2><h3 id="Apache-2-x-on-Microsoft-Windows"><a href="#Apache-2-x-on-Microsoft-Windows" class="headerlink" title="Apache 2.x on Microsoft Windows"></a>Apache 2.x on Microsoft Windows</h3><h4 id="集成php于apache的三种模式"><a href="#集成php于apache的三种模式" class="headerlink" title="集成php于apache的三种模式"></a>集成php于apache的三种模式</h4><h5 id="Installing-as-an-Apache-handler"><a href="#Installing-as-an-Apache-handler" class="headerlink" title="Installing as an Apache handler"></a>Installing as an Apache handler</h5><p>配置Apache将PHP解释器作为Apache本身的一个模块，apache handler（模块方式）的方式效率最高，但是php和apache运行在一个进程里面，所以php做什么事情都会影响apache。虚拟主机通常用fast-cgi或者php-cgi方式，因为可以把php程序和apache隔离开，防止虚拟主机的拥有者执行恶意程序。Apache是默认次模式集成php的。</p>
+<p>配置php为apache handler模式的话，需要修改apache配置文件httpd.conf，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LoadModule php5_module <span class="string">"c:/php/php5apache2.dll"</span></span><br><span class="line"><span class="comment"># AddHandler application/x-httpd-php .php</span></span><br><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">      SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configure the path to php.ini</span></span><br><span class="line">PHPIniDir <span class="string">"C:/php"</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="Running-PHP-as-CGI"><a href="#Running-PHP-as-CGI" class="headerlink" title="Running PHP as CGI"></a>Running PHP as CGI</h5><p>CGI模式每一次接到请求会调用php.exe，解析php.ini，加载DLL等，速度慢。</p>
+<h5 id="Running-PHP-under-FastCGI"><a href="#Running-PHP-under-FastCGI" class="headerlink" title="Running PHP under FastCGI"></a>Running PHP under FastCGI</h5><p>FastCGI下，实现了类似连接池的技术特性，保持了对后台的连接，请求到来即可使用，结束即断开准备与下一个请求连接。一般认为，FastCGI是适用于高并发使用场景下的，同时使用FastCGI可以使得程序在Web Server产品与代码两端都具有更好的选择自由度。</p>
+<p>FastCGI的工作原理是：<br>（1）Web Server 启动时载入FastCGI进程管理器【PHP的FastCGI进程管理器是PHP-FPM(php-FastCGI Process Manager)】（IIS ISAPI或Apache Module);<br>（2）FastCGI进程管理器自身初始化，启动多个CGI解释器进程 (在任务管理器中可见多个php-cgi.exe)并等待来自Web Server的连接。<br>（3）当客户端请求到达Web Server时，FastCGI进程管理器选择并连接到一个CGI解释器。Web server将CGI环境变量和标准输入发送到FastCGI子进程php-cgi.exe。<br>（4）FastCGI子进程完成处理后将标准输出和错误信息从同一连接返回Web Server。当FastCGI子进程关闭连接时，请求便告处理完成。FastCGI子进程接着等待并处理来自FastCGI进程管理器（运行在 WebServer中）的下一个连接。 在正常的CGI模式中，php-cgi.exe在此便退出了。</p>
+<h4 id="php与数据库mysql的连接"><a href="#php与数据库mysql的连接" class="headerlink" title="php与数据库mysql的连接"></a>php与数据库mysql的连接</h4><p>从PHP 5.5.0起mysql这个扩展已经被废弃，并且从PHP 7.0.0开始被移除。作为替代，可以使用mysqli或者PDO_MySQL扩展代替。</p>
+<h5 id="几个术语"><a href="#几个术语" class="headerlink" title="几个术语"></a>几个术语</h5><p>php文档介绍mysql模块之前引入了几个术语：<br>（1）什么是API?<br>一个应用程序接口（Application Programming Interface的缩写），定义了类，方法，函数，变量等等一切 你的应用程序中为了完成特定任务而需要调用的内容。在PHP应用程序需要和数据库进行交互的时候所需要的API 通常是通过PHP扩展暴露出来（给终端PHP程序员调用）。</p>
+<p>（2）什么是连接器?<br>在MySQL文档中，术语connector解释为“一段允许你的应用连接到MySQL数据库服务器的软件代码”。 MySQL提供了很多语言的连接器，其中包括PHP的。</p>
+<p>（3）什么是驱动?<br>驱动是一段设计用来于一种特定类型的数据库服务器进行交互的软件代码。驱动可能会调用一些库，比如MySQL客户端库或者MySQL Native驱动库。 这些库实现了用于和MySQL数据库服务器进行交互的底层协议。</p>
+<p>（4）什么是扩展?<br>在PHP文档中你还会发现很多其他的扩展。PHP代码是由一个核心，一些可选扩展组成了核心功能。PHP 的MySQL相关扩展，比如mysqli，mysql都是基于PHP扩展框架实现的。术语API和扩展描述的不是同一类事物，因为扩展可能并不需要暴露一个API接口给程序员。</p>
+<h5 id="PHP中提供MySQL的API"><a href="#PHP中提供MySQL的API" class="headerlink" title="PHP中提供MySQL的API"></a>PHP中提供MySQL的API</h5><p>当考虑连接到MySQL数据库服务器的时候，有三种主要的API可供选择：<br>（1）PHP的MySQL扩展<br>这是设计开发允许PHP应用与MySQL数据库交互的早期扩展。mysql扩展提供了一个面向过程 的接口，并且是针对MySQL4.1.3或更早版本设计的。因此，这个扩展虽然可以与MySQL4.1.3或更新的数据库服务端 进行交互，但并不支持后期MySQL服务端提供的一些特性。</p>
+<p>（2）PHP的mysqli扩展<br>mysqli扩展，我们有时称之为MySQL增强扩展，可以用于使用 MySQL4.1.3或更新版本中新的高级特性。</p>
+<p>（3）PHP数据对象(PDO)<br>PHP数据对象，是PHP应用中的一个数据库抽象层规范。PDO提供了一个统一的API接口可以使得你的PHP应用不去关心具体要 连接的数据库服务器系统类型。也就是说，如果你使用PDO的API，可以在任何需要的时候无缝切换数据库服务器，比如从Firebird 到MySQL，仅仅需要修改很少的PHP代码。其他数据库抽象层的例子包括Java应用中的JDBC以及Perl中的DBI。PDO也有它自己的先进性，比如一个干净的，简单的，可移植的API，它最主要的缺点是会限制让你不能使用 后期MySQL服务端提供所有的数据库高级特性。比如，PDO不允许使用MySQL支持的多语句执行。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="http://php.net/manual/zh/index.php" target="_blank" rel="noopener">php文档</a><br>[2] <a href="https://blog.csdn.net/hxsstar/article/details/18809771" target="_blank" rel="noopener">apache php的几种运行方式</a><br>[3] <a href="https://blog.csdn.net/u011781521/article/details/53887721" target="_blank" rel="noopener">Windows 10搭建PHP开发环境</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -599,7 +1691,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
