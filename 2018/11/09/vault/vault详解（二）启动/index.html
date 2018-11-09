@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vault," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;)">
+<meta name="keywords" content="vault">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vault详解（二）启动">
+<meta property="og:url" content="http://yoursite.com/2018/11/09/vault/vault详解（二）启动/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;)">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/vault/vault_help.png">
+<meta property="og:image" content="http://yoursite.com/images/vault/vault_server_dev.png">
+<meta property="og:image" content="http://yoursite.com/images/vault/vault_init.png">
+<meta property="og:updated_time" content="2018-11-09T03:35:03.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vault详解（二）启动">
+<meta name="twitter:description" content="vault安装vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：12λ vault versionVault v0.11.3 (&apos;fb601237bfbe4bc16ff679f642248ee8a86e627b&apos;)">
+<meta name="twitter:image" content="http://yoursite.com/images/vault/vault_help.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/09/vault/vault详解（二）启动/"/>
+
+
+
+
+
+  <title>vault详解（二）启动 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/vault/vault详解（二）启动/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vault详解（二）启动</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-09T11:35:03+08:00">
+                2018-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全管理工具/" itemprop="url" rel="index">
+                    <span itemprop="name">安全管理工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/09/vault/vault详解（二）启动/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/11/09/vault/vault详解（二）启动/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="vault安装"><a href="#vault安装" class="headerlink" title="vault安装"></a>vault安装</h1><p>vault下载安装很简单，支持多种系统包括常见的windows和linux，下载直接解压即可，无需其他配置。然后可以运行命令检查版本，这里在windows下cmder中运行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">λ vault version</span><br><span class="line">Vault v0.11.3 (<span class="string">'fb601237bfbe4bc16ff679f642248ee8a86e627b'</span>)</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>运行help命令，查看vault的简单的使用方法，更多命令请查看<a href="https://www.vaultproject.io/docs/commands/index.html" target="_blank" rel="noopener">官网Vault Commands</a>。<br><img src="/images/vault/vault_help.png" alt="vault的help命令"></p>
+<h1 id="vault的启动部署"><a href="#vault的启动部署" class="headerlink" title="vault的启动部署"></a>vault的启动部署</h1><h2 id="开发环境启动"><a href="#开发环境启动" class="headerlink" title="开发环境启动"></a>开发环境启动</h2><p>我们这里启动dev模式<br><img src="/images/vault/vault_server_dev.png" alt="vault的server -dev命令"><br>可以看到几个关键点，监听器lister和存储后端storage为inmem，即内存；另外可以看到出现了root token和unseal key，这只会在初始化vault中出现。在运行vault命令之前一定要设置环境变量（windows环境下用set代替export）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7_2 ~]<span class="comment"># export VAULT_ADDR="http://192.168.209.3:8200"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="查看vault状态"><a href="#查看vault状态" class="headerlink" title="查看vault状态"></a>查看vault状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7_2 ~]<span class="comment"># vault status</span></span><br><span class="line">Key             Value</span><br><span class="line">---             -----</span><br><span class="line">Seal Type       shamir</span><br><span class="line">Initialized     <span class="literal">true</span></span><br><span class="line">Sealed          <span class="literal">false</span></span><br><span class="line">Total Shares    1</span><br><span class="line">Threshold       1</span><br><span class="line">Version         0.11.3</span><br><span class="line">Cluster Name    vault-cluster-5ca969b5</span><br><span class="line">Cluster ID      e274fc76-b587-d195-44f8-161c8c7c2e27</span><br><span class="line">HA Enabled      <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>这里面提到了seal算法为shamir（seal type），shamir算法包括共享总数（Total Shares）和阈值（Threshold），根据任意大于等于阈值数量的unseal key可以解封vault；HA Enabled设置为false，说明没有提供高可用性，即没有部署集群，下面介绍真实环境下的部署：</p>
+<h2 id="生产环境启动"><a href="#生产环境启动" class="headerlink" title="生产环境启动"></a>生产环境启动</h2><h3 id="启动前的配置"><a href="#启动前的配置" class="headerlink" title="启动前的配置"></a>启动前的配置</h3><p>生产环境模式需要配置，配置文件使用<strong>HCL</strong>（HashiCorp configuration language）文件，主要配置如下参数：</p>
+<h4 id="存储（storage）"><a href="#存储（storage）" class="headerlink" title="存储（storage）"></a>存储（storage）</h4><p>此配置<strong>必选</strong>，设置vault详解（一）中提到的存储后端，包括consul、MySQL等多种后端支持；</p>
+<h4 id="监听器（listener）"><a href="#监听器（listener）" class="headerlink" title="监听器（listener）"></a>监听器（listener）</h4><p>此配置<strong>必选</strong>，监听器可以有一个或多个，用来监听API请求；</p>
+<h4 id="密封算法（seal）"><a href="#密封算法（seal）" class="headerlink" title="密封算法（seal）"></a>密封算法（seal）</h4><p>此配置<strong>可选</strong>，如果没有选择，则默认采用Shamir共享密钥算法，还有其他可选算法，见<a href="https://www.vaultproject.io/docs/configuration/seal/index.html" target="_blank" rel="noopener">官方文档</a>，这里只介绍阿里云KMS：</p>
+<p>阿里云密钥管理服务可以按照需要创建主密钥，使用主密钥产生、加密和解密数据密钥；阿里云KMS通过以下方式激活：</p>
+<ol>
+<li><p>在配置文件中设置alicloudkms配置代码段</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">seal <span class="string">"alicloudkms"</span> &#123;</span><br><span class="line">  region     = <span class="string">"us-east-1"</span></span><br><span class="line">  access_key = <span class="string">"0wNEpMMlzy7szvai"</span></span><br><span class="line">  secret_key = <span class="string">"PupkTg8jdmau1cXxYacgE736PJj4cA"</span></span><br><span class="line">  kms_key_id = <span class="string">"08c33a6f-4e0a-4a1b-a3fa-7ddfa1d4fb73"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在环境变量中设置<br>VAULT_SEAL_TYPE设置为alicloudkms，同时需要设置VAULT_ALICLOUDKMS_SEAL_KEY_ID来激活阿里云KMS。</p>
+</li>
+</ol>
+<h4 id="telemetry"><a href="#telemetry" class="headerlink" title="telemetry"></a>telemetry</h4><p>此配置<strong>可选</strong>，specifies various configurations for Vault to publish metrics to upstream systems.</p>
+<h4 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h4><p>此配置<strong>可选</strong>，vault0.1版本以上提供UI界面，配置文件中设置如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ui = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">listener <span class="string">"tcp"</span> &#123;</span><br><span class="line">  address = <span class="string">"10.0.1.35:8200"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>UI和vault server运行的端口一样，所以必须配置至少一个监听器来访问UI界面。</p>
+<h3 id="配置文件例子"><a href="#配置文件例子" class="headerlink" title="配置文件例子"></a>配置文件例子</h3><h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><p>策略是用HCL (HashiCorp Configuration Language)或者JSON编写的，并且规定了一些可以访问的vault中的路径，例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This section grants all access on "secret/*". Further restrictions can be</span></span><br><span class="line"><span class="comment"># applied to this broad policy, as shown below.</span></span><br><span class="line">path <span class="string">"secret/*"</span> &#123;</span><br><span class="line">  capabilities = [<span class="string">"create"</span>, <span class="string">"read"</span>, <span class="string">"update"</span>, <span class="string">"delete"</span>, <span class="string">"list"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Even though we allowed secret/*, this line explicitly denies</span></span><br><span class="line"><span class="comment"># secret/super-secret. This takes precedence.</span></span><br><span class="line">path <span class="string">"secret/super-secret"</span> &#123;</span><br><span class="line">  capabilities = [<span class="string">"deny"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Policies can also specify allowed, disallowed, and required parameters. Here</span></span><br><span class="line"><span class="comment"># the key "secret/restricted" can only contain "foo" (any value) and "bar" (one</span></span><br><span class="line"><span class="comment"># of "zip" or "zap").</span></span><br><span class="line">path <span class="string">"secret/restricted"</span> &#123;</span><br><span class="line">  capabilities = [<span class="string">"create"</span>]</span><br><span class="line">  allowed_parameters = &#123;</span><br><span class="line">    <span class="string">"foo"</span> = []</span><br><span class="line">    <span class="string">"bar"</span> = [<span class="string">"zip"</span>, <span class="string">"zap"</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="PGP、GPG和Keybase"><a href="#PGP、GPG和Keybase" class="headerlink" title="PGP、GPG和Keybase"></a>PGP、GPG和Keybase</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>PGP全称是Pretty Good Privacy，是一个基于RSA公钥加密体系的邮件加密软件。PGP主要的特点是它可以在一个非安全的网络环境下，使得从未谋面的人取得信任。相比PKI，PGP根本不需要HTTPS，也不需要CA，仅需要一个可信赖的密钥托管服务器（基于LDAP的服务器）。由于PGP被广泛应用，最终形成一个开放的标准—OpenPGP。</p>
+<p>GPG全称是GNU Privacy Guard，是OpenPGP标准（RFC 4880）的独立实现，通过GPG可以对密钥进行管理、对文件和电子邮件进行加密/解密和数字签名等。GPG由于源代码开放，因此很难隐藏后门，比PGP等商业软件更加安全。</p>
+<h2 id="为什么使用PGP"><a href="#为什么使用PGP" class="headerlink" title="为什么使用PGP"></a>为什么使用PGP</h2><p>为什么要在vault中使用PGP，主要因为早期初始化启动vault后会产生unseal的明文显示的keys，这个就违背了vault的安全初衷，而且也使得分发keys变得困难。之后，vault在0.3版本之后引入了可选择地使用PGP keys进行初始化操作。在这种模式下，当vault初始化后产生unseal keys后，用户的PGP的公钥会立刻加密这些keys。</p>
+<h2 id="使用PGP初始化"><a href="#使用PGP初始化" class="headerlink" title="使用PGP初始化"></a>使用PGP初始化</h2><p>第一步必须先产生、获取和导入公钥到将要初始化vault的机器上，这个过程可以通过<strong>keybase</strong>和<strong>GPG</strong>来实现。这里我们使用GPG来实现，我们目前有三台机器，centos7_1作为vault服务器，centos7_2、centos7_3作为客户机。</p>
+<ol>
+<li><p>三台机器各产生自己的公私钥，通过gpg –gen-keys命令，具体可以参考<a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">这里</a>，然后把客户机的公钥导到vault服务器上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7_2 ~]<span class="comment"># gpg --armor --output centos7_2_pk.asc --export centos7_2 #先生成ascii公钥</span></span><br><span class="line">[root@centos7_2 ~]<span class="comment"># scp centos7_2_pk.asc root@centos7_1:~/.gnupg/pubkey/ #发送centos7_2的公钥到centos7_1去</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用GPG初始化<br><img src="/images/vault/vault_init.png" alt="vault重新初始化"></p>
+</li>
+<li><p>使用GPG解密key</p>
+</li>
+</ol>
+<p>关于keybase的详细说明请查看<a href="https://www.vaultproject.io/docs/concepts/pgp-gpg-keybase.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<p><strong>注意1</strong>：重新初始化需要先停掉vault，删除storage后端中vault的数据，再进行初始化，否则会提示vault已经初始化。<br><strong>注意2</strong>：在GPG解密的时候，不会主动弹出passphrase输入窗口，需要先执行”export GPG_TTY=$(tty)”命令，因为它不知道在哪个tty窗口弹出，详情请看<a href="export GPG_TTY=$(tty">这里</a>)。<br><strong>注意3</strong>：GPG在产生密钥时，需要采集随机信息保证熵值，可以安装”yum install rng-tools”自动采集，详情看<a href="https://serverfault.com/questions/471412/gpg-gen-key-hangs-at-gaining-enough-entropy-on-centos-6" target="_blank" rel="noopener">这里</a>。</p>
+<h1 id="租期、更新和撤销"><a href="#租期、更新和撤销" class="headerlink" title="租期、更新和撤销"></a>租期、更新和撤销</h1><p>对于每个动态的secret和认证token，vault都会创建一个lease（租期），其中metadata（元数据）包括time duration、renewability等。撤销有三种方式，API、CLI和vault自动撤销过期的租期。</p>
+<p>vault read命令请求secret，vault总会返回一个lease ID，通过vault renew和vault revoke操作lease ID去管理secret的租期。 </p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://www.vaultproject.io/docs/index.html" target="_blank" rel="noopener">Hashicorp Vault文档</a><br>[2] <a href="https://yuhao.space/blog/2018/02/vault-introduction/" target="_blank" rel="noopener">私密信息管理利器 HashiCorp Vault——简介</a><br>[3] <a href="https://www.jianxiangqiao.com/pgp-gpg-openpgp/" target="_blank" rel="noopener">PGP、GPG、OpenPGP三者之间的联系</a><br>[4] <a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">GPG入门教程，阮一峰</a><br>[5] <a href="https://huangjunwen.github.io/post/2017/vault/" target="_blank" rel="noopener">vault笔记</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vault/" rel="tag"># vault</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/09/vault/vault详解（一）简介/" rel="next" title="vault详解（一）简介">
+                <i class="fa fa-chevron-left"></i> vault详解（一）简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/09/vault/vault详解（三）Secrets-Engines/" rel="prev" title="vault详解（三）Secrets Engines">
+                vault详解（三）Secrets Engines <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vault安装"><span class="nav-number">1.</span> <span class="nav-text">vault安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vault的启动部署"><span class="nav-number">2.</span> <span class="nav-text">vault的启动部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发环境启动"><span class="nav-number">2.1.</span> <span class="nav-text">开发环境启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看vault状态"><span class="nav-number">2.2.</span> <span class="nav-text">查看vault状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产环境启动"><span class="nav-number">2.3.</span> <span class="nav-text">生产环境启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动前的配置"><span class="nav-number">2.3.1.</span> <span class="nav-text">启动前的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#存储（storage）"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">存储（storage）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听器（listener）"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">监听器（listener）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密封算法（seal）"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">密封算法（seal）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#telemetry"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">telemetry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI"><span class="nav-number">2.3.1.5.</span> <span class="nav-text">UI</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件例子"><span class="nav-number">2.3.2.</span> <span class="nav-text">配置文件例子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#策略"><span class="nav-number">3.</span> <span class="nav-text">策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PGP、GPG和Keybase"><span class="nav-number">4.</span> <span class="nav-text">PGP、GPG和Keybase</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用PGP"><span class="nav-number">4.2.</span> <span class="nav-text">为什么使用PGP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用PGP初始化"><span class="nav-number">4.3.</span> <span class="nav-text">使用PGP初始化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#租期、更新和撤销"><span class="nav-number">5.</span> <span class="nav-text">租期、更新和撤销</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

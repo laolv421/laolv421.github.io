@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="同源,CORS,跨域," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，域名、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
+<meta name="keywords" content="同源,CORS,跨域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="同源与跨域">
+<meta property="og:url" content="http://yoursite.com/2018/11/09/web安全/同源与跨域/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，域名、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/web安全/same_origin.png">
+<meta property="og:image" content="http://yoursite.com/images/web安全/same_origin_reason.png">
+<meta property="og:image" content="http://yoursite.com/images/web安全/cors_complete.png">
+<meta property="og:updated_time" content="2018-11-09T08:39:20.783Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="同源与跨域">
+<meta name="twitter:description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，域名、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
+<meta name="twitter:image" content="http://yoursite.com/images/web安全/same_origin.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/09/web安全/同源与跨域/"/>
+
+
+
+
+
+  <title>同源与跨域 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/web安全/同源与跨域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">同源与跨域</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-09T16:39:20+08:00">
+                2018-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/09/web安全/同源与跨域/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/11/09/web安全/同源与跨域/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="同源"><a href="#同源" class="headerlink" title="同源"></a>同源</h1><h2 id="什么是同源？"><a href="#什么是同源？" class="headerlink" title="什么是同源？"></a>什么是同源？</h2><p>在web概念中，同源指的是“三个相同”，域名、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。</p>
+<p><img src="/images/web安全/same_origin.png" alt="same origin"></p>
+<h2 id="为什么会有同源？"><a href="#为什么会有同源？" class="headerlink" title="为什么会有同源？"></a>为什么会有同源？</h2><p>当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。</p>
+<a id="more"></a>
+<p>比如，站点 <a href="http://domain-a.com" target="_blank" rel="noopener">http://domain-a.com</a> 的某HTML页面通过<strong>img</strong>的src请求 <a href="http://domain-b.com/image.jpg" target="_blank" rel="noopener">http://domain-b.com/image.jpg</a> ，网络上的许多页面都会加载来自不同域的CSS样式表，图像和脚本等资源。更有甚者出现严重的安全问题，如下图：</p>
+<p><img src="/images/web安全/same_origin_reason.png" width="600"></p>
+<p>出于安全原因，浏览器限制从<strong>脚本</strong>内发起的跨源HTTP请求（也可能是跨站请求可以正常发起，但是返回结果被浏览器拦截了）。 例如，XMLHttpRequest和Fetch API遵循同源策略，这意味着使用这些API的Web应用程序只能从加载应用程序的同一个域请求HTTP资源。未经对方允许，不同源的脚本是无法访问对方的数据信息的。但是任何事情都有利弊，安全是上去了，但是可用性却降低了，例如：</p>
+<ol>
+<li>Cookie、LocalStorage和IndexedDB无法读取；</li>
+<li>DOM无法获得;</li>
+<li>AJAX请求虽然可以发送，但浏览器会拒绝接受响应；</li>
+</ol>
+<p>如果只有同源策略，浏览器就会变得非常鸡肋，可用性很差，于是就出现了跨域的概念。</p>
+<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h2><p>跨域就是解决同源策略带来的不便，突破同源策略的限制去获取不同源之间的数据信息或者进行不同源之间的信息传递。浏览器支持在API容器中（例如 XMLHttpRequest 或 Fetch ）使用 CORS，以降低跨域 HTTP 请求所带来的风险。</p>
+<h2 id="跨域的方法"><a href="#跨域的方法" class="headerlink" title="跨域的方法"></a>跨域的方法</h2><h3 id="img标签"><a href="#img标签" class="headerlink" title="img标签"></a>img标签</h3><p><strong>img</strong>标签有能力不受限制地从其他域加载资源，例子如下：</p>
+<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><h4 id="JSONP是什么？"><a href="#JSONP是什么？" class="headerlink" title="JSONP是什么？"></a>JSONP是什么？</h4><p>JSONP是JSON with padding（填充式JSON或参数式JSON）的简写，是应用JSON的一种新方法。JSONP看起来与JSON差不多，只不过是被包含在函数调用中的JSON，就像下面这样<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callback(&#123; <span class="string">"name"</span>: <span class="string">"Nicholas"</span> &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>JSONP由两部分组成：回调函数和数据。回调函数是当响应到来时应该在页面中调用的函数。回调函数的名字一般是在请求中指定的。而数据就是传入回调函数的JSON数据。</p>
+<p>简单来说就是利用并提供一个回调函数来接收数据（函数名可约定），响应传递过来的数据为json数据的包装（故称之为jsonp，即json padding）。  传过来的数据类似： callback({“name”:”hax”,”gender”:”Male”})。因为JSONP是有效的JavaScript代码，所以在请求完成后，即在JSONP响应加载到页面中以后，浏览器会立即执行callback函数，并传递解析后的json对象作为参数。</p>
+<h4 id="JSONP的原理"><a href="#JSONP的原理" class="headerlink" title="JSONP的原理"></a>JSONP的原理</h4><p>JSONP其实就是利用<strong>script</strong>元素本身可跨域，可以将其src属性里指定的路径里的资源下载下来的设定，从而达到跨域的目的。</p>
+<p>JSONP是通过动态创建<strong>script</strong>元素来使用的，使用时为src属性指定一个跨域URL。<strong>script</strong>元素与<strong>img</strong>元素类似，都有能力不受限制地从其他域加载资源。因为JSONP是有效的JavaScript代码，所以在请求完成后，即在JSONP响应加载到页面中以后，就会立即执行。</p>
+<h4 id="JSONP的使用步骤"><a href="#JSONP的使用步骤" class="headerlink" title="JSONP的使用步骤"></a>JSONP的使用步骤</h4><ol>
+<li><p>动态创建script标签</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var script = document.createElement(<span class="string">'script'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建回调函数callback（假定函数名为appendHtml），然后将该函数与callback字段结合成键值对的形式，例如：callback=appendHtml，接着将其与要访问的远端（不同源）的接口url，假设要访问的url为<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script.src = <span class="string">'http://localhost:8080/getNews?callback=appendHtml'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="JSONP的优缺点"><a href="#JSONP的优缺点" class="headerlink" title="JSONP的优缺点"></a>JSONP的优缺点</h4><h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>简单易用，能够直接访问响应文本，支持在浏览器与服务器之间双向通信。</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><ol>
+<li>因为src属性自己获取数据要在url后面加上数据参数，那么这个方式就只有get，所以JSONP也只能用get方式获取数据；</li>
+<li>JSONP只能解决跨域获取资源问题，但是不能解决不同域页面之间的JS调用问题；</li>
+<li>安全性问题：由于JSONP是从其他域中加载代码执行，如果其他域不安全，很可能会在响应中夹带一些恶意代码，而此时除了完全放弃JSONP调用之外，没有办法追究；</li>
+<li>要半段JSONP请求失败并不容易，它不会像ajax那样如果失败的话会返回失败的http状态码；</li>
+</ol>
+<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><h4 id="CORS是什么？"><a href="#CORS是什么？" class="headerlink" title="CORS是什么？"></a>CORS是什么？</h4><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing），它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。</p>
+<p>跨域资源共享标准（Cross-Origin Resource Sharing）允许在下列场景中使用跨域HTTP请求：</p>
+<ol>
+<li>由XMLHttpRequest或Fetch发起的跨域HTTP请求；</li>
+<li>Web字体(CSS中通过@font-face使用跨域字体资源)，因此，网站就可以发布TrueType字体资源，并只允许已授权网站进行跨站调用；</li>
+<li>WebGL贴图；</li>
+<li>使用drawImage将Images/video画面绘制到canvas；</li>
+<li>样式表（使用CSSOM）</li>
+<li>Scripts（未处理的异常）</li>
+</ol>
+<p>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
+<h4 id="CORS的两种请求"><a href="#CORS的两种请求" class="headerlink" title="CORS的两种请求"></a>CORS的两种请求</h4><p>CORS分两种请求，简单请求和非简单请求，浏览器对这两种请求的处理方式有差别。</p>
+<p><img src="/images/web安全/cors_complete.png" alt="cors flow"></p>
+<h5 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h5><h6 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h6><p>满足简单请求的条件只有两个：</p>
+<ol>
+<li><p>请求方法是HEAD、GET、POST中的一个；</p>
+</li>
+<li><p>HTTP的头信息不超过以下字段：Accept、Accept-Language、Content-Language、Last-Event-ID和Content-Type（只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain）；</p>
+</li>
+</ol>
+<h6 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h6><p>对于简单请求，浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。下面是一个例子，浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET /cors HTTP/1.1</span><br><span class="line">Origin: http://api.bob.com</span><br><span class="line">Host: api.alice.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/5.0...</span><br></pre></td></tr></table></figure></p>
+<p>上面的头信息中，Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。</p>
+<p>如果Origin指定的源，不在许可范围内，服务器会返回一个正常的HTTP回应。浏览器发现，这个回应的头信息没有包含Access-Control-Allow-Origin字段（详见下文），就知道出错了，从而抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。</p>
+<p>如果Origin指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: http://api.bob.com</span><br><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span></span><br><span class="line">Access-Control-Expose-Headers: FooBar</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br></pre></td></tr></table></figure></p>
+<p>上面的头信息之中，有三个与CORS请求相关的字段，都以Access-Control-开头。</p>
+<ol>
+<li><p><strong>Access-Control-Allow-Origin</strong><br>该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。</p>
+</li>
+<li><p><strong>Access-Control-Allow-Credentials</strong><br>该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为true，如果服务器不要浏览器发送Cookie，删除该字段即可。</p>
+</li>
+<li><p><strong>Access-Control-Expose-Headers</strong><br>该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段的值。</p>
+</li>
+</ol>
+<h6 id="withCredentials属性"><a href="#withCredentials属性" class="headerlink" title="withCredentials属性"></a>withCredentials属性</h6><p>上面说到，CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定<strong>Access-Control-Allow-Credentials</strong>字段值<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>另一方面，开发者必须在AJAX请求中打开<strong>withCredentials</strong>属性。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.withCredentials = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure></p>
+<p><em>需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。</em>同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。</p>
+<h5 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h5><p>非简单请求是那种对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json。</p>
+<h6 id="预检请求"><a href="#预检请求" class="headerlink" title="预检请求"></a>预检请求</h6><p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。</p>
+<p>下面是一段浏览器的JavaScript脚本。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var url = <span class="string">'http://api.alice.com/cors'</span>;</span><br><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'PUT'</span>, url, <span class="literal">true</span>);</span><br><span class="line">xhr.setRequestHeader(<span class="string">'X-Custom-Header'</span>, <span class="string">'value'</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，HTTP请求的方法是PUT，并且发送一个自定义头信息X-Custom-Header。</p>
+<p>浏览器发现，这是一个非简单请求，就自动发出一个”预检”请求，要求服务器确认可以这样请求。下面是这个”预检”请求的HTTP头信息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">OPTIONS /cors HTTP/1.1</span><br><span class="line">Origin: http://api.bob.com</span><br><span class="line">Access-Control-Request-Method: PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.alice.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/5.0...</span><br></pre></td></tr></table></figure></p>
+<p>“预检”请求用的请求方法是OPTIONS，表示这个请求是用来询问的。头信息里面，关键字段是Origin，表示请求来自哪个源。除了Origin字段，”预检”请求的头信息包括两个特殊字段。</p>
+<ol>
+<li><p><strong>Access-Control-Request-Method</strong><br>该字段是必须的，用来列出浏览器的CORS请求会用到哪些HTTP方法，上例是PUT。</p>
+</li>
+<li><p><strong>Access-Control-Request-Headers</strong><br>该字段是一个逗号分隔的字符串，指定浏览器CORS请求会额外发送的头信息字段，上例是X-Custom-Header。</p>
+</li>
+</ol>
+<h6 id="预检请求的回应"><a href="#预检请求的回应" class="headerlink" title="预检请求的回应"></a>预检请求的回应</h6><p>服务器收到”预检”请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Mon, 01 Dec 2008 01:15:39 GMT</span><br><span class="line">Server: Apache/2.0.61 (Unix)</span><br><span class="line">Access-Control-Allow-Origin: http://api.bob.com</span><br><span class="line">Access-Control-Allow-Methods: GET, POST, PUT</span><br><span class="line">Access-Control-Allow-Headers: X-Custom-Header</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Length: 0</span><br><span class="line">Keep-Alive: timeout=2, max=100</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Content-Type: text/plain</span><br></pre></td></tr></table></figure></p>
+<p>上面的HTTP回应中，关键的是Access-Control-Allow-Origin字段，表示 <a href="http://api.bob.com" target="_blank" rel="noopener">http://api.bob.com</a> 可以请求数据。该字段也可以设为星号，表示同意任意跨源请求。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: *</span><br></pre></td></tr></table></figure></p>
+<p>如果浏览器否定了”预检”请求，会返回一个正常的HTTP回应，但是没有任何CORS相关的头信息字段。这时，浏览器就会认定，服务器不同意预检请求，因此触发一个错误，被XMLHttpRequest对象的onerror回调函数捕获。控制台会打印出如下的报错信息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest cannot load http://api.alice.com.</span><br><span class="line">Origin http://api.bob.com is not allowed by Access-Control-Allow-Origin.</span><br></pre></td></tr></table></figure></p>
+<p>服务器回应的其他CORS相关字段如下。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Methods: GET, POST, PUT</span><br><span class="line">Access-Control-Allow-Headers: X-Custom-Header</span><br><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span></span><br><span class="line">Access-Control-Max-Age: 1728000</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p><strong>Access-Control-Allow-Methods</strong><br>该字段必需，它的值是逗号分隔的一个字符串，表明服务器支持的所有跨域请求的方法。注意，返回的是所有支持的方法，而不单是浏览器请求的那个方法。这是为了避免多次”预检”请求。</p>
+</li>
+<li><p><strong>Access-Control-Allow-Headers</strong><br>如果浏览器请求包括Access-Control-Request-Headers字段，则Access-Control-Allow-Headers字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段，不限于浏览器在”预检”中请求的字段。</p>
+</li>
+<li><p><strong>Access-Control-Allow-Credentials</strong><br>该字段与简单请求时的含义相同。</p>
+</li>
+<li><p><strong>Access-Control-Max-Age</strong><br>该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是20天（1728000秒），即允许缓存该条回应1728000秒（即20天），在此期间，不用发出另一条预检请求。</p>
+</li>
+</ol>
+<h6 id="浏览器的正常请求和回应"><a href="#浏览器的正常请求和回应" class="headerlink" title="浏览器的正常请求和回应"></a>浏览器的正常请求和回应</h6><p><em>一旦服务器通过了”预检”请求，以后每次浏览器正常的CORS请求，就都跟简单请求一样，会有一个Origin头信息字段</em>。服务器的回应，也都会有一个Access-Control-Allow-Origin头信息字段。</p>
+<p>下面是”预检”请求之后，浏览器的正常CORS请求。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PUT /cors HTTP/1.1</span><br><span class="line">Origin: http://api.bob.com</span><br><span class="line">Host: api.alice.com</span><br><span class="line">X-Custom-Header: value</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/5.0...</span><br></pre></td></tr></table></figure></p>
+<p>上面头信息的Origin字段是浏览器自动添加的。</p>
+<p>下面是服务器正常的回应。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: http://api.bob.com</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br></pre></td></tr></table></figure></p>
+<p>上面头信息中，Access-Control-Allow-Origin字段是每次回应都必定包含的。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解,by 阮一峰</a><br>[2] <a href="https://cloud.tencent.com/developer/article/1152879" target="_blank" rel="noopener">跨域,on 腾讯云 by 小胖</a><br>[3] <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP访问控制（CORS）,MDN</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/同源/" rel="tag"># 同源</a>
+          
+            <a href="/tags/CORS/" rel="tag"># CORS</a>
+          
+            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/09/vault/vault详解（三）Secrets-Engines/" rel="next" title="vault详解（三）Secrets Engines">
+                <i class="fa fa-chevron-left"></i> vault详解（三）Secrets Engines
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#同源"><span class="nav-number">1.</span> <span class="nav-text">同源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是同源？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是同源？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会有同源？"><span class="nav-number">1.2.</span> <span class="nav-text">为什么会有同源？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跨域"><span class="nav-number">2.</span> <span class="nav-text">跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是跨域？"><span class="nav-number">2.1.</span> <span class="nav-text">什么是跨域？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域的方法"><span class="nav-number">2.2.</span> <span class="nav-text">跨域的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#img标签"><span class="nav-number">2.2.1.</span> <span class="nav-text">img标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONP"><span class="nav-number">2.2.2.</span> <span class="nav-text">JSONP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP是什么？"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">JSONP是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的原理"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">JSONP的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的使用步骤"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">JSONP的使用步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的优缺点"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">JSONP的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">2.2.2.4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">2.2.2.4.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CORS"><span class="nav-number">2.2.3.</span> <span class="nav-text">CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS是什么？"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">CORS是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS的两种请求"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">CORS的两种请求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简单请求"><span class="nav-number">2.2.3.2.1.</span> <span class="nav-text">简单请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#条件"><span class="nav-number">2.2.3.2.1.1.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#基本流程"><span class="nav-number">2.2.3.2.1.2.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#withCredentials属性"><span class="nav-number">2.2.3.2.1.3.</span> <span class="nav-text">withCredentials属性</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非简单请求"><span class="nav-number">2.2.3.2.2.</span> <span class="nav-text">非简单请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#预检请求"><span class="nav-number">2.2.3.2.2.1.</span> <span class="nav-text">预检请求</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#预检请求的回应"><span class="nav-number">2.2.3.2.2.2.</span> <span class="nav-text">预检请求的回应</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#浏览器的正常请求和回应"><span class="nav-number">2.2.3.2.2.3.</span> <span class="nav-text">浏览器的正常请求和回应</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
