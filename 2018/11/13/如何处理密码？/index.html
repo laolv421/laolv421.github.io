@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="password,credential," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="PasswordRainbow Table Attack彩虹表是用于加密散列函数逆运算的预先计算好的表，常用于破解加密过的密码散列。 查找表常常用于包含有限字符固定长度纯文本密码的加密。这是以空间换时间的典型实践，在每一次尝试都计算的暴力破解中使用更少的计算能力和更多的储存空间，但却比简单的每个输入一条散列的翻查表使用更少的储存空间和更多的计算性能。">
+<meta name="keywords" content="password,credential">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何处理密码？">
+<meta property="og:url" content="http://yoursite.com/2018/11/13/如何处理密码？/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="PasswordRainbow Table Attack彩虹表是用于加密散列函数逆运算的预先计算好的表，常用于破解加密过的密码散列。 查找表常常用于包含有限字符固定长度纯文本密码的加密。这是以空间换时间的典型实践，在每一次尝试都计算的暴力破解中使用更少的计算能力和更多的储存空间，但却比简单的每个输入一条散列的翻查表使用更少的储存空间和更多的计算性能。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/处理密码/rainbow_table.png">
+<meta property="og:image" content="http://yoursite.com/images/处理密码/md5_rainbow_table.png">
+<meta property="og:image" content="http://yoursite.com/images/处理密码/password_protect_layer.jpeg">
+<meta property="og:image" content="http://yoursite.com/images/处理密码/OWASP_KDF.png">
+<meta property="og:image" content="http://yoursite.com/images/处理密码/backend_token_store.png">
+<meta property="og:image" content="http://yoursite.com/images/处理密码/前端存储.png">
+<meta property="og:updated_time" content="2018-11-13T07:18:41.821Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何处理密码？">
+<meta name="twitter:description" content="PasswordRainbow Table Attack彩虹表是用于加密散列函数逆运算的预先计算好的表，常用于破解加密过的密码散列。 查找表常常用于包含有限字符固定长度纯文本密码的加密。这是以空间换时间的典型实践，在每一次尝试都计算的暴力破解中使用更少的计算能力和更多的储存空间，但却比简单的每个输入一条散列的翻查表使用更少的储存空间和更多的计算性能。">
+<meta name="twitter:image" content="http://yoursite.com/images/处理密码/rainbow_table.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/13/如何处理密码？/"/>
+
+
+
+
+
+  <title>如何处理密码？ | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/13/如何处理密码？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何处理密码？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-13T15:18:41+08:00">
+                2018-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/存储安全/" itemprop="url" rel="index">
+                    <span itemprop="name">存储安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/13/如何处理密码？/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/11/13/如何处理密码？/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Password"><a href="#Password" class="headerlink" title="Password"></a>Password</h1><h2 id="Rainbow-Table-Attack"><a href="#Rainbow-Table-Attack" class="headerlink" title="Rainbow Table Attack"></a>Rainbow Table Attack</h2><p>彩虹表是用于加密散列函数逆运算的预先计算好的表，常用于破解加密过的密码散列。 查找表常常用于包含有限字符固定长度纯文本密码的加密。这是以空间换时间的典型实践，在每一次尝试都计算的暴力破解中使用更少的计算能力和更多的储存空间，但却比简单的每个输入一条散列的翻查表使用更少的储存空间和更多的计算性能。<br><img src="/images/处理密码/rainbow_table.png" alt="彩虹表"></p>
+<a id="more"></a>
+<p>上图就是彩虹表的例子，每一行都是一个哈希链，每条哈希链中都包含一个哈希函数<strong>H</strong>和一个约简函数（reduction）<strong>R</strong>，约简函数的定义域和值域与哈希函数相反。每条哈希链只需要保存首尾两个节点内容就好，具体原理可以看<a href="https://www.zhihu.com/question/19790488" target="_blank" rel="noopener">知乎</a>。</p>
+<p>事实上，在计算和下载彩虹表时，不同类型的猜解范围是需要用不同的库的，例如下载网站<a href="https://link.zhihu.com/?target=http%3A//project-rainbowcrack.com/table.htm" target="_blank" rel="noopener">List of Rainbow Tables</a>（MD5哈希算法的彩虹表下载项截图如下），而且这些库的R函数都不同，并且R函数要尽可能保证输出值在值域中的均匀分布，减少碰撞概率。</p>
+<p><img src="/images/处理密码/md5_rainbow_table.png" width="800"></p>
+<h2 id="密码保护层"><a href="#密码保护层" class="headerlink" title="密码保护层"></a>密码保护层</h2><p><img src="/images/处理密码/password_protect_layer.jpeg" width="600"></p>
+<ol>
+<li><p>用户输入密码，首先使用哈希函数SHA3-512加盐处理，这个盐可以是global domain，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHA3-512(<span class="string">"plain-text-password-from-user"</span> + <span class="string">"auth.example.com"</span>)</span><br></pre></td></tr></table></figure>
+<p>这种方式其实有两个缺点：（1）在服务端不能强制执行密码策略；（2）如果global domain更新了，还需要通知服务端新的盐值，保证在服务端可以认证成功；</p>
+</li>
+<li><p>然后网络层选择HTTPS传输。</p>
+</li>
+<li><p>一般情况下使用SHA3-512就可以，但是在后端如果使用KDF（Password hashing function），俗称慢加密方法，安全性会更高。提到KDF会有很多选择，例如Argon2, bcrypt, scrypt, PBKDF2。但是这里推荐的有两个，一个是Argon2，它在2015年赢得了password hashing competition的冠军；如果有些安全算法库不支持Argon2的话，bcrypt也是一个很好的选择。因为自从1999年问世到现在，没有出现大的漏洞。OWASP的Password Storage Cheat Sheet推荐如下：</p>
+<p><img src="/images/处理密码/OWASP_KDF.png" alt="OWASP KDF"></p>
+<p>上面我们谈到Argon2和bcrypt是很好的选择，同时credential-specific salt（盐值）需要从数据库中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bcrypt(<span class="built_in">hash</span>, salt) <span class="comment">#偏保守</span></span><br><span class="line">Argon2(<span class="built_in">hash</span>, salt) <span class="comment">#未来前景更好</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对称加密。最后一步入数据库之前需要加密，比如AES256-GCM或者ChaCha20-Poly1305，关于对称密钥的存储，我们可以使用HSM，或者例如Hashicorp Vault密钥管理系统来存储密钥，可以做到EaaS，Encryption-As-A-Service（加密即服务）。因此，我们将KDF的输出发送到Vault实例，获取加密的哈希并将其存储在我们的数据库中。</p>
+</li>
+</ol>
+<h1 id="其他凭证（token、secrets…）"><a href="#其他凭证（token、secrets…）" class="headerlink" title="其他凭证（token、secrets…）"></a>其他凭证（token、secrets…）</h1><p>其他凭证（token、secrets…）包括Registration-token, account-recovery-token, API-token这些信息，它们和password在认证方面其实差别不大，甚至有时候更加强大，例如密码可能伴随着多因子认证，但是token完全不需要。</p>
+<h2 id="后端存储"><a href="#后端存储" class="headerlink" title="后端存储"></a>后端存储</h2><p>建议步骤如下：</p>
+<ol>
+<li>产生凭证。例如如果是CSPRING算法，则产生随机的20bytes的token；如果是API-key的话，可能需要64bytes的随机字符串。</li>
+<li><p>编码。例如下面的例子，采用base32编码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usru kbvj nmvg xly5 4qh3 jnk6 jd2n iadm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>产生盐值，然后哈希。例如可以产生32bytes的盐值，然后使用SHA3-512或者KDF（对性能要求不高）作用于上面的编码和盐值。</p>
+</li>
+<li><p>存储。选择编码后的前几位，例如前6bytes作为token ID，盐值和哈希的结果作为token secrets。</p>
+<p><img src="/images/处理密码/backend_token_store.png" width="550"></p>
+</li>
+<li><p>发送明文token到客户端，清空内存中的token。</p>
+</li>
+</ol>
+<h2 id="前端存储"><a href="#前端存储" class="headerlink" title="前端存储"></a>前端存储</h2><p>前端存储地方有限，基本就是Web storage（local storage、session storage）和cookie这几个地方，下面具体介绍一下前端的存储。</p>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p>Cookie是网景公司的前雇员 Lou Montulli 在1993年3月的发明。Cookie存于客户端，由于http协议是无状态的，只要客户端与服务端数据交换完，就会断掉链接，如果再请求 就再次链接，而服务器是无法保存这种链接的状态，只有不停地链接、断链接，所以需要cookie来做一个身份认证，再次请求的时候服务器会根据这个身份id进行用户判断。Cookie的缺点有：</p>
+<ol>
+<li>不可以跨域，它会根据域名来区分是向哪个服务器发送数据；</li>
+<li>不能存一些敏感信息，因为通过浏览器获取cookie很方便，很容易泄露一些个人信息；</li>
+<li>每次你请求一个新的页面的时候，cookie只要满足作用域和作用路径，Cookie都会被发送过去，这样无形中浪费了带宽；</li>
+<li>安全性问题。如果cookie被人拦截了，攻击者就可以取得所有的session信息。即使加密也与事无补，因为拦截者并不需要知道cookie的意义，他只要原样转发cookie就可以达到目的了；</li>
+</ol>
+<h3 id="Local-Storage"><a href="#Local-Storage" class="headerlink" title="Local Storage"></a>Local Storage</h3><p>LocalStorage是HTML5标准中新加入的技术，会一直存在浏览器中，除非人工清除。</p>
+<h3 id="Session-Storage"><a href="#Session-Storage" class="headerlink" title="Session Storage"></a>Session Storage</h3><p>sessionStorage 与 localStorage 的接口类似，但保存数据的生命周期与 localStorage 不同。SessionStorage是仅在当前的会话窗口有效，不是所有窗口都可以共享数据的，Cookie和local storage在整个浏览器（同源条件下）都可以数据共享。下面为三个前端存储之间的比较：</p>
+<p><img src="/images/处理密码/前端存储.png" width="1000"></p>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p>Web storage是在同源的条件下调用javascript来存储凭证的，意味着javascript需要访问浏览器的web storage，这时候就易受到XSS的攻击。</p>
+<p>那么对于Cookie来说，可以设置HttpPOnly的cookie flag来保证javascript不能访问标记了HttpOnly的cookie；同时也可以设置Secure标记保证cookie只在https下传输。Cookie易受CSRF攻击，可以考虑CSRFtoken等措施来保护收到CSRF攻击，详细请看其他文章<a href="">Cookie的保护</a>。所以，前端存储使用cookie更安全。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://medium.com/@harwoeck/password-and-credential-management-in-2018-56f43669d588" target="_blank" rel="noopener">Password and Credential Management in 2018</a><br>[2] <a href="https://steemit.com/science/@timsaid/brute-force-attacks-cracking-passwords-with-savage-violence-and-how-to-simply-protect-yourself" target="_blank" rel="noopener">Brute-Force Attacks - Cracking Passwords with Savage Violence and How to Simply Protect Yourself</a><br>[3] <a href="https://www.zhihu.com/question/19790488" target="_blank" rel="noopener">什么是彩虹表？ 知乎</a><br>[4] <a href="https://www.jianshu.com/p/d76f9bf80bc5" target="_blank" rel="noopener">[译]关于Tokens你应该知道的十件事</a><br>[5] <a href="http://jerryzou.com/posts/cookie-and-web-storage/" target="_blank" rel="noopener">详说 Cookie, LocalStorage 与 SessionStorage</a><br>[6] <a href="https://segmentfault.com/a/1190000010400892" target="_blank" rel="noopener">cookie、sessionStorage、localStorage 详解及应用场景</a><br>[7] <a href="https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage" target="_blank" rel="noopener">Where to Store your JWTs – Cookies vs HTML5 Web Storage</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/password/" rel="tag"># password</a>
+          
+            <a href="/tags/credential/" rel="tag"># credential</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/09/认证/http认证方式/" rel="next" title="http认证方式">
+                <i class="fa fa-chevron-left"></i> http认证方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/13/web安全/如何处理密码？/" rel="prev" title="如何处理密码？">
+                如何处理密码？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Password"><span class="nav-number">1.</span> <span class="nav-text">Password</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rainbow-Table-Attack"><span class="nav-number">1.1.</span> <span class="nav-text">Rainbow Table Attack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#密码保护层"><span class="nav-number">1.2.</span> <span class="nav-text">密码保护层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他凭证（token、secrets…）"><span class="nav-number">2.</span> <span class="nav-text">其他凭证（token、secrets…）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#后端存储"><span class="nav-number">2.1.</span> <span class="nav-text">后端存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端存储"><span class="nav-number">2.2.</span> <span class="nav-text">前端存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie"><span class="nav-number">2.2.1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-Storage"><span class="nav-number">2.2.2.</span> <span class="nav-text">Local Storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session-Storage"><span class="nav-number">2.2.3.</span> <span class="nav-text">Session Storage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性"><span class="nav-number">2.2.4.</span> <span class="nav-text">安全性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
