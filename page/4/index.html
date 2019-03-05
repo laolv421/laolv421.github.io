@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/linux/apt-get常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/大话php/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -281,7 +281,1105 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/linux/apt-get常用命令/" itemprop="url">apt-get的常用命令</a></h1>
+                <a class="post-title-link" href="/2018/10/10/大话php/" itemprop="url">大话php</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-10T16:34:05+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="php安装"><a href="#php安装" class="headerlink" title="php安装"></a>php安装</h2><h3 id="Apache-2-x-on-Microsoft-Windows"><a href="#Apache-2-x-on-Microsoft-Windows" class="headerlink" title="Apache 2.x on Microsoft Windows"></a>Apache 2.x on Microsoft Windows</h3><h4 id="集成php于apache的三种模式"><a href="#集成php于apache的三种模式" class="headerlink" title="集成php于apache的三种模式"></a>集成php于apache的三种模式</h4><h5 id="Installing-as-an-Apache-handler"><a href="#Installing-as-an-Apache-handler" class="headerlink" title="Installing as an Apache handler"></a>Installing as an Apache handler</h5><p>配置Apache将PHP解释器作为Apache本身的一个模块，apache handler（模块方式）的方式效率最高，但是php和apache运行在一个进程里面，所以php做什么事情都会影响apache。虚拟主机通常用fast-cgi或者php-cgi方式，因为可以把php程序和apache隔离开，防止虚拟主机的拥有者执行恶意程序。Apache是默认次模式集成php的。</p>
+<p>配置php为apache handler模式的话，需要修改apache配置文件httpd.conf，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LoadModule php5_module <span class="string">"c:/php/php5apache2.dll"</span></span><br><span class="line"><span class="comment"># AddHandler application/x-httpd-php .php</span></span><br><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">      SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># configure the path to php.ini</span></span><br><span class="line">PHPIniDir <span class="string">"C:/php"</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="Running-PHP-as-CGI"><a href="#Running-PHP-as-CGI" class="headerlink" title="Running PHP as CGI"></a>Running PHP as CGI</h5><p>CGI模式每一次接到请求会调用php.exe，解析php.ini，加载DLL等，速度慢。</p>
+<h5 id="Running-PHP-under-FastCGI"><a href="#Running-PHP-under-FastCGI" class="headerlink" title="Running PHP under FastCGI"></a>Running PHP under FastCGI</h5><p>FastCGI下，实现了类似连接池的技术特性，保持了对后台的连接，请求到来即可使用，结束即断开准备与下一个请求连接。一般认为，FastCGI是适用于高并发使用场景下的，同时使用FastCGI可以使得程序在Web Server产品与代码两端都具有更好的选择自由度。</p>
+<p>FastCGI的工作原理是：<br>（1）Web Server 启动时载入FastCGI进程管理器【PHP的FastCGI进程管理器是PHP-FPM(php-FastCGI Process Manager)】（IIS ISAPI或Apache Module);<br>（2）FastCGI进程管理器自身初始化，启动多个CGI解释器进程 (在任务管理器中可见多个php-cgi.exe)并等待来自Web Server的连接。<br>（3）当客户端请求到达Web Server时，FastCGI进程管理器选择并连接到一个CGI解释器。Web server将CGI环境变量和标准输入发送到FastCGI子进程php-cgi.exe。<br>（4）FastCGI子进程完成处理后将标准输出和错误信息从同一连接返回Web Server。当FastCGI子进程关闭连接时，请求便告处理完成。FastCGI子进程接着等待并处理来自FastCGI进程管理器（运行在 WebServer中）的下一个连接。 在正常的CGI模式中，php-cgi.exe在此便退出了。</p>
+<h4 id="php与数据库mysql的连接"><a href="#php与数据库mysql的连接" class="headerlink" title="php与数据库mysql的连接"></a>php与数据库mysql的连接</h4><p>从PHP 5.5.0起mysql这个扩展已经被废弃，并且从PHP 7.0.0开始被移除。作为替代，可以使用mysqli或者PDO_MySQL扩展代替。</p>
+<h5 id="几个术语"><a href="#几个术语" class="headerlink" title="几个术语"></a>几个术语</h5><p>php文档介绍mysql模块之前引入了几个术语：<br>（1）什么是API?<br>一个应用程序接口（Application Programming Interface的缩写），定义了类，方法，函数，变量等等一切 你的应用程序中为了完成特定任务而需要调用的内容。在PHP应用程序需要和数据库进行交互的时候所需要的API 通常是通过PHP扩展暴露出来（给终端PHP程序员调用）。</p>
+<p>（2）什么是连接器?<br>在MySQL文档中，术语connector解释为“一段允许你的应用连接到MySQL数据库服务器的软件代码”。 MySQL提供了很多语言的连接器，其中包括PHP的。</p>
+<p>（3）什么是驱动?<br>驱动是一段设计用来于一种特定类型的数据库服务器进行交互的软件代码。驱动可能会调用一些库，比如MySQL客户端库或者MySQL Native驱动库。 这些库实现了用于和MySQL数据库服务器进行交互的底层协议。</p>
+<p>（4）什么是扩展?<br>在PHP文档中你还会发现很多其他的扩展。PHP代码是由一个核心，一些可选扩展组成了核心功能。PHP 的MySQL相关扩展，比如mysqli，mysql都是基于PHP扩展框架实现的。术语API和扩展描述的不是同一类事物，因为扩展可能并不需要暴露一个API接口给程序员。</p>
+<h5 id="PHP中提供MySQL的API"><a href="#PHP中提供MySQL的API" class="headerlink" title="PHP中提供MySQL的API"></a>PHP中提供MySQL的API</h5><p>当考虑连接到MySQL数据库服务器的时候，有三种主要的API可供选择：<br>（1）PHP的MySQL扩展<br>这是设计开发允许PHP应用与MySQL数据库交互的早期扩展。mysql扩展提供了一个面向过程 的接口，并且是针对MySQL4.1.3或更早版本设计的。因此，这个扩展虽然可以与MySQL4.1.3或更新的数据库服务端 进行交互，但并不支持后期MySQL服务端提供的一些特性。</p>
+<p>（2）PHP的mysqli扩展<br>mysqli扩展，我们有时称之为MySQL增强扩展，可以用于使用 MySQL4.1.3或更新版本中新的高级特性。</p>
+<p>（3）PHP数据对象(PDO)<br>PHP数据对象，是PHP应用中的一个数据库抽象层规范。PDO提供了一个统一的API接口可以使得你的PHP应用不去关心具体要 连接的数据库服务器系统类型。也就是说，如果你使用PDO的API，可以在任何需要的时候无缝切换数据库服务器，比如从Firebird 到MySQL，仅仅需要修改很少的PHP代码。其他数据库抽象层的例子包括Java应用中的JDBC以及Perl中的DBI。PDO也有它自己的先进性，比如一个干净的，简单的，可移植的API，它最主要的缺点是会限制让你不能使用 后期MySQL服务端提供所有的数据库高级特性。比如，PDO不允许使用MySQL支持的多语句执行。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="http://php.net/manual/zh/index.php" target="_blank" rel="noopener">php文档</a><br>[2] <a href="https://blog.csdn.net/hxsstar/article/details/18809771" target="_blank" rel="noopener">apache php的几种运行方式</a><br>[3] <a href="https://blog.csdn.net/u011781521/article/details/53887721" target="_blank" rel="noopener">Windows 10搭建PHP开发环境</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Web服务层次/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/09/Web服务层次/" itemprop="url">Web服务层次</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-09T16:34:41+08:00">
+                2018-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我们都知道网络从下到上分为物理层、数据链路层、网络层、传输层、会话层、表示层和应用层，例如IP协议对应网络层，TCP协议对应传输层，HTTP、FTP、Telnet等协议对应于应用层。我们常见的socket则是对TCP/IP封装的API接口，主要解决数据如何在网络中传输。</p>
+<p>Web服务其实分很多层，每一层又对应着我们熟悉的东西，比如apache、django等，他们之间的关系是什么呢，本文通过整理和查阅相关资料细致地介绍了不同web层和它们之间的关系。</p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>客户端请求服务，通过的Web服务层依次为Web服务器层、Web网关接口层和Web框架层。</p>
+<h2 id="Web服务器层"><a href="#Web服务器层" class="headerlink" title="Web服务器层"></a>Web服务器层</h2><p>Web Server就是提供Web服务的Server，通常指对外提供的是HTTP服务的软件程序，主要功能是存储，处理和传递网页给客户。客户端和服务器之间的通信使用超文本传输​​协议（HTTP）进行。交付的页面最常见的是HTML文档，除了文本内容之外，还可能包含图像，样式表和脚本。</p>
+<p>对于Web服务器来说，面临的主要挑战是并行，和数以千计的用户同时保持连接（高并发），并能够在一定时间内传送大量数据（吞吐量）。</p>
+<h2 id="Web框架层"><a href="#Web框架层" class="headerlink" title="Web框架层"></a>Web框架层</h2><p>对于Web框架来说，主要考虑的是易开发，对请求对象的完全访问，且能有写出业务级逻辑的方式。</p>
+<h2 id="Web网关接口层"><a href="#Web网关接口层" class="headerlink" title="Web网关接口层"></a>Web网关接口层</h2><p>Web服务器网关接口（Python Web Server Gateway Interface，缩写为WSGI）是为Python语言定义的Web服务器和Web应用程序或框架之间的一种简单而通用的接口。自从WSGI被开发出来以后，许多其它语言中也出现了类似接口。</p>
+<p>没有出现Web网关接口之前，选择Web应用框架，将限制可用的Web服务器的选择，反之亦然。WSGI是作为Web服务器与Web应用程序或应用框架之间的一种低级别的接口，以提升可移植Web应用开发的共同点。WSGI是基于现存的CGI标准而设计的。</p>
+<p>WSGI区分为两个部分：一部分为“服务器”或“网关”，另一部分为“应用程序”或“应用框架”。在处理一个WSGI请求时，服务器会为应用程序提供环境信息及一个回调函数（Callback Function）。当应用程序完成处理请求后，透过前述的回调函数，将结果回传给服务器。 WSGI 中间件同时实现了API的两方，因此可以在WSGI服务器和WSGI应用之间起调解作用：从Web服务器的角度来说，中间件扮演应用程序，而从应用程序的角度来说，中间件扮演服务器。</p>
+<h1 id="常见的Web服务器"><a href="#常见的Web服务器" class="headerlink" title="常见的Web服务器"></a>常见的Web服务器</h1><h2 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h2><h3 id="Apache是什么？"><a href="#Apache是什么？" class="headerlink" title="Apache是什么？"></a>Apache是什么？</h3><p>Apache HTTP Server简称为Apache。它诞生于1995年，并在2015年2月20日度过了其20岁的生日。全球超过52%的网站使用了Apache，它是目前最流行的web服务器。</p>
+<p>Apache是Apache软件基金会的一个开放源码的网页服务器，可以在大多数计算机操作系统中运行，由于其多平台和安全性被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩展，将Perl/Python等解释器编译到服务器中。Apache httpd通常运行在Linux上，也可以部署在OS X和Windows之上，它的发布得到Apache许可证 2.0 版的许可。该web服务器自身使用模块化架构，加载其它额外的模块可以作为其额外特性。比如，加载mod_proxy模块可以增加服务器代理/ 网关的功能，加载mod_proxy_balancer模块可以为所有支持的协议提供负载平衡。在v2.4版本里，Apache可通过全新的mod_http2模块支持HTTP/2。</p>
+<h3 id="Apache在windows安装选择"><a href="#Apache在windows安装选择" class="headerlink" title="Apache在windows安装选择"></a>Apache在windows安装选择</h3><p>因为Apache官网是没有提供windows环境下的编译后的文件的，第三方机构例如apache lounge等会提供windows环境下的二进制文件和第三方模块。除此之外还有其他第三方机构，例如：<br>（1）Apache Haus<br>Apache Haus和Apache lounge类似，都是在windows平台下提供apache服务器的二进制文件和第三方模块；</p>
+<p>（2）BitNami WAMP Stack<br>Bitnami是一个开源项目，为开源的Web应用程序、开发堆栈以及虚拟设备提供安装程序或安装软件包，BitNami WAMP Stack则提供了完全集成的Wamp开发环境；</p>
+<p>（3）WampServer<br>Wamp集成了Windows, Apache, Mysql, Php，只能安装于windows平台下；</p>
+<p>（4）XAMPP<br>XAMPP集成了X-os, Apache, Mysql, Php , Perl，X-os意思是可用于任何平台；</p>
+<h3 id="Apache的结构"><a href="#Apache的结构" class="headerlink" title="Apache的结构"></a>Apache的结构</h3><p>这里我们从Apache lounge下载下来”httpd-2.4.35-win64-VC15.zip”文件，解压出来主要的结构大概如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Apache24</span><br><span class="line">    |-bin</span><br><span class="line">    |-conf      内含http.conf配置文件，SRVROOT默认为<span class="string">"c:/Apache24"</span></span><br><span class="line">    |-htdocs    webpages存放所在</span><br><span class="line">    |-modules   .so模块存放地</span><br></pre></td></tr></table></figure></p>
+<p>重要的一些命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">httpd.exe               启动Apache服务器</span><br><span class="line">httpd.exe -k install    安装Apache服务</span><br><span class="line">ApacheMonitor.exe       Apache监控程序</span><br></pre></td></tr></table></figure></p>
+<p>http.conf文件的Directory部分定义了访问控制的语法,具体可以参考<a href="https://httpd.apache.org/docs/2.4/mod/core.html#directory" target="_blank" rel="noopener">官方文档</a></p>
+<h3 id="Apache的安全配置"><a href="#Apache的安全配置" class="headerlink" title="Apache的安全配置"></a>Apache的安全配置</h3><p>可以参考官方文档中的<a href="https://httpd.apache.org/docs/2.4/misc/security_tips.html" target="_blank" rel="noopener">Security Tips</a>，文档针对DoS（DDoS）、服务器访问权限等方面降低服务器的风险；</p>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>Igor Sysoev从2002年开始开发NGINX，并在2004年发布了第一个公开版本。NGINX的开发是为了解决C10K（C10K是如何处理1万个并发连接的简写）问题，目前，全球有超过30%的网站在使用它。Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，并在一个BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上nginx的并发能力确实在同类型的网页服务器中表现较好。</p>
+<p>NGINX依靠异步事件驱动架构来帮助其处理大量的并发会话，由于其对资源的轻量利用和伸缩自如的特性，它成为了广受欢迎的web服务器。NGINX在类BSD（Berkeley Software Distribution）许可协议的授权下发布的，它不仅可作为web服务器进行部署，也可作为代理服务器或负载平衡器。你可以在NGINX社区网站找到它的更多信息。</p>
+<h3 id="Nginx的特点"><a href="#Nginx的特点" class="headerlink" title="Nginx的特点"></a>Nginx的特点</h3><h4 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h4><p>Nginx作为负载均衡服务器：Nginx 既可以在内部直接支持 Rails 和 PHP 程序对外进行服务，也可以支持作为 HTTP代理服务器对外进行服务。Nginx采用C进行编写，不论是系统资源开销还是CPU使用效率都比 Perlbal 要好很多。</p>
+<p>处理静态文件，索引文件以及自动索引;打开文件描述符缓冲。无缓存的反向代理加速，简单的负载均衡和容错。FastCGI，简单的负载均衡和容错。模块化的结构。包括 gzipping, byte ranges, chunked responses,以及 SSI-filter 等 filter。如果由 FastCG或其它代理服务器处理单页中存在的多个 SSI，则这项处理可以并行运行，而不需要相互等待。Nginx同时支持 SSL 和 TLSSNI。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>Nginx代码完全用C语言从头写成，已经移植到许多体系结构和操作系统，包括：Linux、FreeBSD、Solaris、Mac OS X、AIX以及Microsoft Windows。Nginx有自己的函数库，并且除了zlib、PCRE和OpenSSL之外，标准模块只使用系统C库函数。而且，如果不需要或者考虑到潜在的授权冲突，可以不使用这些第三方库。</p>
+<p>Nginx代码完全用C语言从头写成，已经移植到许多体系结构和操作系统，包括：Linux、FreeBSD、Solaris、Mac OS X、AIX以及Microsoft Windows。Nginx有自己的函数库，并且除了zlib、PCRE和OpenSSL之外，标准模块只使用系统C库函数。而且，如果不需要或者考虑到潜在的授权冲突，可以不使用这些第三方库。</p>
+<h4 id="代理服务器"><a href="#代理服务器" class="headerlink" title="代理服务器"></a>代理服务器</h4><p>作为邮件代理服务器：Nginx 同时也是一个非常优秀的邮件代理服务器（最早开发这个产品的目的之一也是作为邮件代理服务器），Last.fm 描述了成功并且美妙的使用经验。</p>
+<p>Nginx 是一个安装非常的简单、配置文件非常简洁（还能够支持perl语法）、Bug非常少的服务器。Nginx 启动特别容易，并且几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动。你还能够不间断服务的情况下进行软件版本的升级。</p>
+<h2 id="Apache-Tomcat"><a href="#Apache-Tomcat" class="headerlink" title="Apache Tomcat"></a>Apache Tomcat</h2><p>Apache只支持静态网页，但像php,cgi,jsp等动态网页就需要Tomcat来处理。 Tomcat是由Apache软件基金会下属的Jakarta项目开发的一个Servlet容器，按照Sun Microsystems提供的技术规范，实现了对Servlet和JavaServer Page（JSP）的支持，并提供了作为Web服务器的一些特有功能，如Tomcat管理和控制平台、安全域管理和Tomcat阀等。由于Tomcat本身也内含了一个HTTP服务器，它也可以被视作一个单独的Web服务器。但是，不能将 Tomcat 和 Apache Web 服务器混淆，Apache Web Server 是一个用 C 语言实现的 HTTP web server；这两个 HTTP web server 不是捆绑在一起的。Apache Tomcat 包含了一个配置管理工具，也可以通过编辑 XML 格式的配置文件来进行配置。Apache，nginx，tomcat并称为网页服务三剑客，可见其应用度之广泛。</p>
+<p>Apache Tomcat是在Apache许可证 2.0 版的授权下进行发布的，通常用于运行Java应用程序。此外，它能够通过Coyote的扩展，扮演为本地文件HTTP文档服务的普通服务器的角色。更多详细的信息可以查看Apache Tomcat项目网站。另外，Apache Tomcat还经常内嵌在其它开源Java应用服务器中，如JBoss, Wildfly和Glassfish。</p>
+<h3 id="Apache-httpd与Apache-Tomcat"><a href="#Apache-httpd与Apache-Tomcat" class="headerlink" title="Apache httpd与Apache Tomcat"></a>Apache httpd与Apache Tomcat</h3><h4 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h4><p>（1）Apache是普通服务器，本身只支持html即普通网页，可以通过插件支持php，还可以与Tomcat连通(Apache单向连接Tomcat，就是说通过Apache可以访问Tomcat资源，反之不然)。　　　　</p>
+<p>（2）Apache只支持静态网页，但像Jsp动态网页就需要Tomcat来处理。　　</p>
+<p>（3）Apache和Tomcat整合使用：如果客户端请求的是静态页面，则只需要Apache服务器响应请求；如果客户端请求动态页面，则是Tomcat服务器响应请求，将解析的JSP等网页代码解析后回传给Apache服务器，再经Apache返回给浏览器端。这是因为jsp是服务器端解释代码的，Tomcat只做动态代码解析，Apache回传解析好的静态代码，Apache+Tomcat这样整合就可以减少Tomcat的服务开销。　　</p>
+<p>（4）Apache和Tomcat是独立的，在同一台服务器上可以集成。</p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p>Apache是有C语言实现的，支持各种特性和模块从而来扩展核心功能；Tomcat是Java编写的，更好的支持Servlet和JSP。<br>（1）Apache是Web服务器，Web服务器传送(serves)页面使浏览器可以浏览，Web服务器专门处理HTTP请求(request)，但是应用程序服务器（Web框架）是通过很多协议来为应用程序提供 (serves)商业逻辑(business logic)。</p>
+<p>Tomcat是运行在Apache上的应用服务器，应用程序服务器提供的是客户端应用程序可以调用(call)的方法 (methods)。它只是一个servlet(jsp也翻译成servlet)容器，可以认为是Apache的扩展，但是可以独立于apache运行。</p>
+<p>（2）Apache是普通服务器，本身只支持html静态普通网页。不过可以通过插件支持PHP，还可以与Tomcat连通(单向Apache连接Tomcat,就是说通过Apache可以访问Tomcat资源，反之不然)，Tomcat是jsp/servlet容器，同时也支持HTML、JSP、ASP、PHP、CGI等，其中CGI需要一些手动调试，不过很容易的。</p>
+<p>（3）Apache侧重于http server，Tomcat侧重于servlet引擎，如果以standalone方式运行，功能上Tomcat与apache等效支持JSP，但对静态网页不太理想。</p>
+<p>（4）Apache稳定性比Tomcat。</p>
+<p>（5）Apache是很最开始的页面解析服务，tomcat是后研发出来的，从本质上来说tomcat的功能完全可以替代Apache，但Apache毕竟是tomcat的前辈级人物，并且市场上也有不少人还在用Apache，所以Apache还会继续存在，不会被取代，apache不能解析java的东西，但解析html速度快。</p>
+<h3 id="Apache-httpd连接Apache-Tomcat"><a href="#Apache-httpd连接Apache-Tomcat" class="headerlink" title="Apache httpd连接Apache Tomcat"></a>Apache httpd连接Apache Tomcat</h3><p>Apache连接Tomcat大致有三种方法：</p>
+<h4 id="JK"><a href="#JK" class="headerlink" title="JK"></a>JK</h4><p>JK是Apache Tomcat Connector针对Apache httpd连接的模块mod_jk的简称，可以参考<a href="http://tomcat.apache.org/connectors-doc/" target="_blank" rel="noopener">这里</a>是通过 AJP 协议与 Tomcat 服务器进行通讯的，Tomcat默认的AJP Connector的端口是 8009。JK也是相较其他两种方式最稳定的一种。</p>
+<h4 id="http-proxy"><a href="#http-proxy" class="headerlink" title="http_proxy"></a>http_proxy</h4><p>这是利用Apache自带的mod_proxy模块使用代理技术来连接Tomcat。</p>
+<h4 id="ajp-proxy"><a href="#ajp-proxy" class="headerlink" title="ajp_proxy"></a>ajp_proxy</h4><p>ajp_proxy 连接方式其实跟http_proxy方式一样，都是由mod_proxy所提供的功能。配置也是一样，只需要把<a href="http://换成ajp://，同时连接的是Tomcat的AJPConnector所在的端口。" target="_blank" rel="noopener">http://换成ajp://，同时连接的是Tomcat的AJPConnector所在的端口。</a></p>
+<h1 id="常见的Web框架"><a href="#常见的Web框架" class="headerlink" title="常见的Web框架"></a>常见的Web框架</h1><h2 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h2><h1 id="常见的Web服务器网关接口"><a href="#常见的Web服务器网关接口" class="headerlink" title="常见的Web服务器网关接口"></a>常见的Web服务器网关接口</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://blog.csdn.net/lihao21/article/details/52304119" target="_blank" rel="noopener">如何理解Nginx, WSGI, Flask之间的关系</a><br>[2] <a href="https://zh.wikipedia.org/wiki/Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BD%91%E5%85%B3%E6%8E%A5%E5%8F%A3" target="_blank" rel="noopener">Web服务器网关接口, 维基百科</a><br>[3] <a href="https://juejin.im/post/5b6ba9f9f265da0f4a4e9bb5" target="_blank" rel="noopener">最流行的5大开源Web服务器</a><br>[4] <a href="https://httpd.apache.org/docs/2.4/" target="_blank" rel="noopener">Apache HTTP 服务器 2.4 文档</a><br>[5] <a href="http://blog.51cto.com/showerlee/1164886" target="_blank" rel="noopener">Apache 安全配置方法</a><br>[6] <a href="https://www.zhihu.com/question/37155807" target="_blank" rel="noopener">Apache和Apache Tomcat的区别是什么？，by wuxinliulei on 知乎</a><br>[7] <a href="https://www.ibm.com/developerworks/cn/opensource/os-lo-apache-tomcat/index.html" target="_blank" rel="noopener">Apache HTTP Server 与 Tomcat 的三种连接方式介绍</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/08/JWT（JSON-Web-Token）格式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/08/JWT（JSON-Web-Token）格式/" itemprop="url">JWT（JSON Web Token）格式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-08T11:15:33+08:00">
+                2018-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JWT格式"><a href="#JWT格式" class="headerlink" title="JWT格式"></a>JWT格式</h1><p>Bearer token在OIDC中定义的格式为JWT（发音为[jot]），JWT，JSON Web Token是一个简洁的表达格式，用于JSON Web Signature（JWS）的载荷或者JSON Web Encryption（JWE）加密的明文；JWT能够提供签名保护和消息完整的保护，通常使用JWS Compact Serialization或者JWE Compact Serialization表达。</p>
+<h2 id="JWT结构"><a href="#JWT结构" class="headerlink" title="JWT结构"></a>JWT结构</h2><p>JWT是由一系列URL-safe，由被”.”分割的parts组成，每个part是经过base64url编码的。parts的个数是由JWS或者JWE决定的，常见的是三个parts。例如下面的例子是一个JOSE header（JWS{header、payload、signature}定义的第一个部分），header主要描述了jwt的基本信息，如类型、签名所用算法等：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"typ"</span>:<span class="string">"JWT"</span>,</span><br><span class="line">    <span class="string">"alg"</span>:<span class="string">"HS256"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编码类型是JWT，它是一个使用HMAC SHA-256的JWS。</p>
+<p>JWT第二部分是载荷，payload是携带数据的地方，我们可以将需要传递到服务端的数据放在payload内，但是不能放重要敏感数据，因为这部分只会进行编码，例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // 官方定义了 5 个字标识一些信息</span><br><span class="line">    // jwt 签发者</span><br><span class="line">    <span class="string">"iss"</span>: <span class="string">"god"</span>,</span><br><span class="line">    // 在什么时候签发 </span><br><span class="line">    <span class="string">"iat"</span>: 1441525213,</span><br><span class="line">    // exp 什么时候过期 Unix 时间戳</span><br><span class="line">    <span class="string">"exp"</span>: 1441525324,</span><br><span class="line">    // 接收 jew 的用户</span><br><span class="line">    <span class="string">"aud"</span>: <span class="string">"xxx@yyy.com"</span></span><br><span class="line">    // jwt 面向的用户</span><br><span class="line">    <span class="string">"sub"</span>: <span class="string">"xxx@yyy.com"</span></span><br><span class="line">    // 剩下的就可以自己定义了</span><br><span class="line">    <span class="string">"userID"</span>: 12345,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第三部分是签名，如果第一部分alg算法是HS256，我们需要提供一个只有你知道的密钥，对连在一起的header和payload用HS256算法加密，得到加密后的字符串，和前面的拼在一起，JWT就构造完成了。</p>
+<h2 id="JWT的存储"><a href="#JWT的存储" class="headerlink" title="JWT的存储"></a>JWT的存储</h2><p>如果对于纯web来说，存储方式无非两种，HTML5 Web Storage和Cookie。</p>
+<h2 id="JWT安全性分析"><a href="#JWT安全性分析" class="headerlink" title="JWT安全性分析"></a>JWT安全性分析</h2><p>对于Web Storage存储方式来说，任何JS脚本都可以访问（same domain），也就是说它易受XSS攻击；Cookie存储通过设置HttpOnly可以防止JS脚本访问cookie，同时可以设置Secure标签来保证仅在HTTPS环境下传输此cookie，但是使用了cookie就打破了RESTful best practice的规则。</p>
+<p>而且cookie易受CSRF的攻击，通过盗用cookie身份来访问有害网站去执行一些危险操作。可以通过同步CSRF token 来阻止CSRF的攻击，所有的现代web框架目前都支持这种操作。原理是在HTTP请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。此时载荷可以如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"iss"</span>: <span class="string">"http://galaxies.com"</span>,</span><br><span class="line">  <span class="string">"exp"</span>: 1300819380,</span><br><span class="line">  <span class="string">"scopes"</span>: [<span class="string">"explorer"</span>, <span class="string">"solar-harvester"</span>, <span class="string">"seller"</span>],</span><br><span class="line">  <span class="string">"sub"</span>: <span class="string">"tom@andromeda.com"</span>,</span><br><span class="line">  <span class="string">"csrfToken"</span>: <span class="string">"d9b9714c-7ac0-42e0-8696-2dae95dbc33e"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/API网关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/28/API网关/" itemprop="url">API网关介绍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-28T14:19:43+08:00">
+                2018-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Swagger"><a href="#Swagger" class="headerlink" title="Swagger"></a>Swagger</h2><h2 id="Tyk-API-Gateway"><a href="#Tyk-API-Gateway" class="headerlink" title="Tyk API Gateway"></a>Tyk API Gateway</h2><p>Tyk是一个开放源码的API网关，它是快速、可扩展和现代的。Tyk提供了一个API管理平台，其中包括API网关、API分析、开发人员门户和API管理面板。Try 是一个基于Go实现的网关服务。</p>
+<h2 id="Kong"><a href="#Kong" class="headerlink" title="Kong"></a>Kong</h2><p>Kong是一个可扩展的开放源码API Layer(也称为API网关或API中间件)。Kong 在任何RESTful API的前面运行，通过插件扩展，它提供了超越核心平台的额外功能和服务。</p>
+<h2 id="apiaxle"><a href="#apiaxle" class="headerlink" title="apiaxle"></a>apiaxle</h2><p>apiaxle是Nodejs实现的一个API网关。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://www.cnblogs.com/savorboard/p/api-gateway.html" target="_blank" rel="noopener">谈谈微服务中的 API 网关（API Gateway）</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/计算机编码的应用场景/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/25/计算机编码的应用场景/" itemprop="url">计算机编码的应用场景</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-25T15:36:20+08:00">
+                2018-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编码/" itemprop="url" rel="index">
+                    <span itemprop="name">编码</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有信息交换就会产生编码、传输、解码三个过程。编码是信息从一种形式转变成另一种形式的过程，正如人类的语言通过声带编码，转换成声波。解码是编码的逆函数，耳膜接收声波，通过脑神经解码成人类文化所能理解的信息。</p>
+<h1 id="编码类型"><a href="#编码类型" class="headerlink" title="编码类型"></a>编码类型</h1><h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><p>Browsers use utf-8 encoding for username and passwords. Firefox used to use  ISO-8859-1, but changed over to utf-8 for parity with other browsers, and to avoid potential problems</p>
+<h2 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h2><h2 id="base32"><a href="#base32" class="headerlink" title="base32"></a>base32</h2><h2 id="ISO-8859-1"><a href="#ISO-8859-1" class="headerlink" title="ISO-8859-1"></a>ISO-8859-1</h2><h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="JavaScript编码"><a href="#JavaScript编码" class="headerlink" title="JavaScript编码"></a>JavaScript编码</h2><p>JavaScript解析时只有标识符名称不会被当做字符串，控制字符仅会被解析为标示符名称或者字符串</p>
+<ol>
+<li>三个八进制数字，如果不够个数，前面补0，例如“e”编码为“\145”</li>
+<li>两个十六进制数字，如果不够个数，前面补0，例如“e”编码为“\x65”</li>
+<li>四个十六进制数字，如果不够个数，前面补0，例如“e”编码为“\u0065”</li>
+<li>对于一些控制字符，使用特殊的C类型的转义风格（例如\n和\r）</li>
+</ol>
+<h2 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h2><p>一个百分号和该字符的ASCII编码所对应的2位十六进制数字，例如“/”的URL编码为%2F(一般大写，但不强求)</p>
+<h2 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h2><p>字符编码又叫做HTML实体编码，由于HTML是一种由符号标记的语言，所以该语言占用了一些表示的符号。而页面随时需要表示这些符号，所以HTML将一些被占用的符号或一些特殊功能的符号使用了一些特殊的方法标记，以便展示。这些方法就是HTML编码，HTML 中的预留字符必须被替换为字符实体。字符实体有以下两种：</p>
+<ol>
+<li>&amp;entity<em>name;</em> </li>
+<li>&amp;#entity<em>number;</em> </li>
+</ol>
+<h2 id="CSS编码"><a href="#CSS编码" class="headerlink" title="CSS编码"></a>CSS编码</h2><p>CSS 编码解析是用了一套不太正统的转义策略：用一个反斜杠，后边跟1~6位十六进制数字构成。，所以字母e 可以编码为 \65, \065,\000065。而因为这样，后边就不能直接紧跟数字或字母，否则会被当成转义里的内容处理，所以CSS 选择了空格作为终止标识，在解码的时候，再将空格去除。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://www.jianshu.com/p/cfdf1747d30e" target="_blank" rel="noopener">编码与解码 – 浏览器做了什么</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/认证应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/20/认证应用/" itemprop="url">认证应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-20T18:58:43+08:00">
+                2018-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Okta"><a href="#Okta" class="headerlink" title="Okta"></a>Okta</h1><p>Infrastructure-as-a-Service(IaaS)，Platform-as-a-Service(PaaS)，Software-as-a-Service(SaaS)</p>
+<h1 id="九州云腾"><a href="#九州云腾" class="headerlink" title="九州云腾"></a>九州云腾</h1><h1 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a>阿里云</h1><p>这里主要介绍阿里云的身份认证和访问控制应用。</p>
+<h2 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h2><p>RAM (Resource Access Management) 是阿里云提供的资源访问控制服务。RAM用户是代表任意的通过控制台或OpenAPI操作阿里云资源的人、系统或应用程序。RAM允许您在云账号下创建并管理多个用户，每个用户都有唯一的用户名、登录密码或访问密钥。<br><img src="/img/认证应用/ram.png" width="500" align="center/"></p>
+<h2 id="STS"><a href="#STS" class="headerlink" title="STS"></a>STS</h2><p>阿里云STS (Security Token Service) 是为阿里云账号（或RAM用户）提供短期访问权限管理的云服务。通过STS，您可以为联盟用户（您的本地账号系统所管理的用户）颁发一个自定义时效和访问权限的访问凭证。联盟用户可以使用STS短期访问凭证直接调用阿里云服务API，或登录阿里云管理控制台操作被授权访问的资源。<br><img src="/img/认证应用/sts.png" alt="阿里云STS"></p>
+<h1 id="authlib"><a href="#authlib" class="headerlink" title="authlib"></a>authlib</h1><p>Token Endpoint Auth Methods（令牌端点认证方法）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">&amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb</span><br></pre></td></tr></table></figure></p>
+<p>其中 Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW 来认证客户，这种认证方法为client_secret_basic。<br>（1）none: The client is a public client which means it has no client_secret<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">&amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb</span><br><span class="line">&amp;client_id=s6BhdRkqt3</span><br></pre></td></tr></table></figure></p>
+<p>（2）client_secret_post: The client uses the HTTP POST parameters<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">&amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb</span><br><span class="line">&amp;client_id=s6BhdRkqt3&amp;client_secret=gX1fBat3bV</span><br></pre></td></tr></table></figure></p>
+<p>（3）client_secret_basic: The client uses HTTP Basic Authorization<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Authorization: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">&amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb</span><br></pre></td></tr></table></figure></p>
+<p>（4）JWT方式<br>JSON Web Token</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>[1] <a href="https://blog.csdn.net/lionzl/article/details/53006803" target="_blank" rel="noopener">【笔记】阿里云RAM</a><br>[2] <a href="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/RAM-user-guide-intl-zh-2017-09-30.pdf" target="_blank" rel="noopener">阿里云访问控制文档</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/SSO相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/13/SSO相关/" itemprop="url">SSO相关</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-13T10:46:08+08:00">
+                2018-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/认证/" itemprop="url" rel="index">
+                    <span itemprop="name">认证</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="OpenID、OIDC和OAuth"><a href="#OpenID、OIDC和OAuth" class="headerlink" title="OpenID、OIDC和OAuth"></a>OpenID、OIDC和OAuth</h1><p>简单说来，OpenID是关于认证（authentication）的协议，OAuth是关于授权（authorization）的协议，而OpenID Connect简称OIDC，在OAuth2的基础上加入认证功能，可以做到既认证又授权。认证解决了如何确认身份，也就是对方的确是他所宣称的；授权则是关于决定对方被允许做的事，也就是访问控制范围。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/13/SSO相关/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/07/Tomcat-SSL配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/07/Tomcat-SSL配置/" itemprop="url">Tomcat-SSL配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-07T15:01:47+08:00">
+                2018-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/linux/LVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/21/linux/LVM/" itemprop="url">LVM的简单命令总结</a></h1>
         
 
         <div class="post-meta">
@@ -354,12 +1452,11 @@
 
       
         
-          <p>因为apt-get为Debian的最常用的命令，而自己又比较喜欢使用Ubuntu版本，特单独拿出来总结一下，以便使用并且在原基础上进行补充。</p>
-<h2 id="正片开始"><a href="#正片开始" class="headerlink" title="正片开始"></a>正片开始</h2><h3 id="apt-get是什么？"><a href="#apt-get是什么？" class="headerlink" title="apt-get是什么？"></a>apt-get是什么？</h3><p>apt是Debian及其衍生发行版的高级软件包管理器，英文为Advanced Packaging Tools。APT可以自动下载，配置，安装二进制或者源代码格式的软件包，因此简化了Unix系统上管理软件的过程,apt-get是一个下载安装软件包的简单命令行接口，一般需要root权限执行，所以一般跟着sudo命令。<br>使用apt-get命令的第一步就是引入必需的软件库，Debian的软件库也就是所有Debian软件包的集合，它们存在互联网上的一些公共站点上。把它们的地址加入，apt-get就能搜索到我们想要的软件。/etc/apt/sources.list是存放这些地址列表的配置文件，其格式如下： </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb [web或ftp地址] [发行版名字] [main/contrib/non-free]</span><br></pre></td></tr></table></figure>
+          <p>LVM对于磁盘分区、扩容都很有帮助，本文意义在于回顾并总结一些工作中用到的LVM简单命令。LVM是Logical Volume Management的缩写，这次针对CentOS7，xfs文件系统。</p>
+<h3 id="LVM中pv、vg和lv之间的关系"><a href="#LVM中pv、vg和lv之间的关系" class="headerlink" title="LVM中pv、vg和lv之间的关系"></a>LVM中pv、vg和lv之间的关系</h3><p>下图形象地展现了physical volume、volume group和logical volume之间的关系：<br><img src="/images/linux/lvm1.png" alt="sourcelist文件的截图"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/21/linux/apt-get常用命令/#more" rel="contents">
+            <a class="btn" href="/2018/08/21/linux/LVM/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -410,7 +1507,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/maven问题修复/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/容器/Docker实践(一)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小黄驴">
@@ -429,7 +1526,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/21/maven问题修复/" itemprop="url">Maven中出现的问题总结</a></h1>
+                <a class="post-title-link" href="/2018/08/21/容器/Docker实践(一)/" itemprop="url">Docker实践(一)</a></h1>
         
 
         <div class="post-meta">
@@ -451,6 +1548,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/容器/" itemprop="url" rel="index">
+                    <span itemprop="name">容器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -480,447 +1599,15 @@
 
       
         
-          
-            <h2 id="maven中出现的问题总结"><a href="#maven中出现的问题总结" class="headerlink" title="maven中出现的问题总结"></a>maven中出现的问题总结</h2><h3 id="问题1：如何使用maven指令执行-java-main？"><a href="#问题1：如何使用maven指令执行-java-main？" class="headerlink" title="问题1：如何使用maven指令执行 java main？"></a>问题1：如何使用maven指令执行 java main？</h3><p>一种比较直接的解决方式，直接找到classes路径下，使用java指令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ java -cp target/classes org.ts.App</span><br></pre></td></tr></table></figure>
-<p>这样比较麻烦，下面的方法可以直接使用maven命令来执行：</p>
-<p>（1）命令行运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Without arguments:</span></span><br><span class="line">$ mvn <span class="built_in">exec</span>:java -Dexec.mainClass=<span class="string">"com.vineetmanohar.module.Main"</span> </span><br><span class="line"><span class="comment"># With arguments:</span></span><br><span class="line">$ mvn <span class="built_in">exec</span>:java -Dexec.mainClass=<span class="string">"com.vineetmanohar.module.Main"</span> -Dexec.args=<span class="string">"arg0 arg1 arg2"</span></span><br><span class="line"><span class="comment"># With runtime dependencies in the CLASSPATH:</span></span><br><span class="line">$ mvn <span class="built_in">exec</span>:java -Dexec.mainClass=<span class="string">"com.vineetmanohar.module.Main"</span> -Dexec.classpathScope=runtime</span><br></pre></td></tr></table></figure>
-<p>（2）Running in a phase in pom.xml</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line"> &lt;plugins&gt;</span><br><span class="line">  &lt;plugin&gt;</span><br><span class="line">   &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;<span class="built_in">exec</span>-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.1.1&lt;/version&gt;</span><br><span class="line">   &lt;executions&gt;</span><br><span class="line">    &lt;execution&gt;</span><br><span class="line">     &lt;phase&gt;<span class="built_in">test</span>&lt;/phase&gt;</span><br><span class="line">     &lt;goals&gt;</span><br><span class="line">      &lt;goal&gt;java&lt;/goal&gt;</span><br><span class="line">     &lt;/goals&gt;</span><br><span class="line">     &lt;configuration&gt;</span><br><span class="line">      &lt;mainClass&gt;com.vineetmanohar.module.CodeGenerator&lt;/mainClass&gt;</span><br><span class="line">      &lt;arguments&gt;</span><br><span class="line">       &lt;argument&gt;arg0&lt;/argument&gt;</span><br><span class="line">       &lt;argument&gt;arg1&lt;/argument&gt;</span><br><span class="line">      &lt;/arguments&gt;</span><br><span class="line">     &lt;/configuration&gt;</span><br><span class="line">    &lt;/execution&gt;</span><br><span class="line">   &lt;/executions&gt;</span><br><span class="line">  &lt;/plugin&gt;</span><br><span class="line"> &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
-<p>（3）Running in a profile in pom.xml</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;profiles&gt;</span><br><span class="line"> &lt;profile&gt;</span><br><span class="line">  &lt;id&gt;code-generator&lt;/id&gt;</span><br><span class="line">  &lt;build&gt;</span><br><span class="line">   &lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">     &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;<span class="built_in">exec</span>-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">     &lt;version&gt;1.1.1&lt;/version&gt;</span><br><span class="line">     &lt;executions&gt;</span><br><span class="line">      &lt;execution&gt;</span><br><span class="line">       &lt;phase&gt;<span class="built_in">test</span>&lt;/phase&gt;</span><br><span class="line">       &lt;goals&gt;</span><br><span class="line">        &lt;goal&gt;java&lt;/goal&gt;</span><br><span class="line">       &lt;/goals&gt;</span><br><span class="line">       &lt;configuration&gt;</span><br><span class="line">        &lt;mainClass&gt;com.vineetmanohar.module.CodeGenerator&lt;/mainClass&gt;</span><br><span class="line">        &lt;arguments&gt;</span><br><span class="line">         &lt;argument&gt;arg0&lt;/argument&gt;</span><br><span class="line">         &lt;argument&gt;arg1&lt;/argument&gt;</span><br><span class="line">        &lt;/arguments&gt;</span><br><span class="line">       &lt;/configuration&gt;</span><br><span class="line">      &lt;/execution&gt;</span><br><span class="line">     &lt;/executions&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">   &lt;/plugins&gt;</span><br><span class="line">  &lt;/build&gt;</span><br><span class="line"> &lt;/profile&gt;</span><br><span class="line">&lt;/profiles&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="问题2：-ERROR-No-goals-have-been-specified-for-this-build-You-must-specify-a-valid-lifecycle-phase-or-a-goal-in-the-format-…？"><a href="#问题2：-ERROR-No-goals-have-been-specified-for-this-build-You-must-specify-a-valid-lifecycle-phase-or-a-goal-in-the-format-…？" class="headerlink" title="问题2：[ERROR] No goals have been specified for this build. You must specify a valid lifecycle phase or a goal in the format …？"></a>问题2：[ERROR] No goals have been specified for this build. You must specify a valid lifecycle phase or a goal in the format …？</h3><p>可用的lifecycle phases有: validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy, pre-clean, clean, post-clean, pre-site, site, post-site, site-deploy</p>
-<p>在编译环节的goals加上任意一个就好，例如compile，。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/共识算法（Consensus Protocol）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小黄驴">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小黄驴的窝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/21/共识算法（Consensus Protocol）/" itemprop="url">共识算法（Consensus Protocol）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-21T20:22:10+08:00">
-                2018-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="共识算法"><a href="#共识算法" class="headerlink" title="共识算法"></a>共识算法</h2><h3 id="CAP原理"><a href="#CAP原理" class="headerlink" title="CAP原理"></a>CAP原理</h3><p>CAP 原理最早由 Eric Brewer 在 2000 年，ACM 组织的一个研讨会上提出猜想，后来 Lynch等人进行了证明。该原理被认为是分布式系统领域的重要原理。</p>
-<p>分布式计算系统不可能同时确保一致性（Consistency）、可用性（Availablity）和分区容忍性（Partition），设计中往往需要弱化对某个特性的保证。<br>（1）一致性（Consistency）：任何操作应该都是原子的，发生在后面的事件能看到前面事件发生导致的结果，注意这里指的是强一致性；</p>
-<p>（2）可用性（Availablity）：在有限时间内，任何非失败节点都能应答请求；</p>
-<p>（3）分区容忍性（Partition）：网络可能发生分区，即节点之间的通信不可保障。</p>
-<p>比较直观地理解，当网络可能出现分区时候，系统是无法同时保证一致性和可用性的。要么，节点收到请求后因为没有得到其他人的确认就不应答，要么节点只能应答非一致的结<br>果。好在大部分时候网络被认为是可靠的，因此系统可以提供一致可靠的服务；当网络不可靠时，系统要么牺牲掉一致性（大部分时候都是如此），要么牺牲掉可用性。</p>
-<h4 id="弱化一致性"><a href="#弱化一致性" class="headerlink" title="弱化一致性"></a>弱化一致性</h4><p>对结果一致性不敏感的应用，可以允许在新版本上线后过一段时间才更新成功，期间不保证一致性。例如网站静态页面内容、实时性较弱的查询类数据库等，CouchDB、Cassandra 等为此设<br>计。</p>
-<h4 id="弱化可用性"><a href="#弱化可用性" class="headerlink" title="弱化可用性"></a>弱化可用性</h4><p>对结果一致性很敏感的应用，例如银行取款机，当系统故障时候会拒绝服务。MongoDB、Redis 等为此设计。Paxos、Raft 等算法，主要处理这种情况。</p>
-<h4 id="弱化分区容忍性"><a href="#弱化分区容忍性" class="headerlink" title="弱化分区容忍性"></a>弱化分区容忍性</h4><p>现实中，网络分区出现概率减小，但较难避免。某些关系型数据库、ZooKeeper 即为此设计。实践中，网络通过双通道等机制增强可靠性，达到高稳定的网络通信。</p>
-<h3 id="Raft算法"><a href="#Raft算法" class="headerlink" title="Raft算法"></a>Raft算法</h3><p>分布式系统的一致性算法就是指一组机器协同工作，即便其中有某些机器宕机了，系统还能正常对外提供服务。以前通常都喜欢用Paxos来讲解一致性算法，但是Paxos本身很复杂，代码实现也很难，于是催生了Raft这个更加简单易懂的一致性算法，难得的是，它的效果跟Paxos差不多。介绍Raft算法之前先介绍复制状态机。</p>
-<h4 id="复制状态机"><a href="#复制状态机" class="headerlink" title="复制状态机"></a>复制状态机</h4><p>一致性算法是在复制状态机的背景下提出来的。在复制状态机中，集群中的服务器从相同的状态中生成同样的副本，即使其中有些服务器宕机了，客户端还是可以继续执行操作，复制状态机可以用来解决分布式系统中许多容错问题。大型分布式系统中通常拥有一个集群leader，比如GFS，HDFS等通常使用一个单独的复制状态机管理leader选举和配置信息以应对leader的崩溃。此外，使用复制状态机的还有Chubby以及ZooKeeper等。</p>
-<p>复制状态机通过复制日志实现，如下图所示。每个服务器都会存储一份日志，日志存储的是一系列命令，而服务器的状态机会按顺序执行这些日志中的命令。每份日志中以同样的顺序存储了同样的命令，而状态机以同样的顺序执行这些相同的命令。每台服务器的状态机都是确定的，它们以同样的顺序执行同样的命令，最终的状态和输出也必然是一样的。</p>
-<p><img src="/img/共识算法/复制状态机.png" alt="复制状态机" title="复制状态机"></p>
-<p>保持复制日志的一致性就是一致性算法的工作了。服务器上的一致性模块接收客户端命令并添加命令到它的日志中。它与其他服务器通信以保证每个日志最终都以相同的顺序包含相同的命令，即便过程中有服务器宕机了。一旦客户端命令正确的复制了，每个服务器的状态机按照日志中顺序处理这些命令，并将输出返回给客户端。最终，这些服务器看起来就像是一台高可用的状态机。</p>
-<p>应用到实际系统中的一致性算法通常具备下面几个特性：</p>
-<p>（1）保证安全。在所有的非拜占庭将军条件下保证安全，包括网络延迟，分区，丢包，乱序等；</p>
-<p>（2）高可用。只要集群中的服务器有大多数(超过一半)可用，系统即是可用的。比如5台服务器的集群可用允许2台服务器宕机而不影响服务；</p>
-<p>（3）不依赖时序保证日志的一致性。错误的时钟和极端的消息延迟在最坏情况下才会导致可用性问题；</p>
-<p>（4）在通常情况下，只要集群中大部分服务器对过程调用做出响应，命令就可以完成，少数慢服务器不会影响整体系统性能</p>
-<h4 id="算法解释"><a href="#算法解释" class="headerlink" title="算法解释"></a>算法解释</h4><p>这里有关于Raft的<a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">动画演示</a>，Raft包括三种角色：leader、candidate 和 follower，其状态变迁如下图：</p>
-<p><img src="/img/共识算法/领导选举.png" alt="领导选举" title="领导选举"></p>
-<p>（1）Leader 选举。</p>
-<p>处于Follower状态的节点在一个随机的超时时间(称之为Election timeout，注意每次都要随机选择一个超时时间，这个超时时间通常为150-300毫秒，我在实验中设置的是300+ms内没有收到投票或者日志复制和心跳包的RPC，则会变成Candidate状态。</p>
-<p>处于Candidate状态的节点会马上开始选举投票。它先投自己一票，然后向其他节点发送投票，这个请求称之为Request VoteRPC。如果获得了过半的节点投票，则转成Leader状态。如果投票给了其他节点或者发现了更新任期(Term，解释一下，Term=4，进行过4次选举leader)的指令(如更新任期的选举投票和日志复制指令，则转为Follower状态。如果选举超时没有得到过半投票，则保持Candidate状态开始一个新一轮选举投票。</p>
-<p>处于Leader状态的节点会定期发送(这个时间为HeartbeatTimeout，通常要远小于选举超时，实验中我设置的位50ms)AppendEntries RPC请求给其他节点。如果发现了更新任期的指令，则转为Follower状态.</p>
-<p>选举投票需要两个条件：</p>
-<p>条件一：请求投票的节点的任期必须大于等于本节点且本节点还没有投过票给其他节点(包括投票给自己)。</p>
-<p>条件二：请求投票的节点的日志必须是包含了最新提交日志的节点，这是为了保证日志安全增加的限制条件。如何保证请求投票节点包含了最新提交日志呢？可以比较两个节点最后一条日志的任期，如果任期不一样，则任期大的日志更新；如果任期一样，则日志更长的更新。</p>
-<p>（2）同步log。</p>
-<p>Raft是强Leader机制，日志只能从Leader复制到其他节点。日志项LogEntry包括index，term，command三个元素。其中index为日志索引，term为任期，而command为具体的日志内容，如下图所示：</p>
-<p><img src="/img/共识算法/日志格式.png" alt="日志格式" title="日志格式"></p>
-<p>通常的日志复制流程是这样的:<br>A. 客户端发送请求给Leader；<br>B. Leader接收客户端请求，先将请求命令作为一个日志项(LogEntry)append到自己的log中；<br>C. Leader然后在最近的一个Heartbeat timeout时发送 Append Entries RPC给Follower节点；<br>D. 一旦日志提交成功，此时日志处于Uncommitted状态，当过半节点添加log成功后，则Leader提交该日志给状态机，返回给客户端写入成功；并在接下来的Append Entries RPC中通知其他节点提交该日志；Follower节点提交日志到自己的状态机中；<br>E. 如果Leader节点挂了，其他Follower节点会在超时后重新选举新的Leader。而如果有宕机或者慢的Follower节点，则Leader会不断重试直到成功。</p>
-<p>即便出现网络分割，集群中同时存在多个Leader时，也不会有问题。假定5个节点的集群分割成了3节点和2节点两个大小集群，3节点大集群因为数目3过半，可成功提交日志，而节点数不够的小集群没法成功提交日志。当网络恢复时，因为另外分割的一个大集群已经成功提交了日志，最终新的Leader会在大集群中产生(基于选举投票的条件二保证)并同步到之前分割的小集群节点中。</p>
-<p>关于日志复制的几个要点：</p>
-<p>-不同的服务器上面的提交的相同的索引和任期的日志项的command一定相同，而且这个日志项之前的所有日志项都相同；<br>-如果一个日志项被提交，则它之前索引的所有日志项也肯定已经提交；<br>-Leader从来都不覆盖自己的日志。其他状态节点如果出现与当前Leader日志不一致，则需要更新日志，包括写入新的日志和删除不一致的日志；<br>-Leader提交过的日志一定会出现将来新的Leader中；<br>-Leader要保证安全的提交日志，必须满足这两个提交规则：日志条目已经复制到大多数Follower节点，Leader当前任期的新日志条目至少有一个复制到了大多数Follower节点。</p>
-<h4 id="Raft算法的例子：consul"><a href="#Raft算法的例子：consul" class="headerlink" title="Raft算法的例子：consul"></a>Raft算法的例子：consul</h4><p>Only Consul server nodes participate in Raft and are part of the peer set. All client nodes forward requests to servers. Part of the reason for this design is that, as more members are added to the peer set, the size of the quorum also increases. This introduces performance problems as you may be waiting for hundreds of machines to agree on an entry instead of a handful.</p>
-<p>When getting started, a single Consul server is put into “bootstrap” mode. This mode allows it to self-elect as a leader. Once a leader is elected, other servers can be added to the peer set in a way that preserves consistency and safety. Eventually, once the first few servers are added, bootstrap mode can be disabled. </p>
-<p>Since all servers participate as part of the peer set, they all know the current leader. When an RPC request arrives at a non-leader server, the request is forwarded to the leader. If the RPC is a query type, meaning it is read-only, the leader generates the result based on the current state of the FSM. If the RPC is a transaction type, meaning it modifies state, the leader generates a new log entry and applies it using Raft. Once the log entry is committed and applied to the FSM, the transaction is complete.</p>
-<p>Because of the nature of Raft’s replication, performance is sensitive to network latency. For this reason, each datacenter elects an independent leader and maintains a disjoint peer set. Data is partitioned by datacenter, so each leader is responsible only for data in their datacenter. When a request is received for a remote datacenter, the request is forwarded to the correct leader. This design allows for lower latency transactions and higher availability without sacrificing consistency.</p>
-<p><img src="/img/共识算法/consul.png" alt="consul架构图" title="consul架构图"></p>
-<h3 id="gossip算法"><a href="#gossip算法" class="headerlink" title="gossip算法"></a>gossip算法</h3><p>Gossip 协议是电脑之间的通信协议，启发来源于现实社会的流言蜚语。现代分布式系统通常用gossip协议来解决一些用其他方法难以解决的问题，可能是因为当前网络有一个不便的问题——过于庞大，或许是因为gossip协议有时候是最为行之有效的方法。Gossip协议又名“传染病协议”(epidemic protocol)，因为gossip协议传播信息的方式有时候类似于生物体内的病毒传播。Gossip协议基于”SWIM: Scalable Weakly-consistent Infection-style Process Group Membership Protocol”加上一点改动，增加了传播速度和收敛率。Gossip是分布式系统中被广泛使用的协议，其主要用于实现分布式节点或者进程之间的信息交换。Gossip协议同时满足应用层多播协议所要求的低负载，高可靠和可扩展性的要求。由于其简单而易于实现，当前很多系统（例如Amazon S3，Usenet NNTP等）选择基于Gossip协议以实现应用层多播的功能。</p>
-<p>Gossip Protocol利用一种随机的方式将信息散播到整个网络中。正如Gossip本身的含义一样，Gossip协议的工作流程即类似于绯闻的传播，或者流行病的传播。具体而言Gossip Protocol可以分为Push-based和Pull-based两种。Push-based Gossip Protocol的具体工作流程如下：</p>
-<p>（1）网络中的某个节点随机的选择其他b个节点作为传输对象<br>（2）该节点向其选中的b个节点传输相应的信息<br>（3）接收到信息的节点重复完成相同的工作</p>
-<p>Pull-based Gossip Protol的协议过程刚好相反：</p>
-<p>（1）某个节点v随机的选择b个节点询问有没有最新的信息<br>（2）收到请求的节点回复节点v其最近未收到的信息</p>
-<p>理论上，某个节点可以从节点列表随机地选择b个节点，但是实际上这个是不符合实际情况的，因为需要每一个节点都去存储一份完整的节点列表，这个存储和维护起来并不实际。因此，每个节点实际上只维护相对很小的节点列表并使用gossip来周期性地进行更新。</p>
-<h4 id="gossip模型"><a href="#gossip模型" class="headerlink" title="gossip模型"></a>gossip模型</h4><p>假设网络中有N个节点，每个节点有相应的地址，并且维护着一份c(c &lt; N)个节点的列表，列表中的每个节点由网络地址address和代表鲜活度的age构成。每个节点会周期性地执行gossip协议来更新节点列表，这个允许网络拓扑信息在节点之间进行传播。基本的思想是每个节点随机地选择列表中的自己进行传播，这个会避免包含太多的多余的信息导致网络的过载。例如peer的选择，可以随机地选择或者选择哪个age最大的节点；传播的策略，比如push或者pushpull分别对应着单向和双向的交换信息。假设某个节点A push所有的信息给节点B，节点B需要策略来选择信息。每个节点的age是通过hop-counts来更新的。</p>
-<p>We assume that the sending node pushes the whole of its view to the receiving node. Finally, the receiving node requires a strategy for view selection, which combines the incoming and the existing view information. In our model, we in fact use hop-counts as a coarse (bounded) measure of the age of each node descriptor. A receiving node increments the the hop-count of all the incoming descriptors, merges these with the descriptors in its own view (keeping the entry with the youngest count in cases of duplication) and then keeps the c newest entries from the combined set.</p>
-<p>With regards to the timing of the protocol, we assume that the exchange of data between nodes occurs periodically (with some fixed period) and that each node sends its data exactly once in each round of execution. Such a scheme can be achieved in practice through synchronisation of local clocks. Due to the distributed nature of the system, however, the order in which the nodes participate in each round is unknown (and may be different each time).</p>
-<p>The gossip protocol therefore exhibits both probabilistic behaviour (random peer selection) and nondeterministic behaviour (scheduling of nodes within a round) and is naturally modelled as a Markov decision process (MDP). </p>
-<h3 id="Paxos算法"><a href="#Paxos算法" class="headerlink" title="Paxos算法"></a>Paxos算法</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://www.jianshu.com/p/1f5cb602dc71" target="_blank" rel="noopener">分布式系统学习2-Raft算法分析与实现</a></li>
-<li><a href="https://www.jianshu.com/p/99562bfec5c2" target="_blank" rel="noopener">深入浅出 Raft - Membership Change</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Gossip_protocol" target="_blank" rel="noopener">Gossip protocol-Wikipedia</a></li>
-<li><a href="http://kaiyuan.me/2015/07/08/Gossip/" target="_blank" rel="noopener">Gossip 协议简介</a></li>
-<li><a href="http://www.prismmodelchecker.org/casestudies/gossip.php" target="_blank" rel="noopener">Gossip Protocol</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/web security model/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小黄驴">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小黄驴的窝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/21/web security model/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-21T20:22:10+08:00">
-                2018-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MIT OpencourseWare笔记:<br>orgin（同源）: network protocol scheme + hostname + port<br>（1）each orgin has clien side resources (cookie、DOM storage、javascript namespace、DOM tree、 visual display area…)<br>（2）each frame gets the orgin of its URL<br> (3)script execute the authority of its frame’s orgin<br> (4) passive content gets zero authority(javascript)</p>
-<p> (1) frames/window objects: get the origin of the frame’s URL or get a suffix of the original domian name</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/ubuntu问题修复/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小黄驴">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小黄驴的窝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/21/ubuntu问题修复/" itemprop="url">Ubuntu问题修复总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-21T20:22:10+08:00">
-                2018-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Unable-to-lock-the-administration-directory-var-lib-dpkg-is-another-process-using-it-的办法"><a href="#Unable-to-lock-the-administration-directory-var-lib-dpkg-is-another-process-using-it-的办法" class="headerlink" title="Unable to lock the administration directory(var/lib/dpkg/) is another process using it 的办法"></a>Unable to lock the administration directory(var/lib/dpkg/) is another process using it 的办法</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>在 Ubuntu 或者它的衍生版如 Linux Mint（我已经作为日常工作使用的系统）中使用 apt-get 命令或者其相对更新的APT 管理工具时，你可能会在命令行中看到一个 unable to lock the administration directory (/var/lib/dpkg/) is another process using it 的错误。</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>（1）找出并杀掉所有 apt-get 或者 apt 进程</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ps -A | grep apt</span><br><span class="line"> 4877 ?        00:00:05 aptd</span><br><span class="line"> 4922 ?        00:00:00 apt.systemd.dai</span><br><span class="line">$ sudo <span class="built_in">kill</span> -9 processnumber</span><br><span class="line">or</span><br><span class="line">$ sudo <span class="built_in">kill</span> -SIGKILL processnumber</span><br></pre></td></tr></table></figure>
-<p>（2）删除锁定的文件</p>
-<p>锁定的文件会阻止 Linux 系统中某些文件或者数据的访问，这个概念也存在于 Windows<br>或者其他的操作系统中。一旦你运行了 apt-get 或者 apt 命令，锁定文件将会创建于<br>/var/lib/apt/lists/、/var/lib/dpkg/、/var/cache/apt/archives/ 中。<br>这有助于运行中的 apt-get 或者 apt 进程能够避免被其它需要使用相同文件的用户<br>或者系统进程所打断。当该进程执行完毕后，锁定文件将会删除。重要提醒：万一你在<br>没有看到 apt-get 或者 apt 进程的情况下在上面两个不同的文件夹中看到了锁定文<br>件，这是因为进程由于某个原因被杀掉了，因此你需要删除锁定文件来避免该错误。<br>首先运行下面的命令来移除 /var/lib/dpkg/ 文件夹下的锁定文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm /var/lib/dpkg/lock</span><br></pre></td></tr></table></figure>
-<p>之后像下面这样强制重新配置软件包：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg --configure -a</span><br></pre></td></tr></table></figure>
-<p>也可以删除 /var/lib/apt/lists/ 以及缓存文件夹下的锁定文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo rm /var/lib/apt/lists/lock</span><br><span class="line">$ sudo rm /var/cache/apt/archives/lock</span><br></pre></td></tr></table></figure>
-<p>接下来，更新你的软件包源列表：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-          
+          <h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p>笔者记录Docker下的安装目的是为了回头查看方便，因此只记录了关于Ubuntu的Docker的安装，其他版本的docker安装可以查看<a href="https://www.gitbook.com/book/yeasy/docker_practice/details" target="_blank" rel="noopener">《Docker — 从入门到实践》</a>，这里面非常详细地介绍了各个主要系统的安装。</p>
+<h3 id="1-卸载旧版本"><a href="#1-卸载旧版本" class="headerlink" title="1. 卸载旧版本"></a>1. 卸载旧版本</h3><p>旧版本的Docker称为docker或者docker-engine，使用以下命令卸载旧版本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker.io</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/21/容器/Docker实践(一)/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -958,7 +1645,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1008,7 +1695,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1019,7 +1706,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1030,7 +1717,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -1083,7 +1770,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

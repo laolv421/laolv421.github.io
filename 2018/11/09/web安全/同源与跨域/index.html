@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，域名、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
+<meta name="description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，主机、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
 <meta name="keywords" content="同源,CORS,跨域">
 <meta property="og:type" content="article">
 <meta property="og:title" content="同源与跨域">
 <meta property="og:url" content="http://yoursite.com/2018/11/09/web安全/同源与跨域/index.html">
 <meta property="og:site_name" content="小黄驴的窝">
-<meta property="og:description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，域名、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
+<meta property="og:description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，主机、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/web安全/same_origin.png">
 <meta property="og:image" content="http://yoursite.com/images/web安全/same_origin_reason.png">
 <meta property="og:image" content="http://yoursite.com/images/web安全/cors_complete.png">
-<meta property="og:updated_time" content="2018-11-09T08:39:20.783Z">
+<meta property="og:updated_time" content="2018-11-26T07:06:42.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="同源与跨域">
-<meta name="twitter:description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，域名、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
+<meta name="twitter:description" content="同源什么是同源？在web概念中，同源指的是“三个相同”，主机、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。  为什么会有同源？当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。">
 <meta name="twitter:image" content="http://yoursite.com/images/web安全/same_origin.png">
 
 
@@ -366,7 +366,7 @@
       
 
       
-        <h1 id="同源"><a href="#同源" class="headerlink" title="同源"></a>同源</h1><h2 id="什么是同源？"><a href="#什么是同源？" class="headerlink" title="什么是同源？"></a>什么是同源？</h2><p>在web概念中，同源指的是“三个相同”，域名、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。</p>
+        <h1 id="同源"><a href="#同源" class="headerlink" title="同源"></a>同源</h1><h2 id="什么是同源？"><a href="#什么是同源？" class="headerlink" title="什么是同源？"></a>什么是同源？</h2><p>在web概念中，同源指的是“三个相同”，主机、协议和端口，这三个相同的话就视为同一个域，本域下的JS脚本只能读写本域下的数据资源，无法访问其它域的资源。</p>
 <p><img src="/images/web安全/same_origin.png" alt="same origin"></p>
 <h2 id="为什么会有同源？"><a href="#为什么会有同源？" class="headerlink" title="为什么会有同源？"></a>为什么会有同源？</h2><p>当一个资源从与该资源本身所在的服务器不同的域或端口请求一个资源时，资源会发起一个跨域 HTTP 请求。</p>
 <a id="more"></a>
@@ -378,7 +378,7 @@
 <li>DOM无法获得;</li>
 <li>AJAX请求虽然可以发送，但浏览器会拒绝接受响应；</li>
 </ol>
-<p>如果只有同源策略，浏览器就会变得非常鸡肋，可用性很差，于是就出现了跨域的概念。</p>
+<p>如果只有同源策略，浏览器就会变得非常鸡肋，可用性很差。</p>
 <h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><h2 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h2><p>跨域就是解决同源策略带来的不便，突破同源策略的限制去获取不同源之间的数据信息或者进行不同源之间的信息传递。浏览器支持在API容器中（例如 XMLHttpRequest 或 Fetch ）使用 CORS，以降低跨域 HTTP 请求所带来的风险。</p>
 <h2 id="跨域的方法"><a href="#跨域的方法" class="headerlink" title="跨域的方法"></a>跨域的方法</h2><h3 id="img标签"><a href="#img标签" class="headerlink" title="img标签"></a>img标签</h3><p><strong>img</strong>标签有能力不受限制地从其他域加载资源，例子如下：</p>
 <h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><h4 id="JSONP是什么？"><a href="#JSONP是什么？" class="headerlink" title="JSONP是什么？"></a>JSONP是什么？</h4><p>JSONP是JSON with padding（填充式JSON或参数式JSON）的简写，是应用JSON的一种新方法。JSONP看起来与JSON差不多，只不过是被包含在函数调用中的JSON，就像下面这样<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callback(&#123; <span class="string">"name"</span>: <span class="string">"Nicholas"</span> &#125;);</span><br></pre></td></tr></table></figure></p>
@@ -401,7 +401,9 @@
 <li>安全性问题：由于JSONP是从其他域中加载代码执行，如果其他域不安全，很可能会在响应中夹带一些恶意代码，而此时除了完全放弃JSONP调用之外，没有办法追究；</li>
 <li>要半段JSONP请求失败并不容易，它不会像ajax那样如果失败的话会返回失败的http状态码；</li>
 </ol>
-<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><h4 id="CORS是什么？"><a href="#CORS是什么？" class="headerlink" title="CORS是什么？"></a>CORS是什么？</h4><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing），它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。</p>
+<h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><h4 id="不严格的同源策略"><a href="#不严格的同源策略" class="headerlink" title="不严格的同源策略"></a>不严格的同源策略</h4><p>介绍CORS之前，先讨论一下不严格的同源策略。同源策略给使用多个子域的大站带来了很大的问题，例如来自 A.example.com 和 B.example.com 之间不能互相访问它们的文档属性，于是出现了一个解决办法，也就是不严格的同源策略。</p>
+<p>为了支持多域名站点，可以使用Document的domain属性，在脚本中将之前的域名的domain都改为 exmaple.com（域名中必须包含一个”.”） ，这样就绕过了同源策略来访问子站点的属性。随后不严格的同源策略发展到第二版，也就是CORS。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.domain = <span class="string">"example.com"</span>;</span><br></pre></td></tr></table></figure></p>
+<h4 id="CORS是什么？"><a href="#CORS是什么？" class="headerlink" title="CORS是什么？"></a>CORS是什么？</h4><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing），它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。</p>
 <p>跨域资源共享标准（Cross-Origin Resource Sharing）允许在下列场景中使用跨域HTTP请求：</p>
 <ol>
 <li>由XMLHttpRequest或Fetch发起的跨域HTTP请求；</li>
@@ -603,7 +605,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -614,7 +616,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -625,7 +627,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -674,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#同源"><span class="nav-number">1.</span> <span class="nav-text">同源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是同源？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是同源？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会有同源？"><span class="nav-number">1.2.</span> <span class="nav-text">为什么会有同源？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跨域"><span class="nav-number">2.</span> <span class="nav-text">跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是跨域？"><span class="nav-number">2.1.</span> <span class="nav-text">什么是跨域？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域的方法"><span class="nav-number">2.2.</span> <span class="nav-text">跨域的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#img标签"><span class="nav-number">2.2.1.</span> <span class="nav-text">img标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONP"><span class="nav-number">2.2.2.</span> <span class="nav-text">JSONP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP是什么？"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">JSONP是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的原理"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">JSONP的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的使用步骤"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">JSONP的使用步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的优缺点"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">JSONP的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">2.2.2.4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">2.2.2.4.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CORS"><span class="nav-number">2.2.3.</span> <span class="nav-text">CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS是什么？"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">CORS是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS的两种请求"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">CORS的两种请求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简单请求"><span class="nav-number">2.2.3.2.1.</span> <span class="nav-text">简单请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#条件"><span class="nav-number">2.2.3.2.1.1.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#基本流程"><span class="nav-number">2.2.3.2.1.2.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#withCredentials属性"><span class="nav-number">2.2.3.2.1.3.</span> <span class="nav-text">withCredentials属性</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非简单请求"><span class="nav-number">2.2.3.2.2.</span> <span class="nav-text">非简单请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#预检请求"><span class="nav-number">2.2.3.2.2.1.</span> <span class="nav-text">预检请求</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#预检请求的回应"><span class="nav-number">2.2.3.2.2.2.</span> <span class="nav-text">预检请求的回应</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#浏览器的正常请求和回应"><span class="nav-number">2.2.3.2.2.3.</span> <span class="nav-text">浏览器的正常请求和回应</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#同源"><span class="nav-number">1.</span> <span class="nav-text">同源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是同源？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是同源？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会有同源？"><span class="nav-number">1.2.</span> <span class="nav-text">为什么会有同源？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跨域"><span class="nav-number">2.</span> <span class="nav-text">跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是跨域？"><span class="nav-number">2.1.</span> <span class="nav-text">什么是跨域？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域的方法"><span class="nav-number">2.2.</span> <span class="nav-text">跨域的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#img标签"><span class="nav-number">2.2.1.</span> <span class="nav-text">img标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONP"><span class="nav-number">2.2.2.</span> <span class="nav-text">JSONP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP是什么？"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">JSONP是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的原理"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">JSONP的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的使用步骤"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">JSONP的使用步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSONP的优缺点"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">JSONP的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">2.2.2.4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">2.2.2.4.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CORS"><span class="nav-number">2.2.3.</span> <span class="nav-text">CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不严格的同源策略"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">不严格的同源策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS是什么？"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">CORS是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS的两种请求"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">CORS的两种请求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简单请求"><span class="nav-number">2.2.3.3.1.</span> <span class="nav-text">简单请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#条件"><span class="nav-number">2.2.3.3.1.1.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#基本流程"><span class="nav-number">2.2.3.3.1.2.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#withCredentials属性"><span class="nav-number">2.2.3.3.1.3.</span> <span class="nav-text">withCredentials属性</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非简单请求"><span class="nav-number">2.2.3.3.2.</span> <span class="nav-text">非简单请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#预检请求"><span class="nav-number">2.2.3.3.2.1.</span> <span class="nav-text">预检请求</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#预检请求的回应"><span class="nav-number">2.2.3.3.2.2.</span> <span class="nav-text">预检请求的回应</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#浏览器的正常请求和回应"><span class="nav-number">2.2.3.3.2.3.</span> <span class="nav-text">浏览器的正常请求和回应</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -694,7 +696,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

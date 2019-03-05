@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://yoursite.com/images/处理密码/OWASP_KDF.png">
 <meta property="og:image" content="http://yoursite.com/images/处理密码/backend_token_store.png">
 <meta property="og:image" content="http://yoursite.com/images/处理密码/前端存储.png">
-<meta property="og:updated_time" content="2018-11-13T09:51:00.756Z">
+<meta property="og:updated_time" content="2018-11-21T01:48:52.831Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何处理密码？">
 <meta name="twitter:description" content="PasswordRainbow Table Attack彩虹表是用于加密散列函数逆运算的预先计算好的表，常用于破解加密过的密码散列。 查找表常常用于包含有限字符固定长度纯文本密码的加密。这是以空间换时间的典型实践，在每一次尝试都计算的暴力破解中使用更少的计算能力和更多的储存空间，但却比简单的每个输入一条散列的翻查表使用更少的储存空间和更多的计算性能。">
@@ -384,7 +384,7 @@
 </li>
 <li><p>一般情况下使用SHA3-512就可以，但是在后端如果使用KDF（Password hashing function），俗称慢加密方法，安全性会更高。提到KDF会有很多选择，例如Argon2, bcrypt, scrypt, PBKDF2。但是这里推荐的有两个，一个是Argon2，它在2015年赢得了password hashing competition的冠军；如果有些安全算法库不支持Argon2的话，bcrypt也是一个很好的选择。因为自从1999年问世到现在，没有出现大的漏洞。OWASP的Password Storage Cheat Sheet推荐如下：</p>
 <p><img src="/images/处理密码/OWASP_KDF.png" alt="OWASP KDF"></p>
-<p>上面我们谈到Argon2和bcrypt是很好的选择，同时credential-specific salt（盐值）需要从数据库中</p>
+<p>上面我们谈到Argon2和bcrypt是很好的选择，同时credential-specific salt（盐值）需要从数据库中提取</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bcrypt(<span class="built_in">hash</span>, salt) <span class="comment">#偏保守</span></span><br><span class="line">Argon2(<span class="built_in">hash</span>, salt) <span class="comment">#未来前景更好</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>对称加密。最后一步入数据库之前需要加密，比如AES256-GCM或者ChaCha20-Poly1305，关于对称密钥的存储，我们可以使用HSM，或者例如Hashicorp Vault密钥管理系统来存储密钥，可以做到EaaS，Encryption-As-A-Service（加密即服务）。因此，我们将KDF的输出发送到Vault实例，获取加密的哈希并将其存储在我们的数据库中。</p>
@@ -413,7 +413,7 @@
 <li>每次你请求一个新的页面的时候，cookie只要满足作用域和作用路径，Cookie都会被发送过去，这样无形中浪费了带宽；</li>
 <li>安全性问题。如果cookie被人拦截了，攻击者就可以取得所有的session信息。即使加密也与事无补，因为拦截者并不需要知道cookie的意义，他只要原样转发cookie就可以达到目的了；</li>
 </ol>
-<h3 id="Local-Storage"><a href="#Local-Storage" class="headerlink" title="Local Storage"></a>Local Storage</h3><p>LocalStorage是HTML5标准中新加入的技术，会一直存在浏览器中，除非人工清除。</p>
+<h3 id="Local-Storage"><a href="#Local-Storage" class="headerlink" title="Local Storage"></a>Local Storage</h3><p>LocalStorage是HTML5标准中新加入的技术，会一直存在浏览器中，除非人工清除，通过javascript来创建localstorage存储。</p>
 <h3 id="Session-Storage"><a href="#Session-Storage" class="headerlink" title="Session Storage"></a>Session Storage</h3><p>sessionStorage 与 localStorage 的接口类似，但保存数据的生命周期与 localStorage 不同。SessionStorage是仅在当前的会话窗口有效，不是所有窗口都可以共享数据的，Cookie和local storage在整个浏览器（同源条件下）都可以数据共享。下面为三个前端存储之间的比较：</p>
 <p><img src="/images/处理密码/前端存储.png" width="1000"></p>
 <h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p>Web storage是在同源的条件下调用javascript来存储凭证的，意味着javascript需要访问浏览器的web storage，这时候就易受到XSS的攻击。</p>
@@ -451,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/09/认证/http认证方式/" rel="next" title="http认证方式">
-                <i class="fa fa-chevron-left"></i> http认证方式
+              <a href="/2018/11/13/XSS攻击/" rel="next" title="XSS攻击">
+                <i class="fa fa-chevron-left"></i> XSS攻击
               </a>
             
           </div>
@@ -460,6 +460,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/19/CSRF攻击/" rel="prev" title="CSRF攻击">
+                CSRF攻击 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -547,7 +551,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -558,7 +562,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -569,7 +573,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -638,7 +642,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
