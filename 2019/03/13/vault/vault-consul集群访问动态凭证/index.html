@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vault," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文主要针对客户如何动态访问敏感信息，不涉及vault-consul的前期配置，关于vault-consul的详细配置会另一一文进行记录。 vault-consul部署机器分配 机器一（192.168.62.76）部署consul server，开放端口8501（https访问）； 机器二（192.168.62.77）部署consul server，开放端口8501（https访问）； 机器三（1">
+<meta name="keywords" content="vault">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vault-consul集群访问动态凭证">
+<meta property="og:url" content="http://yoursite.com/2019/03/13/vault/vault-consul集群访问动态凭证/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="本文主要针对客户如何动态访问敏感信息，不涉及vault-consul的前期配置，关于vault-consul的详细配置会另一一文进行记录。 vault-consul部署机器分配 机器一（192.168.62.76）部署consul server，开放端口8501（https访问）； 机器二（192.168.62.77）部署consul server，开放端口8501（https访问）； 机器三（1">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/vault/vault_consul部署图.jpg">
+<meta property="og:image" content="http://yoursite.com/images/vault/vault启封图.png">
+<meta property="og:image" content="http://yoursite.com/images/vault/从vault取敏感信息示意图.png">
+<meta property="og:image" content="http://yoursite.com/images/vault/从vault取敏感信息命令图1.png">
+<meta property="og:image" content="http://yoursite.com/images/vault/从vault取敏感信息命令图2.png">
+<meta property="og:image" content="http://yoursite.com/images/vault/从vault取敏感信息命令图3.png">
+<meta property="og:updated_time" content="2019-03-14T03:35:08.366Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vault-consul集群访问动态凭证">
+<meta name="twitter:description" content="本文主要针对客户如何动态访问敏感信息，不涉及vault-consul的前期配置，关于vault-consul的详细配置会另一一文进行记录。 vault-consul部署机器分配 机器一（192.168.62.76）部署consul server，开放端口8501（https访问）； 机器二（192.168.62.77）部署consul server，开放端口8501（https访问）； 机器三（1">
+<meta name="twitter:image" content="http://yoursite.com/images/vault/vault_consul部署图.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/13/vault/vault-consul集群访问动态凭证/"/>
+
+
+
+
+
+  <title>vault-consul集群访问动态凭证 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/vault/vault-consul集群访问动态凭证/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vault-consul集群访问动态凭证</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-13T19:00:05+08:00">
+                2019-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全管理工具/" itemprop="url" rel="index">
+                    <span itemprop="name">安全管理工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/13/vault/vault-consul集群访问动态凭证/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/13/vault/vault-consul集群访问动态凭证/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要针对客户如何动态访问敏感信息，不涉及vault-consul的前期配置，关于vault-consul的详细配置会另一一文进行记录。</p>
+<h1 id="vault-consul部署"><a href="#vault-consul部署" class="headerlink" title="vault-consul部署"></a>vault-consul部署</h1><h2 id="机器分配"><a href="#机器分配" class="headerlink" title="机器分配"></a>机器分配</h2><ol>
+<li>机器一（192.168.62.76）部署consul server，开放端口8501（https访问）；</li>
+<li>机器二（192.168.62.77）部署consul server，开放端口8501（https访问）；</li>
+<li>机器三（192.168.62.78）部署consul server，开放端口8501（https访问）；</li>
+<li>机器四（192.168.52.91）部署consul client，开放端口8501（https访问）；部署vault server，开放端口8200（https访问）</li>
+</ol>
+<a id="more"></a>
+<p>Vault-consul集群如下图所示：<br><img src="/images/vault/vault_consul部署图.jpg"></p>
+<h2 id="consul存储"><a href="#consul存储" class="headerlink" title="consul存储"></a>consul存储</h2><p>Vault-consul集群的存储放在consul中，consul采用HA分布在三个机器上，保存的敏感信息也都加密存储在consul中，并且通过配有相应的访问控制，ACL Policy和ACL Token，Token的产生与policy相关联。</p>
+<h1 id="启封"><a href="#启封" class="headerlink" title="启封"></a>启封</h1><p>vault初始化之后是密封（unseal）的状态，并且分配了5个子秘钥来构建master key来启封vault，2个子秘钥放在大数据那边，3个子秘钥放在运维这边。一般情况下为了方便访问，是不需要密封的，特殊情况下（如重启）需要这些子秘钥。</p>
+<p>任意3个子秘钥就可以启封vault，此时状态变为unseal，并处于监听8200端口的状态。如下图为启封的过程：<br><img src="/images/vault/vault启封图.png" width="700"></p>
+<h1 id="动态获取凭证访问集群"><a href="#动态获取凭证访问集群" class="headerlink" title="动态获取凭证访问集群"></a>动态获取凭证访问集群</h1><p>Vault启封之后就可以访问了，但是访问vault需要token凭证，这里凭证是通过客户访问动态产生的，有相应的时长限制，到期会自动注销。下图详细描述了如何使用token来访问vault：<br><img src="/images/vault/从vault取敏感信息示意图.png"></p>
+<ol>
+<li><p>管理员请求创建客户token。</p>
+</li>
+<li><p>vault返回凭证X-Vault-Token。<br>1-2步可以由管理员使用如下相关命令产生:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault token create -policy=access-decryptkey-for-bigdata-policy -ttl=2h</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>参数policy用户自行申请token凭证的策略，策略如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">access-decryptkey-for-bigdata-policy（HCL format）:</span><br><span class="line"></span><br><span class="line">path <span class="string">"consul/creds/access-decryptkey-for-bigdata"</span> &#123;</span><br><span class="line">    capabilities = [<span class="string">"create"</span>, <span class="string">"read"</span>, <span class="string">"update"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>参数ttl代表此token凭证的时长，如命令行中为2个小时，截图如下：</p>
+<p><img src="/images/vault/从vault取敏感信息命令图1.png"></p>
+<ol>
+<li><p>管理员发送给用户X-Vault-Token。</p>
+</li>
+<li><p>客户请求访问consul存储的凭证X-Consul-Token。</p>
+</li>
+<li><p>vault返回X-Consul-Token给用户。<br>4-5步是客户使用申请的token来获取访问consul的token，即使用X-Vault-Token来申请X-Consul-Token</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -X GET -k \</span><br><span class="line">    https://192.168.52.91:8200/v1/consul/creds/access-decryptkey-for-bigdata \</span><br><span class="line">    -H <span class="string">'X-Vault-Token: s.sqnWqyH0BE1FSPQwl1xS0nd6'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>使用postman测试相似的情况如下：</p>
+<p><img src="/images/vault/从vault取敏感信息命令图2.png"></p>
+<ol>
+<li><p>用户访问consul（server和client都可以）请求敏感信息。</p>
+</li>
+<li><p>consul返回敏感信息，如解密密钥。<br>6-7步是客户使用上面得到的token来访问consul获取需要的敏感信息，3个consul server和一个consul client都开放了8501的端口，都可以通过https来访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -X GET -k \</span><br><span class="line">    https://192.168.52.91:8501/v1/kv/vault/bigdata/decrypt_key \</span><br><span class="line">    -H <span class="string">'X-Consul-Token: 4b043d65-91db-ce24-e5b6-b955ba4507b9'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>使用postman测试相似的情况如下：</p>
+<p><img src="/images/vault/从vault取敏感信息命令图3.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vault/" rel="tag"># vault</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/13/vault/vault-consul的有关配置/" rel="next" title="vault-consul的有关配置">
+                <i class="fa fa-chevron-left"></i> vault-consul的有关配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vault-consul部署"><span class="nav-number">1.</span> <span class="nav-text">vault-consul部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#机器分配"><span class="nav-number">1.1.</span> <span class="nav-text">机器分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#consul存储"><span class="nav-number">1.2.</span> <span class="nav-text">consul存储</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启封"><span class="nav-number">2.</span> <span class="nav-text">启封</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态获取凭证访问集群"><span class="nav-number">3.</span> <span class="nav-text">动态获取凭证访问集群</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

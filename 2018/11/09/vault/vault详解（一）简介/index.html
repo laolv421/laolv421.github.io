@@ -79,19 +79,21 @@
 
 
 
-<meta name="description" content="HashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码/Token/证书/API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。 攻击模型 窃听任意vault中的通信；防止窃听包括客户端连接vault">
+<meta name="description" content="HashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码、Token、证书、API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。 攻击模型 窃听任意vault中的通信；防止窃听包括客户端连接vault">
 <meta name="keywords" content="vault">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vault详解（一）简介">
 <meta property="og:url" content="http://yoursite.com/2018/11/09/vault/vault详解（一）简介/index.html">
 <meta property="og:site_name" content="小黄驴的窝">
-<meta property="og:description" content="HashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码/Token/证书/API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。 攻击模型 窃听任意vault中的通信；防止窃听包括客户端连接vault">
+<meta property="og:description" content="HashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码、Token、证书、API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。 攻击模型 窃听任意vault中的通信；防止窃听包括客户端连接vault">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/images/vault/vault_architecture.png">
-<meta property="og:updated_time" content="2018-11-09T03:34:02.191Z">
+<meta property="og:image" content="http://yoursite.com/images/vault/vault_SaaS.png">
+<meta property="og:image" content="http://yoursite.com/images/vault/vault_EaaS.png">
+<meta property="og:updated_time" content="2019-03-14T03:36:44.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vault详解（一）简介">
-<meta name="twitter:description" content="HashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码/Token/证书/API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。 攻击模型 窃听任意vault中的通信；防止窃听包括客户端连接vault">
+<meta name="twitter:description" content="HashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码、Token、证书、API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。 攻击模型 窃听任意vault中的通信；防止窃听包括客户端连接vault">
 <meta name="twitter:image" content="http://yoursite.com/images/vault/vault_architecture.png">
 
 
@@ -364,7 +366,7 @@
       
 
       
-        <p>HashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码/Token/证书/API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。</p>
+        <p>HashiCorp Vault 的 Slogan 是 A Tool for Managing Secrets，这个口号很好的描述了该产品的定位。大多数软件项目都会不同程度的用到诸如 登录密码、Token、证书、API Key 等私密信息，这些信息用明码保存显然是很不安全的，如果不小心迁入到版本控制系统，还会造成重大的安全问题。</p>
 <h1 id="攻击模型"><a href="#攻击模型" class="headerlink" title="攻击模型"></a>攻击模型</h1><ol>
 <li>窃听任意vault中的通信；防止窃听包括客户端连接vault的窃听和对后端存储的窃听；</li>
 <li>篡改静态数据和传输中的数据；任何篡改应该可以被察觉到，并终止消息；</li>
@@ -403,6 +405,8 @@
 <li>完整的审计记录；</li>
 <li>命令行以及RESTful API访问接口；</li>
 </ol>
+<p>总结下来，vault主要有两个功能，一个是集中秘密管理服务SaaS（Secrets as a Service），另一个是作为加密服务EaaS（Encryption as a Service）。</p>
+<p><img src="/images/vault/vault_SaaS.png" width="700"><br><img src="/images/vault/vault_EaaS.png" width="900"></p>
 <h1 id="API路径"><a href="#API路径" class="headerlink" title="API路径"></a>API路径</h1><p>Vault是一个相当复杂的系统，总括而言，它是一个集中管理各类敏感信息（如密码/Key/证书等等）的软件（服务）。Vault采用类似Unix“一切皆文件” 的方式组织及暴露各类信息：所有操作都是对某个路径的read/write（实际上是对某个HTTP路径POST/GET/LIST/DELETE等），例如secrets backend交互来说：</p>
 <ol>
 <li><p>/sys目录下是各种配置路径，此目录不可被卸载，其下路径各有用途，如/sys/seal和/sys/unseal这两个路径是用来密封／解封 vault 的；</p>
@@ -441,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/08/SRP协议/" rel="next" title="SRP协议">
-                <i class="fa fa-chevron-left"></i> SRP协议
+              <a href="/2018/11/08/认证/Kerberos协议/" rel="next" title="Kerberos协议">
+                <i class="fa fa-chevron-left"></i> Kerberos协议
               </a>
             
           </div>
@@ -541,7 +545,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -552,7 +556,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -563,7 +567,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

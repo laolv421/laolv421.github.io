@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vault," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这篇文章主要谈Vault和Consul的集成配置，在这里consul即作为vault的分布式存储，又作为secret engine动态产生consul API token。 vault-consul集群整体部署根据上图所示，consul server部署在三台机器上，分别是192.168.62.76、192.168.62.77、192.168.62.78上，consul client和vault">
+<meta name="keywords" content="vault">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vault-consul的有关配置">
+<meta property="og:url" content="http://yoursite.com/2019/03/13/vault/vault-consul的有关配置/index.html">
+<meta property="og:site_name" content="小黄驴的窝">
+<meta property="og:description" content="这篇文章主要谈Vault和Consul的集成配置，在这里consul即作为vault的分布式存储，又作为secret engine动态产生consul API token。 vault-consul集群整体部署根据上图所示，consul server部署在三台机器上，分别是192.168.62.76、192.168.62.77、192.168.62.78上，consul client和vault">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/vault/vault_consul部署图.jpg">
+<meta property="og:updated_time" content="2019-03-14T03:34:46.738Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vault-consul的有关配置">
+<meta name="twitter:description" content="这篇文章主要谈Vault和Consul的集成配置，在这里consul即作为vault的分布式存储，又作为secret engine动态产生consul API token。 vault-consul集群整体部署根据上图所示，consul server部署在三台机器上，分别是192.168.62.76、192.168.62.77、192.168.62.78上，consul client和vault">
+<meta name="twitter:image" content="http://yoursite.com/images/vault/vault_consul部署图.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/13/vault/vault-consul的有关配置/"/>
+
+
+
+
+
+  <title>vault-consul的有关配置 | 小黄驴的窝</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黄驴的窝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/vault/vault-consul的有关配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小黄驴">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黄驴的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vault-consul的有关配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-13T18:59:47+08:00">
+                2019-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/安全管理工具/" itemprop="url" rel="index">
+                    <span itemprop="name">安全管理工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/13/vault/vault-consul的有关配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/13/vault/vault-consul的有关配置/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章主要谈Vault和Consul的集成配置，在这里consul即作为vault的分布式存储，又作为secret engine动态产生consul API token。</p>
+<h1 id="vault-consul集群整体部署"><a href="#vault-consul集群整体部署" class="headerlink" title="vault-consul集群整体部署"></a>vault-consul集群整体部署</h1><p><img src="/images/vault/vault_consul部署图.jpg"><br>根据上图所示，consul server部署在三台机器上，分别是192.168.62.76、192.168.62.77、192.168.62.78上，consul client和vault server部署在192.168.52.91上。</p>
+<a id="more"></a>
+<h2 id="consul配置"><a href="#consul配置" class="headerlink" title="consul配置"></a>consul配置</h2><h3 id="consul-server基础配置"><a href="#consul-server基础配置" class="headerlink" title="consul server基础配置"></a>consul server基础配置</h3><p>我们考虑这三台均开放接口与外部访问，并开启其中一台的ui配置方便监控和管理，下面是这三台机器的部署情况：</p>
+<ol>
+<li><p>192.168.62.76新建consul.hcl在配置目录中，这里统一在/data/cm/app/consul/consul.d下面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ cat consul.hcl</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"datacenter"</span>: <span class="string">"dc1"</span>,</span><br><span class="line">  <span class="string">"server"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"data_dir"</span>: <span class="string">"/data/cm/app/consul/data"</span>,</span><br><span class="line">  <span class="string">"bootstrap_expect"</span>: 3,</span><br><span class="line">  <span class="string">"start_join"</span>: [<span class="string">"192.168.62.76"</span>,<span class="string">"192.168.62.77"</span>,<span class="string">"192.168.62.78"</span>,<span class="string">"192.168.52.91"</span>],</span><br><span class="line">  <span class="string">"retry_join"</span>: [<span class="string">"192.168.62.76"</span>,<span class="string">"192.168.62.77"</span>,<span class="string">"192.168.62.78"</span>,<span class="string">"192.168.52.91"</span>],</span><br><span class="line">  <span class="string">"node_name"</span>: <span class="string">"server1"</span>,</span><br><span class="line">  <span class="string">"client_addr"</span>: <span class="string">"0.0.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>192.168.62.77同样新建consul.hcl，和62.76相似，只更改了node_name参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ cat consul.hcl</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"datacenter"</span>: <span class="string">"dc1"</span>,</span><br><span class="line">  <span class="string">"server"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"data_dir"</span>: <span class="string">"/data/cm/app/consul/data"</span>,</span><br><span class="line">  <span class="string">"bootstrap_expect"</span>: 3,</span><br><span class="line">  <span class="string">"start_join"</span>: [<span class="string">"192.168.62.76"</span>,<span class="string">"192.168.62.77"</span>,<span class="string">"192.168.62.78"</span>,<span class="string">"192.168.52.91"</span>],</span><br><span class="line">  <span class="string">"retry_join"</span>: [<span class="string">"192.168.62.76"</span>,<span class="string">"192.168.62.77"</span>,<span class="string">"192.168.62.78"</span>,<span class="string">"192.168.52.91"</span>],</span><br><span class="line">  <span class="string">"node_name"</span>: <span class="string">"server2"</span>,</span><br><span class="line">  <span class="string">"client_addr"</span>: <span class="string">"0.0.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>192.168.62.78新建consul.hcl</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ cat consul.hcl</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"datacenter"</span>: <span class="string">"dc1"</span>,</span><br><span class="line">  <span class="string">"server"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"data_dir"</span>: <span class="string">"/data/cm/app/consul/data"</span>,</span><br><span class="line">  <span class="string">"bootstrap_expect"</span>: 3,</span><br><span class="line">  <span class="string">"ui"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"start_join"</span>: [<span class="string">"192.168.62.76"</span>,<span class="string">"192.168.62.77"</span>,<span class="string">"192.168.62.78"</span>,<span class="string">"192.168.52.91"</span>],</span><br><span class="line">  <span class="string">"retry_join"</span>: [<span class="string">"192.168.62.76"</span>,<span class="string">"192.168.62.77"</span>,<span class="string">"192.168.62.78"</span>,<span class="string">"192.168.52.91"</span>],</span><br><span class="line">  <span class="string">"node_name"</span>: <span class="string">"server3"</span>,</span><br><span class="line">  <span class="string">"client_addr"</span>: <span class="string">"0.0.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>配置好三台consul server就可以启动，启动命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ nohup consul agent -config-dir=/data/cm/app/consul/consul.d \ </span><br><span class="line">-data-dir=/data/cm/app/consul/data -<span class="built_in">log</span>-file=/data/cm/app/consul/<span class="built_in">log</span>/ &amp;</span><br></pre></td></tr></table></figure></p>
+<h3 id="consul-client基础配置"><a href="#consul-client基础配置" class="headerlink" title="consul client基础配置"></a>consul client基础配置</h3><p>192.168.52.91新建consul.hcl配置文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cat consul.hcl</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"datacenter"</span>: <span class="string">"dc1"</span>,</span><br><span class="line">  <span class="string">"node_name"</span>: <span class="string">"client1"</span>,</span><br><span class="line">  <span class="string">"data_dir"</span>: <span class="string">"/data/apps/consul/data"</span>,</span><br><span class="line">  <span class="string">"retry_join"</span>: [<span class="string">"192.168.62.76"</span>,<span class="string">"192.168.62.77"</span>,<span class="string">"192.168.62.78"</span>,<span class="string">"192.168.52.91"</span>],</span><br><span class="line">  <span class="string">"start_join"</span>: [<span class="string">"192.168.62.76"</span>,<span class="string">"192.168.62.77"</span>,<span class="string">"192.168.62.78"</span>,<span class="string">"192.168.52.91"</span>],</span><br><span class="line">  <span class="string">"client_addr"</span>: <span class="string">"0.0.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此时，按照上面的命令启动后consul client就自动加入了consul集群，因为没有配置https，都是开放的http接口进行连接。</p>
+<h3 id="consul配置ssl"><a href="#consul配置ssl" class="headerlink" title="consul配置ssl"></a>consul配置ssl</h3><p>我们在一台consul server上新建CA（certificate authority），这里选择192.168.62.76，进入配置文件consul.d目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ consul tls ca create</span><br><span class="line"> ==&gt; Saved consul-agent-ca.pem</span><br><span class="line"> ==&gt; Saved consul-agent-ca-key.pem</span><br></pre></td></tr></table></figure></p>
+<p>新建CA之后开始创建server的证书<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ consul tls cert create -server</span><br><span class="line">...</span><br><span class="line">==&gt; Saved dc1-server-consul-0.pem</span><br><span class="line">==&gt; Saved dc1-server-consul-0-key.pem</span><br></pre></td></tr></table></figure></p>
+<p>然后把CA文件consul-agent-ca.pem和consul-agent-ca-key.pem传送给剩下两台consul server，然后分别执行上面的命令产生server证书。接下来创建client证书，同样吧CA证书传送给consul client，执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ consul tls cert create -client</span><br><span class="line">  ==&gt; Using consul-agent-ca.pem and consul-agent-ca-key.pem</span><br><span class="line">  ==&gt; Saved dc1-client-consul-0.pem</span><br><span class="line">  ==&gt; Saved dc1-client-consul-0-key.pem</span><br></pre></td></tr></table></figure></p>
+<p>这样，consul集群中所有的节点都有自己的证书，接下来开始配置tls。<br>192.168.62.76新建tls.json在配置目录中<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ cat tls.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"encrypt"</span>: <span class="string">"YBlruyjNEDIETCwbZnBmsQ=="</span>,</span><br><span class="line">  <span class="string">"verify_incoming"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"verify_outgoing"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"verify_server_hostname"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"ca_file"</span>: <span class="string">"/data/cm/app/consul/consul.d/consul-agent-ca.pem"</span>,</span><br><span class="line">  <span class="string">"cert_file"</span>: <span class="string">"/data/cm/app/consul/consul.d/dc1-server-consul-0.pem"</span>,</span><br><span class="line">  <span class="string">"key_file"</span>: <span class="string">"/data/cm/app/consul/consul.d/dc1-server-consul-0-key.pem"</span>,</span><br><span class="line">  <span class="string">"ports"</span>: &#123;</span><br><span class="line">    <span class="string">"http"</span>: -1,</span><br><span class="line">    <span class="string">"https"</span>: 8501</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>encrypt参数配置的是consul节点之间对话的对称密钥，可以查看<a href="https://learn.hashicorp.com/consul/advanced/day-1-operations/agent-encryption" target="_blank" rel="noopener">原文</a>，只需要一个命令即可<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ consul keygen</span><br></pre></td></tr></table></figure></p>
+<p>verify_incoming我们这里配置的是false，不检查客户端请求过来的证书，因为我们考虑客户端请求可以通过任意节点来访问；ca_file为CA证书的路径、cert_file和key_file分别是server的证书路径和私钥路径，ports这里禁止使用http访问；其他三个节点和这个几乎一样，只需要改变一下路径名称即可。</p>
+<h3 id="consul配置ACL"><a href="#consul配置ACL" class="headerlink" title="consul配置ACL"></a>consul配置ACL</h3><p>在所有consul节点的配置目录下新建文件acl.json，配置如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ cat acl.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"acl"</span>: &#123;</span><br><span class="line">    <span class="string">"enabled"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"default_policy"</span>: <span class="string">"deny"</span>,</span><br><span class="line">    <span class="string">"down_policy"</span>: <span class="string">"extend-cache"</span>,</span><br><span class="line">    <span class="string">"tokens"</span>: &#123;</span><br><span class="line">      <span class="string">"agent"</span>: <span class="string">"4d673c09-57e5-39bc-ceca-270d42cd9936"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>tokens参数下的agent用于server和client之间的内部操作，默认使用default policy，参考<a href="https://learn.hashicorp.com/consul/advanced/day-1-operations/acl-guide#acl-agent-token" target="_blank" rel="noopener">这里</a>配置agent token的policy，policy如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># agent-policy.hcl contains the following:</span></span><br><span class="line">node_prefix <span class="string">""</span> &#123;</span><br><span class="line">   policy = <span class="string">"write"</span></span><br><span class="line">&#125;</span><br><span class="line">service_prefix <span class="string">""</span> &#123;</span><br><span class="line">   policy = <span class="string">"read"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>截止到这里，consul集群配置完成，下面配置vault server。</p>
+<h2 id="vault-server配置"><a href="#vault-server配置" class="headerlink" title="vault server配置"></a>vault server配置</h2><p>上面提到vault server部署在consul client的那台机器上，按照上面的方法，copy证书到vault的配置目录vault.d下面，产生consul server的证书和私钥，将它们命名为vault.pem和vault-key.pem，然后新建vault.hcl<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ cat vault.hcl</span><br><span class="line">listener <span class="string">"tcp"</span> &#123;</span><br><span class="line">  address          = <span class="string">"0.0.0.0:8200"</span></span><br><span class="line">  tls_cert_file = <span class="string">"/data/apps/vault/vault.d/vault.pem"</span></span><br><span class="line">  tls_key_file = <span class="string">"/data/apps/vault/vault.d/vault-key.pem"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">storage <span class="string">"consul"</span> &#123;</span><br><span class="line">  token = <span class="string">"b427a37c-89ff-f393-8ef3-bd441bf34bdb"</span></span><br><span class="line">  address = <span class="string">"127.0.0.1:8501"</span></span><br><span class="line">  scheme = <span class="string">"https"</span></span><br><span class="line">  path = <span class="string">"vault"</span></span><br><span class="line">  tls_cert_file = <span class="string">"/data/apps/consul/consul.d/dc1-client-consul-0.pem"</span></span><br><span class="line">  tls_key_file = <span class="string">"/data/apps/consul/consul.d/dc1-client-consul-0-key.pem"</span></span><br><span class="line">  tls_ca_file = <span class="string">"/data/apps/consul/consul.d/consul-agent-ca.pem"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ui = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>lister配置为支持https访问，并开放8200端口；storage存储配置为consul，其中的token表示是vault对consul可以进行哪些操作，可以参考<a href="https://www.vaultproject.io/docs/configuration/storage/consul.html" target="_blank" rel="noopener">文档</a>，我们为了方便，使用management token；并配置地址端口为8501和https scheme，保证和consul client的访问全部在https下进行。然后运行vault<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup vault server -config=/data/apps/vault/vault.d/vault.hcl &amp;</span><br></pre></td></tr></table></figure></p>
+<h1 id="配置secret-engines"><a href="#配置secret-engines" class="headerlink" title="配置secret engines"></a>配置secret engines</h1><p>接下来配置vault的consul secret engines，动态产生consul api token访问consul，这里可以参考<a href="https://www.vaultproject.io/docs/secrets/consul/index.html" target="_blank" rel="noopener">文档</a>。</p>
+<ol>
+<li><p>激活consul secret engines</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vault secrets <span class="built_in">enable</span> consul</span><br><span class="line">Success! Enabled the consul secrets engine at: consul/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置vault和consul的连接和认证，consul/config/access配置Consul的访问信息。使用此访问信息，以便Vault可以与Consul通信并生成Consul令牌，查看<a href="https://www.vaultproject.io/api/secret/consul/index.html" target="_blank" rel="noopener">文档</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vault write consul/config/access \</span><br><span class="line">address=https://127.0.0.1:8501 \</span><br><span class="line">token=&#123;&#123;management token&#125;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置一个Vault role的名称，将它映射到Consul ACL策略的角色。角色role的名称我们定为access-consul-secrets-role，policy我们定义为access-consul-secrets-policy.json</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">key <span class="string">"vault/secrets"</span> &#123;</span><br><span class="line">  policy = <span class="string">"read"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>然后把这个policy写入access-consul-secrets-role这个角色<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vault write consul/roles/access-consul-secrets-role policy=@access-consul-secrets-policy.json</span><br></pre></td></tr></table></figure></p>
+<p>写入成功之后就可以读取consul/creds/access-consul-secrets-role这个角色的动态凭证来访问vault/secrets下的敏感信息了。之后就可以参考我的《vault-consul集群访问动态凭证》。</p>
+<h1 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h1><p>设置了acl和ssl之后，使用命令行会报错，因为缺少认证的原因，可以配置环境变量，这样就不会出错了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. VAULT_CAPATH=/data/apps/vault/vault.d/consul-agent-ca.pem</span><br><span class="line">2. VAULT_TOKEN=XXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">3. VAULT_ADDR=https://127.0.0.1:8200</span><br><span class="line">4. CONSUL_HTTP_ADDR=https://127.0.0.1:8501</span><br><span class="line">5. CONSUL_HTTP_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span><br><span class="line">6. CONSUL_CAPATH=/data/apps/consul/consul.d/consul-agent-ca.pem</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vault/" rel="tag"># vault</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/13/web安全/如何处理密码？/" rel="next" title="如何处理密码？">
+                <i class="fa fa-chevron-left"></i> 如何处理密码？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/13/vault/vault-consul集群访问动态凭证/" rel="prev" title="vault-consul集群访问动态凭证">
+                vault-consul集群访问动态凭证 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="小黄驴" />
+            
+              <p class="site-author-name" itemprop="name">小黄驴</p>
+              <p class="site-description motion-element" itemprop="description">信息安全的小搬运工</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/laolv421" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:laolv421@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vault-consul集群整体部署"><span class="nav-number">1.</span> <span class="nav-text">vault-consul集群整体部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#consul配置"><span class="nav-number">1.1.</span> <span class="nav-text">consul配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#consul-server基础配置"><span class="nav-number">1.1.1.</span> <span class="nav-text">consul server基础配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#consul-client基础配置"><span class="nav-number">1.1.2.</span> <span class="nav-text">consul client基础配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#consul配置ssl"><span class="nav-number">1.1.3.</span> <span class="nav-text">consul配置ssl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#consul配置ACL"><span class="nav-number">1.1.4.</span> <span class="nav-text">consul配置ACL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vault-server配置"><span class="nav-number">1.2.</span> <span class="nav-text">vault server配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置secret-engines"><span class="nav-number">2.</span> <span class="nav-text">配置secret engines</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境变量配置"><span class="nav-number">3.</span> <span class="nav-text">环境变量配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小黄驴</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'laolv421',
+            repo: 'laolv421.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '7d019e046118281b6aacbccba1b2651efcdd06b6',
+            
+                client_id: 'f5398b97767d98b12dd0'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
